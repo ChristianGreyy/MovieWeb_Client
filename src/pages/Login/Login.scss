@@ -1,0 +1,59 @@
+h1{
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 26.36px;
+}
+
+.container {
+    .form-login {
+        width: 570px;
+        height: 490px;
+        background-color: #41424F;
+        margin-top: 27.71px;
+        p {
+            text-align: center;
+            color: #fff;
+            margin: 27.71px 0;
+        }
+    
+        input {
+            width: 380px;
+            height: 54.1px;
+            padding: 8px 15px;
+            border-radius: 10px;
+        }
+
+        .icon {
+            font-size: 20px;
+            left: 159px;
+            top: -40px;
+            cursor: pointer;
+        }
+
+        button {
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        .Login {
+            width: 380px;
+            height: 54.1px;
+            background-color: #F34A14;
+            &:hover {
+                background-color: #f34c14cd;
+            }
+        }
+
+        .Resgister {
+            width: 266px;
+            height: 54.1px;
+            background-color: #20BB1D;
+            &:hover {
+                background-color: #20bb1ded;
+            }
+        }
+    }
+}

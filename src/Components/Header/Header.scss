@@ -1,0 +1,54 @@
+.header {
+    height: 131.8px;
+    background-color: #000;
+    .title {
+        width: 100%;
+        &_avatar {
+            width: 189.2px;
+            height: 48.67px;
+            background-color: #2f303a;
+            margin-top: 32.44px;
+            margin-left: 49.1px;
+            margin-right: 841.01px;
+        }
+
+        &_content {
+            &_icon {
+                color: #fff;
+                height: 31.18000030517578px;
+                width: 31.178335189819336px;
+                left: 3.333343505859375px;
+                top: 3.333251953125px;
+                border-radius: 0px;
+                margin-right: 24.5px;
+                margin-top: 45.51px;
+            }
+
+            &_buy {
+                button {
+                    padding: 10.81px 37px 10.82px 37px;
+                    border-radius: 15px;
+                    color: #fff;
+                    background-color: #f34a14;
+                    margin-top: 34.47px;
+                    margin-right: 24.5px;
+                    &:hover {
+                        background-color: #f34c14cd;
+                    }
+                }
+            }
+
+            &_login {
+                color: #fff;
+                margin-top: 47.31px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .menu {
+        color: #fff;
+        margin-top: 12.67px;
+        cursor: pointer;
+    }
+}

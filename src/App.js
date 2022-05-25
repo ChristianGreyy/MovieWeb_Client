@@ -1,18 +1,18 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import "./App.css";
+import { publicRoutes } from "./Routers";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Route>
+          {publicRoutes.map((item) => {
+            let Page = item.component;
+            return (
+              <Route key={item.path} path={item.path} element={<Page />} />
+            );
+          })}
         </Routes>
       </BrowserRouter>
     </div>

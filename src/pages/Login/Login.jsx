@@ -4,6 +4,8 @@ import Header from "../../Components/Header";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import {useNavigate} from 'react-router-dom'
+import ForgetPassWord from "./ForgetPassWord";
 
 
 const Login = () => {
@@ -23,6 +25,12 @@ const Login = () => {
       alert("Đã đăng nhập đúng");
     },
   });
+
+  // const navigate = useNavigate();
+
+  // const handleClickForget = () => {
+  //   navigate('/forget');
+  // }
 
   return (
     <div>
@@ -59,10 +67,8 @@ const Login = () => {
                 <i class="fa-solid fa-eye-slash"></i>
               </div> */}
 
-              
-
-              <p>Quên mật khẩu?</p>
-              <button className="Login">Đăng nhập</button>
+              <p style={{"cursor": "pointer"}}>Quên mật khẩu?</p>
+              <button type="submit" className="Login">Đăng nhập</button>
               <p style={{ margin: "31.1px 0 32.1px 0" }}>
                 Chính sách và quy định
               </p>

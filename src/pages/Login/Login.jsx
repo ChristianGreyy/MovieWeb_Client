@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { loginAPI } from "../../redux/auth/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
-import ForgetPassWord from "./ForgetPassWord";
+import ForgetPassWord from "../ForgetPassWord/ForgetPassWord";
 import { setToken } from "../../redux/tokenSlice";
 import { tokenService } from "../../services";
 
@@ -64,7 +64,7 @@ const Login = () => {
               className="flex flex-col items-center form-login_items"
               onSubmit={formik.handleSubmit}
             >
-              <div style={{ marginTop: "47.31px" }} className="item">
+              {/* <div> style={{ marginTop: "47.31px" }} className="item"> */}
               <input
                 style={{ marginTop: "47.31px" }}
                 type="text"

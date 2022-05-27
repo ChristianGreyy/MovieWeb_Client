@@ -46,9 +46,9 @@ const Register = () => {
         .required("Không được để trống ô này!"),
     }),
     onSubmit: (values) => {
-      // alert("Đã đăng nhập đúng");
+      alert("Đã đăng nhập đúng");
       // console.log(values.email);
-      setEmail(values.email);
+      // setEmail(values.email);
     },
   });
 

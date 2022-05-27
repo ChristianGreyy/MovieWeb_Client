@@ -11,10 +11,13 @@ import { loginAPI } from "../../redux/auth/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
 import ForgetPassWord from "./ForgetPassWord";
 import { setToken } from "../../redux/tokenSlice";
+import { tokenService } from "../../services";
 
 const Login = () => {
-  const accessToken = useSelector((state) => state.token.accessToken);
-  const refreshToken = useSelector((state) => state.token.refreshToken);
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+
+  const accessToken = tokenService.getCookie("accessToken");
+  const refreshToken = tokenService.getCookie("refreshToken");
 
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
@@ -38,7 +41,9 @@ const Login = () => {
         })
       );
       const data = unwrapResult(result);
-      dispatch(setToken(data));
+      setCookie("accessToken", data.access.token);
+      setCookie("refreshToken", data.refresh.token);
+      // dispatch(setToken(data));
       console.log(data);
     },
   });

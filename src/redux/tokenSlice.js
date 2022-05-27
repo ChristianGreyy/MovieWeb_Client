@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useCookies } from "react-cookie";
 
 const initialState = {
   accessToken: "",

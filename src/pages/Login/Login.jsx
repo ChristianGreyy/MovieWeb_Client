@@ -4,33 +4,47 @@ import Header from "../../Components/Header";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import { loginAPI } from "../../redux/auth/authSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
 import ForgetPassWord from "./ForgetPassWord";
-
+import { setToken } from "../../redux/tokenSlice";
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const accessToken = useSelector((state) => state.token.accessToken);
+  const refreshToken = useSelector((state) => state.token.refreshToken);
+
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [eye, setEye] = useState(false);
 
   const formik = useFormik({
     initialValues: {
-      userName: "",
-      passWord: "",
+      username: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      userName: Yup.string().required("Không được để trống ô này"),
-      passWord: Yup.string().required("Không được để trống ô này"),
+      username: Yup.string().required("Không được để trống ô này"),
+      password: Yup.string().required("Không được để trống ô này"),
     }),
-    onSubmit: (values) => {
-      alert("Đã đăng nhập đúng");
+    onSubmit: async (values) => {
+      const result = await dispatch(
+        loginAPI({
+          username: formik.values.username,
+          password: formik.values.password,
+        })
+      );
+      const data = unwrapResult(result);
+      dispatch(setToken(data));
+      console.log(data);
     },
   });
 
-  // const navigate = useNavigate();
-
-  // const handleClickForget = () => {
-  //   navigate('/forget');
-  // }
+  console.log(accessToken);
+  console.log(refreshToken);
 
   return (
     <div>
@@ -38,7 +52,6 @@ const Login = () => {
       <Body>
         <div className="container flex flex-col items-center">
           <h1 className="title">Đăng nhập</h1>
-
           {/* form  */}
           <div className="form-login">
             <form
@@ -46,29 +59,52 @@ const Login = () => {
               onSubmit={formik.handleSubmit}
             >
               <input
-                style={{ "margin-top": "47.31px" }}
+                style={{ marginTop: "47.31px" }}
                 type="text"
                 placeholder="Usermame"
+                name="username"
+                value={formik.values.username}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
               <input
-                style={{ "margin-top": "12.167px" }}
-                type="password"
+                style={{ marginTop: "12.167px" }}
+                type={eye ? "text" : "password"}
+                name="password"
+                value={formik.values.password}
                 placeholder="password"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
               />
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye"></i>
-              </div> */}
+              {!eye && (
+                <>
+                  <div
+                    className="icon relative"
+                    onClick={() => {
+                      setEye(!eye);
+                    }}
+                  >
+                    <i className="fa-solid fa-eye"></i>
+                  </div>
+                </>
+              )}
 
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye-slash"></i>
-              </div> */}
-
-              <p style={{"cursor": "pointer"}}>Quên mật khẩu?</p>
-              <button type="submit" className="Login">Đăng nhập</button>
+              {eye && (
+                <>
+                  <div
+                    className="icon relative"
+                    onClick={() => {
+                      setEye(!eye);
+                    }}
+                  >
+                    <i className="fa-solid fa-eye-slash"></i>
+                  </div>
+                </>
+              )}
+              <p style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
+              <button type="submit" className="Login">
+                Đăng nhập
+              </button>
               <p style={{ margin: "31.1px 0 32.1px 0" }}>
                 Chính sách và quy định
               </p>

@@ -4,6 +4,7 @@ import Header from "../../Components/Header";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
@@ -60,9 +61,10 @@ const Login = () => {
           {/* form  */}
           <div className="form-login">
             <form
-              className="flex flex-col items-center"
+              className="flex flex-col items-center form-login_items"
               onSubmit={formik.handleSubmit}
             >
+              <div style={{ marginTop: "47.31px" }} className="item">
               <input
                 style={{ marginTop: "47.31px" }}
                 type="text"

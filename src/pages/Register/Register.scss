@@ -1,86 +1,121 @@
 .container {
-    h1{
-        font-size: 25px;
-        font-weight: 600;
-        text-align: center;
-        padding-top: 26.36px;
-        color: #fff;
-    }
-    .form-register {
-        width: 570px;
-        height: 530px;
-        background-color: #41424F;
-        margin-top: 27.71px;
-        p {
-            text-align: center;
-            color: #fff;
-            // margin: 27.71px 0;
-        }
-    
-        input {
-            width: 380px;
-            height: 54.1px;
-            padding: 8px 15px;
-            border-radius: 10px;
-        }
+  h1 {
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 26.36px;
+    color: #fff;
+  }
+  .form-register {
+    background-color: #41424f;
+    margin-top: 27.71px;
 
-        .icon {
-            font-size: 20px;
-            left: 159px;
-            top: -40px;
+    &_items {
+      padding: 0 95.79px 52.72px 95.79px;
+
+      .item {
+        padding-top: 18.92px;
+
+        .item__input {
+          display: flex;
+          position: relative;
+
+          .icon {
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
             cursor: pointer;
-        }
+            right: 12px;
+          }
 
-        button {
-            margin-top: 23.65px;
-            border-radius: 10px;
-            color: #fff;
-            font-weight: 500;
-            font-size: 20px;
+          .error {
+            color: #f32314;
+            padding-top: 8px;
+          }
         }
-
-        .Register {
-            width: 380px;
-            height: 54.1px;
-            background-color: #F34A14;
-            &:hover {
-                background-color: #f34c14cd;
-            }
+        .error {
+          color: #f32314;
+          padding-top: 8px;
         }
+      }
     }
-    .form-forget {
-        width: 565.25px;
-        height: 324.4px;
-        background-color: #41424F;
-        margin-top: 26.36px;
 
-        p {
-            font-size: 20px;
-            font-weight: 600;
-            text-align: center;
-            color: #fff;
-            margin-top: 52.72px;
-        }
-    
-        input {
-            width: 380px;
-            height: 54.1px;
-            padding: 8px 15px;
-            border-radius: 10px;
-        }
-
-        button {
-            width: 380px;
-            height: 54.1px;
-            margin-top: 23.65px;
-            border-radius: 10px;
-            color: #fff;
-            font-weight: 500;
-            font-size: 20px;
-            background-color: #F34A14;
-            &:hover {
-                background-color: #f34c14cd;
-            }
-        }
+    p {
+      width: 380px;
+      text-align: center;
+      color: #fff;
     }
+
+    input {
+      width: 380px;
+      height: 54.1px;
+      padding: 8px 15px;
+      border-radius: 10px;
+    }
+
+    button {
+      margin-top: 23.65px;
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    .Register {
+      width: 380px;
+      height: 54.1px;
+      background-color: #f34a14;
+      &:hover {
+        background-color: #f34c14cd;
+      }
+    }
+  }
+}
+
+//modal xác nhận
+.modal {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  background-color: #00000090;
+
+  &_container {
+    margin: 162.22px 430px;
+    &_header {
+      h1 {
+        padding: 24.33px 231.125px;
+        text-align: center;
+        background-color: #545562;
+      }
+      .icon {
+        color: #fff;
+        top: 31px;
+        right: 30px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+
+    &_body {
+      background-color: #383840;
+      color: #fff;
+      p {
+        padding: 48px 68.875px 29.06px;
+      }
+      .again {
+        width: 275.5px;
+        height: 54.07px;
+        background-color: #f34a14;
+        font-weight: 500;
+        font-size: 20px;
+        border-radius: 10px;
+        margin: 0 259.67px 33.12px 210px;
+      }
+      // margin-top: 162.22px;
+    }
+  }
 }

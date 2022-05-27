@@ -1,5 +1,5 @@
 import Home from "../pages/Home/Home";
-import ForgetPassWord from "../pages/Login/ForgetPassWord";
+import ForgetPassWord from "../pages/ForgetPassWord/ForgetPassWord";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 

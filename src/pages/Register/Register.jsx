@@ -18,6 +18,9 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [passWord, setPassWord] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
+  const [eyePass, setEyePass] = useState(false);
+  const [eyeRePass, setEyeRePass] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -90,39 +93,78 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                {formik.errors.email ? <p className="error">{formik.errors.email}</p> : null}
+                {formik.errors.email ? (
+                  <p className="error">{formik.errors.email}</p>
+                ) : null}
               </div>
               <div className="item">
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="Mật khẩu"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+                <div className="item__input">
+                  <input
+                    name="password"
+                    type={eyePass ? "text" : "password"}
+                    placeholder="Mật khẩu"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {!eyePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyePass(!eyePass)}
+                      >
+                        <i class="fa-solid fa-eye"></i>
+                      </div>
+                    </>
+                  )}
+                  {eyePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyePass(!eyePass)}
+                      >
+                        <i class="fa-solid fa-eye-slash"></i>
+                      </div>
+                    </>
+                  )}
+                </div>
                 {formik.errors.password ? (
                   <p className="error">{formik.errors.password}</p>
                 ) : null}
               </div>
               <div className="item">
-                <input
-                  name="passwordagain"
-                  type="password"
-                  placeholder="Nhập lại mật khẩu"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
+                <div className="item__input">
+                  <input
+                    name="passwordagain"
+                    type={eyePass ? "text" : "password"}
+                    placeholder="Nhập lại mật khẩu"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {!eyeRePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyeRePass(!eyeRePass)}
+                      >
+                        <i class="fa-solid fa-eye"></i>
+                      </div>
+                    </>
+                  )}
+                  {eyeRePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyeRePass(!eyeRePass)}
+                      >
+                        <i class="fa-solid fa-eye-slash"></i>
+                      </div>
+                    </>
+                  )}
+                </div>
                 {formik.errors.passwordagain ? (
                   <p className="error">{formik.errors.passwordagain}</p>
                 ) : null}
               </div>
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye"></i>
-              </div> */}
-
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye-slash"></i>
-              </div> */}
 
               <p style={{ "margin-top": "18.92px" }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
@@ -138,7 +180,13 @@ const Register = () => {
 
       {/* modal */}
       {modal && (
-        <Check email={email} setEmail={setEmail} modal={modal} setModal={setModal} toggleModal={toggleModal}/>
+        <Check
+          email={email}
+          setEmail={setEmail}
+          modal={modal}
+          setModal={setModal}
+          toggleModal={toggleModal}
+        />
       )}
       {/* {modal && (
         <CheckComple modal={modal} setModal={setModal} toggleModal={toggleModal}/>

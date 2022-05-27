@@ -7,15 +7,28 @@
         color: #fff;
     }
     .form-register {
-        width: 570px;
-        height: 530px;
         background-color: #41424F;
         margin-top: 27.71px;
+
+        &_items {
+            padding:0 95.79px 52.72px 95.79px;
+
+            .item {
+                padding-top: 18.92px;
+
+                .error {
+                    color: #f32314;
+                    padding-top: 8px;
+                }
+            }
+        }
+
         p {
+            width:380px;
             text-align: center;
             color: #fff;
-            // margin: 27.71px 0;
         }
+
     
         input {
             width: 380px;
@@ -48,39 +61,53 @@
             }
         }
     }
-    .form-forget {
-        width: 565.25px;
-        height: 324.4px;
-        background-color: #41424F;
-        margin-top: 26.36px;
+}
 
-        p {
-            font-size: 20px;
-            font-weight: 600;
-            text-align: center;
-            color: #fff;
-            margin-top: 52.72px;
-        }
-    
-        input {
-            width: 380px;
-            height: 54.1px;
-            padding: 8px 15px;
-            border-radius: 10px;
-        }
+//modal xác nhận
+.modal {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    background-color: #00000090;
 
-        button {
-            width: 380px;
-            height: 54.1px;
-            margin-top: 23.65px;
-            border-radius: 10px;
-            color: #fff;
-            font-weight: 500;
-            font-size: 20px;
-            background-color: #F34A14;
-            &:hover {
-                background-color: #f34c14cd;
+    &_container {
+        margin: 162.22px 380px;
+        &_header {
+            h1 {
+                padding: 24.33px 254.125px;
+                text-align: center;
+                background-color: #545562;
             }
+            .icon {
+                color: #fff;
+                top: 31px;
+                right: 30px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+        }
+
+        &_body {
+            background-color: #383840;
+            color: #fff;
+            p {
+                text-align: center;
+                padding: 48px 68.875px 29.06px;
+            }
+            .again {
+                width: 275.5px;
+                height: 54.07px;
+                background-color: #F34A14;
+                font-weight: 500;
+                font-size: 20px;
+                border-radius: 10px;
+                margin: 0 259.67px 33.12px 250px;
+            }
+            // margin-top: 162.22px;
         }
     }
 }

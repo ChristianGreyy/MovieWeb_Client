@@ -4,22 +4,19 @@ import Header from "../../Components/Header";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {useNavigate} from 'react-router-dom'
-import ForgetPassWord from "./ForgetPassWord";
-
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const formik = useFormik({
     initialValues: {
-      userName: "",
-      passWord: "",
+      username: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      userName: Yup.string().required("Không được để trống ô này"),
-      passWord: Yup.string().required("Không được để trống ô này"),
+      username: Yup.string().required("Không được để trống ô này"),
+      password: Yup.string().required("Không được để trống ô này"),
     }),
     onSubmit: (values) => {
       alert("Đã đăng nhập đúng");
@@ -42,23 +39,33 @@ const Login = () => {
           {/* form  */}
           <div className="form-login">
             <form
-              className="flex flex-col items-center"
+              className="flex flex-col items-center form-login_items"
               onSubmit={formik.handleSubmit}
             >
-              <input
-                style={{ "margin-top": "47.31px" }}
-                type="text"
-                placeholder="Usermame"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <input
-                style={{ "margin-top": "12.167px" }}
-                type="password"
-                placeholder="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
+              <div style={{ marginTop: "47.31px" }} className="item">
+                <input
+                  name="username"
+                  type="text"
+                  placeholder="Usermame"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.username ? (
+                  <div className="error">{formik.errors.username}</div>
+                ) : null}
+              </div>
+              <div style={{'paddingTop': "18.92px"}} className="item">
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.username ? (
+                  <div style={{'padding': "10px 0 0 0"}} className="error">{formik.errors.username}</div>
+                ) : null}
+              </div>
               {/* <div className="icon relative">
                 <i class="fa-solid fa-eye"></i>
               </div> */}
@@ -67,8 +74,10 @@ const Login = () => {
                 <i class="fa-solid fa-eye-slash"></i>
               </div> */}
 
-              <p style={{"cursor": "pointer"}}>Quên mật khẩu?</p>
-              <button type="submit" className="Login">Đăng nhập</button>
+              <p style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
+              <button type="submit" className="Login">
+                Đăng nhập
+              </button>
               <p style={{ margin: "31.1px 0 32.1px 0" }}>
                 Chính sách và quy định
               </p>

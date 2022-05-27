@@ -5,9 +5,25 @@ import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import { loginAPI } from "../../redux/auth/authSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+import ForgetPassWord from "./ForgetPassWord";
+import { setToken } from "../../redux/tokenSlice";
+import { tokenService } from "../../services";
+
 const Login = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+
+  const accessToken = tokenService.getCookie("accessToken");
+  const refreshToken = tokenService.getCookie("refreshToken");
+
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [eye, setEye] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -18,16 +34,23 @@ const Login = () => {
       username: Yup.string().required("Không được để trống ô này"),
       password: Yup.string().required("Không được để trống ô này"),
     }),
-    onSubmit: (values) => {
-      alert("Đã đăng nhập đúng");
+    onSubmit: async (values) => {
+      const result = await dispatch(
+        loginAPI({
+          username: formik.values.username,
+          password: formik.values.password,
+        })
+      );
+      const data = unwrapResult(result);
+      setCookie("accessToken", data.access.token);
+      setCookie("refreshToken", data.refresh.token);
+      // dispatch(setToken(data));
+      console.log(data);
     },
   });
 
-  // const navigate = useNavigate();
-
-  // const handleClickForget = () => {
-  //   navigate('/forget');
-  // }
+  console.log(accessToken);
+  console.log(refreshToken);
 
   return (
     <div>
@@ -35,7 +58,6 @@ const Login = () => {
       <Body>
         <div className="container flex flex-col items-center">
           <h1 className="title">Đăng nhập</h1>
-
           {/* form  */}
           <div className="form-login">
             <form
@@ -43,37 +65,49 @@ const Login = () => {
               onSubmit={formik.handleSubmit}
             >
               <div style={{ marginTop: "47.31px" }} className="item">
-                <input
-                  name="username"
-                  type="text"
-                  placeholder="Usermame"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.username ? (
-                  <div className="error">{formik.errors.username}</div>
-                ) : null}
-              </div>
-              <div style={{'paddingTop': "18.92px"}} className="item">
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.errors.username ? (
-                  <div style={{'padding': "10px 0 0 0"}} className="error">{formik.errors.username}</div>
-                ) : null}
-              </div>
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye"></i>
-              </div> */}
+              <input
+                style={{ marginTop: "47.31px" }}
+                type="text"
+                placeholder="Usermame"
+                name="username"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              <input
+                style={{ marginTop: "12.167px" }}
+                type={eye ? "text" : "password"}
+                name="password"
+                value={formik.values.password}
+                placeholder="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              />
+              {!eye && (
+                <>
+                  <div
+                    className="icon relative"
+                    onClick={() => {
+                      setEye(!eye);
+                    }}
+                  >
+                    <i className="fa-solid fa-eye"></i>
+                  </div>
+                </>
+              )}
 
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye-slash"></i>
-              </div> */}
-
+              {eye && (
+                <>
+                  <div
+                    className="icon relative"
+                    onClick={() => {
+                      setEye(!eye);
+                    }}
+                  >
+                    <i className="fa-solid fa-eye-slash"></i>
+                  </div>
+                </>
+              )}
               <p style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
               <button type="submit" className="Login">
                 Đăng nhập

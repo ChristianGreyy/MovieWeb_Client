@@ -44,6 +44,7 @@ const Register = () => {
       passwordagain: Yup.string()
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp!")
         .required("Không được để trống ô này!"),
+
     }),
     onSubmit: (values) => {
       alert("Đã đăng nhập đúng");
@@ -171,6 +172,7 @@ const Register = () => {
               </p>
               <p style={{ "margin-top": "1px" }}>Chính sách và quy định</p>
               <button type="submit" className="Register" onClick={toggleModal}>
+
                 Đăng ký
               </button>
             </form>

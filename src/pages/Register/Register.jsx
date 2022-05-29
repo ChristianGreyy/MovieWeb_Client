@@ -81,7 +81,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.username}
                 />
-                {(formik.errors.username && formik.touched.username) ? (
+                {formik.errors.username && formik.touched.username ? (
                   <p className="error">{formik.errors.username}</p>
                 ) : null}
               </div>
@@ -94,7 +94,9 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                {(formik.errors.email && formik.touched.email) ? <p className="error">{formik.errors.email}</p> : null}
+                {formik.errors.email && formik.touched.email ? (
+                  <p className="error">{formik.errors.email}</p>
+                ) : null}
               </div>
               <div className="item">
                 <input
@@ -105,7 +107,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.passwordl}
                 />
-                {(formik.errors.password && formik.touched.password) ? (
+                {formik.errors.password && formik.touched.password ? (
                   <p className="error">{formik.errors.password}</p>
                 ) : null}
               </div>
@@ -118,7 +120,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.passwordagain}
                 />
-                {(formik.errors.passwordagain && formik.touched.passwordagain) ? (
+                {formik.errors.passwordagain && formik.touched.passwordagain ? (
                   <p className="error">{formik.errors.passwordagain}</p>
                 ) : null}
               </div>
@@ -130,16 +132,31 @@ const Register = () => {
                 <i class="fa-solid fa-eye-slash"></i>
               </div> */}
 
-              <p style={{ "margin-top": "18.92px" }}>
+              <p style={{ marginTop: "18.92px" }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
-              <p style={{ "margin-top": "1px" }}>Chính sách và quy định</p>
-              <button type="submit" className="Register" onClick={() => {
-                if(formik.errors.email || formik.errors.password || formik.errors.passwordagain || formik.errors.username) {
-                  return;
-                } else if(email==='' || password==='' || username==='' || passwordagain==='') return;
-                else toggleModal();
-              }}>
+              <p style={{ marginTop: "1px" }}>Chính sách và quy định</p>
+              <button
+                type="submit"
+                className="Register"
+                onClick={() => {
+                  if (
+                    formik.errors.email ||
+                    formik.errors.password ||
+                    formik.errors.passwordagain ||
+                    formik.errors.username
+                  ) {
+                    return;
+                  } else if (
+                    email === "" ||
+                    password === "" ||
+                    username === "" ||
+                    passwordagain === ""
+                  )
+                    return;
+                  else toggleModal();
+                }}
+              >
                 Đăng ký
               </button>
             </form>
@@ -149,7 +166,13 @@ const Register = () => {
 
       {/* modal */}
       {modal && (
-        <Check email={email} setEmail={setEmail} modal={modal} setModal={setModal} toggleModal={toggleModal}/>
+        <Check
+          email={email}
+          setEmail={setEmail}
+          modal={modal}
+          setModal={setModal}
+          toggleModal={toggleModal}
+        />
       )}
       {/* {modal && (
         <CheckComple modal={modal} setModal={setModal} toggleModal={toggleModal}/>

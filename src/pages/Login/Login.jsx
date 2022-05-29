@@ -18,6 +18,8 @@ const Login = () => {
   const accessToken = tokenService.getCookie("accessToken");
   const refreshToken = tokenService.getCookie("refreshToken");
 
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -50,6 +52,7 @@ const Login = () => {
         "bearer " + data.refresh.token,
         2 * 24 * 60 * 60 * 1000
       );
+      navigate("/");
     },
   });
 

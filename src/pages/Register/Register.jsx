@@ -14,9 +14,9 @@ const Register = () => {
     setModal(!modal);
   };
 
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
   const formik = useFormik({
     initialValues: {
@@ -46,6 +46,9 @@ const Register = () => {
       // alert("Đã đăng nhập đúng");
       // console.log(values.email);
       setEmail(values.email);
+      setUsername(values.username);
+      setPassword(values.password);
+      setPasswordagain(values.passwordagain);
     },
   });
 
@@ -76,8 +79,9 @@ const Register = () => {
                   placeholder="Nhập usermame"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  value={formik.values.username}
                 />
-                {formik.errors.username ? (
+                {(formik.errors.username && formik.touched.username) ? (
                   <p className="error">{formik.errors.username}</p>
                 ) : null}
               </div>
@@ -90,7 +94,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                {formik.errors.email ? <p className="error">{formik.errors.email}</p> : null}
+                {(formik.errors.email && formik.touched.email) ? <p className="error">{formik.errors.email}</p> : null}
               </div>
               <div className="item">
                 <input
@@ -99,8 +103,9 @@ const Register = () => {
                   placeholder="Mật khẩu"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  value={formik.values.passwordl}
                 />
-                {formik.errors.password ? (
+                {(formik.errors.password && formik.touched.password) ? (
                   <p className="error">{formik.errors.password}</p>
                 ) : null}
               </div>
@@ -111,13 +116,14 @@ const Register = () => {
                   placeholder="Nhập lại mật khẩu"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  value={formik.values.passwordagain}
                 />
-                {formik.errors.passwordagain ? (
+                {(formik.errors.passwordagain && formik.touched.passwordagain) ? (
                   <p className="error">{formik.errors.passwordagain}</p>
                 ) : null}
               </div>
               {/* <div className="icon relative">
-                <i class="fa-solid fa-eye"></i>
+                <i class="fa-solid fa-eye"></i> 
               </div> */}
 
               {/* <div className="icon relative">
@@ -128,7 +134,12 @@ const Register = () => {
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
               <p style={{ "margin-top": "1px" }}>Chính sách và quy định</p>
-              <button type="submit" className="Register" onClick={toggleModal}>
+              <button type="submit" className="Register" onClick={() => {
+                if(formik.errors.email || formik.errors.password || formik.errors.passwordagain || formik.errors.username) {
+                  return;
+                } else if(email==='' || password==='' || username==='' || passwordagain==='') return;
+                else toggleModal();
+              }}>
                 Đăng ký
               </button>
             </form>

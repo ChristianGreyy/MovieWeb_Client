@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, {useState } from "react";
 import Body from "../../Components/Body";
 import Header from "../../Components/Header";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -23,11 +24,11 @@ const Login = () => {
     },
   });
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  // const handleClickForget = () => {
-  //   navigate('/forget');
-  // }
+  const handleClickForget = () => {
+    navigate('/forget');
+  }
 
   return (
     <div>
@@ -50,7 +51,7 @@ const Login = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.username ? (
+                {formik.errors.username && formik.touched.username? (
                   <div className="error">{formik.errors.username}</div>
                 ) : null}
               </div>
@@ -62,8 +63,8 @@ const Login = () => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.username ? (
-                  <div style={{'padding': "10px 0 0 0"}} className="error">{formik.errors.username}</div>
+                {formik.errors.password && formik.touched.password? (
+                  <div style={{'padding': "10px 0 0 0"}} className="error">{formik.errors.password}</div>
                 ) : null}
               </div>
               {/* <div className="icon relative">
@@ -74,14 +75,14 @@ const Login = () => {
                 <i class="fa-solid fa-eye-slash"></i>
               </div> */}
 
-              <p style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
+              <p onClick={handleClickForget} style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
               <button type="submit" className="Login">
                 Đăng nhập
               </button>
               <p style={{ margin: "31.1px 0 32.1px 0" }}>
                 Chính sách và quy định
               </p>
-              <button className="Resgister">Tạo tài khoản mới</button>
+              <button onClick={() => {navigate('/register')}} className="Resgister">Tạo tài khoản mới</button>
             </form>
           </div>
         </div>

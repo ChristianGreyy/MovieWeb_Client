@@ -10,7 +10,7 @@ const Check = (props) => {
   const email2 = arr.join('');
   return (
     <div className="modal">
-      <div className="modal_container">
+      <div style={{"margin":"162.22px 416px"}} className="modal_container">
         <div className="modal_container_header relative">
           <h1>Xác nhận đăng kí</h1>
           <div className="icon absolute" onClick={toggleModal}>
@@ -25,7 +25,7 @@ const Check = (props) => {
             đăng kí. Nếu bạn chưa nhận được link, hãy bấm và nút Gửi lại ở bên
             dưới.
           </p>
-          <button type="submit" className="again">
+          <button style={{"margin": "0 259.67px 33.12px 218px"}} type="submit" className="again">
             Gửi lại
           </button>
         </div>

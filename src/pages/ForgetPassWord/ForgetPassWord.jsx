@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./ForgetPassWord.scss";
 import CheckOTP from "./CheckOTP";
+import ChangePassWord from "./ChangePassWord";
+import ChangePassWordComple from "./ChangePassWordComple";
 
 const ForgetPassWord = () => {
   // Modal forgetPassword
@@ -12,6 +14,7 @@ const ForgetPassWord = () => {
   const toggleModal = () => {
     setModal(!modal);
   };
+  const [email, setEmail] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -21,21 +24,10 @@ const ForgetPassWord = () => {
       email: Yup.string().required("Không được để trống ô này"),
     }),
     onSubmit: (values) => {
-      alert("Đã đăng nhập đúng");
+      setEmail(values.email);
+      // console.log(values.email);
     },
   });
-
-  // const formikOTP = useFormik({
-  //   initialValues: {
-  //     OTP: "",
-  //   },
-  //   validationSchema: Yup.object({
-  //     OTP: Yup.string().required("Không được để trống ô này"),
-  //   }),
-  //   onSubmit: (values) => {
-  //     alert('Đã nhập đúng');
-  //   },
-  // });
 
   return (
     <div>
@@ -54,13 +46,16 @@ const ForgetPassWord = () => {
               <input
                 style={{ "marginTop": "47.31px" }}
                 name="email"
-                type="text"
+                type="email"
                 placeholder="Nhập email"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                value={formik.values.email}
               />
               {formik.errors.email && <div className="error">{formik.errors.email}</div>}
-              <button type="submit" onClick={toggleModal} className="Login">
+              <button type="submit" onClick={() => {if(formik.errors.email || email===''){
+                return;
+              } else toggleModal()}} className="Login">
                 Khôi phục mật khẩu
               </button>
             </form>
@@ -69,16 +64,7 @@ const ForgetPassWord = () => {
       </Body>
 
       {/* modal xác nhận*/}
-      {/* {modal && (
-        <div className="modal">
-          <div className="overlay"></div>
-            <div className="modal-content">
-              
-            </div>
-        </div>
-      )} */}
-
-      {/* {modal && (<CheckOTP />)} */}
+      {modal && (<CheckOTP email={email} setEmail={setEmail} modal={modal} setModal={setModal} toggleModal={toggleModal}/>)}
     </div>
   );
 };

@@ -75,12 +75,13 @@
     background-color: #00000090;
 
     &_container {
-        margin: 162.22px 430px;
+        margin: 162.22px 380px;
         &_header {
             h1 {
-                padding: 24.33px 231.125px;
+                padding: 24.33px 225.125px;
                 text-align: center;
                 background-color: #545562;
+                font-size: 30px;
             }
             .icon {
                 color: #fff;
@@ -104,9 +105,8 @@
                 font-weight: 500;
                 font-size: 20px;
                 border-radius: 10px;
-                margin: 0 259.67px 33.12px 210px;
+                margin: 0 259.67px 33.12px 250px;
             }
-            // margin-top: 162.22px;
         }
     }
 }

@@ -4,7 +4,6 @@ import Header from "../../Components/Header";
 import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -128,13 +127,6 @@ const Login = () => {
                   </div>
                 ) : null}
               </div>
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye"></i>
-              </div> */}
-
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye-slash"></i>
-              </div> */}
 
               <p onClick={handleClickForget} style={{ cursor: "pointer" }}>
                 Quên mật khẩu?

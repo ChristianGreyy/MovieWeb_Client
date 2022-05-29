@@ -1,14 +1,34 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authService } from "../../services";
 
-// First, create the thunk
 export const loginAPI = createAsyncThunk(
   "auth/login",
-  async ({ username, password }) => {
+  async ({ username, password }, { rejectWithValue }) => {
     try {
       const res = await authService.login(username, password);
 
       return res.data.token;
+    } catch (err) {
+      console.log(err.response.data);
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const registerAPI = createAsyncThunk(
+  "auth/register",
+  async ({ username, email, password, passwordagain }) => {
+    try {
+      const res = await authService.register(
+        username,
+        email,
+        password,
+        passwordagain
+      );
+
+      console.log(res);
+
+      // return res.data.token;
     } catch (err) {
       console.log(err);
     }

@@ -6,13 +6,21 @@ import * as Yup from "yup";
 import "./Register.scss";
 import Check from "./Check";
 import CheckComple from "./CheckComple";
+import { registerAPI } from "../../redux/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
   //modal check đăng ký
   const [modal, setModal] = useState(false);
+  const [modalResult, setModalResult] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
   };
+  const toggleModalResult = () => {
+    setModalResult(!modalResult);
+  };
+
+  const dispatch = useDispatch();
 
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -44,13 +52,33 @@ const Register = () => {
       passwordagain: Yup.string()
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp!")
         .required("Không được để trống ô này!"),
-
     }),
-    onSubmit: (values) => {
-      alert("Đã đăng nhập đúng");
+    onSubmit: async (values) => {
+      const result = await dispatch(
+        registerAPI({
+          username: formik.values.username,
+          email: formik.values.email,
+          password: formik.values.password,
+          passwordagain: formik.values.passwordagain,
+        })
+      );
+
+      // const data = unwrapResult(result);
+      // alert("Đã đăng nhập đúng");
       // console.log(values.email);
       // setEmail(values.email);
     },
+  });
+
+  const socketSlice = useSelector((state) => state.socket);
+
+  socketSlice.socket.on("register-success", (values) => {
+    setModal(false);
+    setModalResult(true);
+    formik.values.username = "";
+    formik.values.email = "";
+    formik.values.password = "";
+    formik.values.passwordagain = "";
   });
 
   return (
@@ -80,6 +108,7 @@ const Register = () => {
                   placeholder="Nhập usermame"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  value={formik.values.username}
                 />
                 {formik.errors.username ? (
                   <p className="error">{formik.errors.username}</p>
@@ -106,6 +135,7 @@ const Register = () => {
                     placeholder="Mật khẩu"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    value={formik.values.password}
                   />
                   {!eyePass && (
                     <>
@@ -113,7 +143,7 @@ const Register = () => {
                         className="icon relative"
                         onClick={() => setEyePass(!eyePass)}
                       >
-                        <i class="fa-solid fa-eye"></i>
+                        <i className="fa-solid fa-eye"></i>
                       </div>
                     </>
                   )}
@@ -123,7 +153,7 @@ const Register = () => {
                         className="icon relative"
                         onClick={() => setEyePass(!eyePass)}
                       >
-                        <i class="fa-solid fa-eye-slash"></i>
+                        <i className="fa-solid fa-eye-slash"></i>
                       </div>
                     </>
                   )}
@@ -136,10 +166,11 @@ const Register = () => {
                 <div className="item__input">
                   <input
                     name="passwordagain"
-                    type={eyePass ? "text" : "password"}
+                    type={eyeRePass ? "text" : "password"}
                     placeholder="Nhập lại mật khẩu"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    value={formik.values.passwordagain}
                   />
                   {!eyeRePass && (
                     <>
@@ -147,7 +178,7 @@ const Register = () => {
                         className="icon relative"
                         onClick={() => setEyeRePass(!eyeRePass)}
                       >
-                        <i class="fa-solid fa-eye"></i>
+                        <i className="fa-solid fa-eye"></i>
                       </div>
                     </>
                   )}
@@ -155,9 +186,11 @@ const Register = () => {
                     <>
                       <div
                         className="icon relative"
-                        onClick={() => setEyeRePass(!eyeRePass)}
+                        onClick={() => {
+                          setEyeRePass(!eyeRePass);
+                        }}
                       >
-                        <i class="fa-solid fa-eye-slash"></i>
+                        <i className="fa-solid fa-eye-slash"></i>
                       </div>
                     </>
                   )}
@@ -167,12 +200,11 @@ const Register = () => {
                 ) : null}
               </div>
 
-              <p style={{ "margin-top": "18.92px" }}>
+              <p style={{ marginTop: "18.92px" }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
-              <p style={{ "margin-top": "1px" }}>Chính sách và quy định</p>
+              <p style={{ marginTop: "1px" }}>Chính sách và quy định</p>
               <button type="submit" className="Register" onClick={toggleModal}>
-
                 Đăng ký
               </button>
             </form>
@@ -180,10 +212,15 @@ const Register = () => {
         </div>
       </Body>
 
+      {modalResult && <CheckComple toggleModalResult={toggleModalResult} />}
+
       {/* modal */}
       {modal && (
         <Check
-          email={email}
+          username={formik.values.username}
+          password={formik.values.password}
+          passwordagain={formik.values.passwordagain}
+          email={formik.values.email}
           setEmail={setEmail}
           modal={modal}
           setModal={setModal}

@@ -19,7 +19,10 @@ const CheckComple = (props) => {
         </div>
 
         <div className="modal_container_body">
-          <p style={{ textAlign: "center" }}>Đăng ký thành công</p>
+          <p style={{ textAlign: "center", fontSize: "20px" }}>
+            Đăng ký thành công
+          </p>
+
           <button type="submit" className="again" onClick={handleLogin}>
             Đăng nhập
           </button>

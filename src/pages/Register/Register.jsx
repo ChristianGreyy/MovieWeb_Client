@@ -22,9 +22,9 @@ const Register = () => {
 
   const dispatch = useDispatch();
 
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [passWord, setPassWord] = useState("");
+  const [password, setPassword] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
   const [eyePass, setEyePass] = useState(false);
   const [eyeRePass, setEyeRePass] = useState(false);
@@ -66,6 +66,10 @@ const Register = () => {
       // const data = unwrapResult(result);
       // alert("Đã đăng nhập đúng");
       // console.log(values.email);
+      setEmail(values.email);
+      setUsername(values.username);
+      setPassword(values.password);
+      setPasswordagain(values.passwordagain);
       // setEmail(values.email);
     },
   });
@@ -110,7 +114,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.username}
                 />
-                {formik.errors.username ? (
+                {formik.errors.username && formik.touched.username ? (
                   <p className="error">{formik.errors.username}</p>
                 ) : null}
               </div>
@@ -123,7 +127,7 @@ const Register = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values.email}
                 />
-                {formik.errors.email ? (
+                {formik.errors.email && formik.touched.email ? (
                   <p className="error">{formik.errors.email}</p>
                 ) : null}
               </div>
@@ -158,7 +162,7 @@ const Register = () => {
                     </>
                   )}
                 </div>
-                {formik.errors.password ? (
+                {formik.errors.password && formik.touched.password ? (
                   <p className="error">{formik.errors.password}</p>
                 ) : null}
               </div>
@@ -195,7 +199,7 @@ const Register = () => {
                     </>
                   )}
                 </div>
-                {formik.errors.passwordagain ? (
+                {formik.errors.passwordagain && formik.touched.passwordagain ? (
                   <p className="error">{formik.errors.passwordagain}</p>
                 ) : null}
               </div>
@@ -204,7 +208,27 @@ const Register = () => {
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
               <p style={{ marginTop: "1px" }}>Chính sách và quy định</p>
-              <button type="submit" className="Register" onClick={toggleModal}>
+              <button
+                type="submit"
+                className="Register"
+                onClick={() => {
+                  if (
+                    formik.errors.email ||
+                    formik.errors.password ||
+                    formik.errors.passwordagain ||
+                    formik.errors.username
+                  ) {
+                    return;
+                  } else if (
+                    email === "" ||
+                    password === "" ||
+                    username === "" ||
+                    passwordagain === ""
+                  )
+                    return;
+                  else toggleModal();
+                }}
+              >
                 Đăng ký
               </button>
             </form>

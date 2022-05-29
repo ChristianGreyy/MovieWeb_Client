@@ -1,73 +1,73 @@
 h1 {
-    font-size: 25px;
-    font-weight: 600;
-    text-align: center;
-    color: #fff;
-    padding-top: 26.36px;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  padding-top: 26.36px;
 }
 
 .container {
-    //Đăng nhập
-    .form-login {
-        background-color: #41424f;
-        margin-top: 27.71px;
+  //Đăng nhập
+  .form-login {
+    background-color: #41424f;
+    margin-top: 27.71px;
 
-        &_items {
-            padding:0 95.79px 52.72px 95.79px;
-            .item {
-                .error {
-                    text-align: center;
-                    color: red;
-                    padding: 10px 0 20px 0;
-                }
-            }
+    &_items {
+      padding: 0 95.79px 52.72px 95.79px;
+      .item {
+        .error {
+          text-align: center;
+          color: red;
+          padding: 10px 0 20px 0;
         }
-        
-        p {
-            text-align: center;
-            color: #fff;
-            margin: 27.71px 0;
-        }
-
-        input {
-            width: 380px;
-            height: 54.1px;
-            padding: 8px 15px;
-            border-radius: 10px;
-        }
-
-        .icon {
-            font-size: 20px;
-            left: 159px;
-            top: -40px;
-            cursor: pointer;
-        }
-
-        button {
-            border-radius: 10px;
-            color: #fff;
-            font-weight: 500;
-            font-size: 20px;
-        }
-
-        .Login {
-            width: 380px;
-            height: 54.1px;
-            background-color: #f34a14;
-            &:hover {
-                background-color: #f34c14cd;
-            }
-        }
-
-        .Resgister {
-            width: 266px;
-            height: 54.1px;
-            background-color: #20bb1d;
-            &:hover {
-                background-color: #20bb1ded;
-            }
-        }
+      }
     }
+
+    p {
+      text-align: center;
+      color: #fff;
+      margin: 27.71px 0;
+    }
+
+    input {
+      width: 380px;
+      height: 54.1px;
+      padding: 8px 15px;
+      border-radius: 10px;
+    }
+
+    .icon {
+      font-size: 20px;
+      left: 90%;
+      top: -40px;
+      cursor: pointer;
+    }
+
+    button {
+      border-radius: 10px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 20px;
+    }
+
+    .Login {
+      width: 380px;
+      height: 54.1px;
+      background-color: #f34a14;
+      &:hover {
+        background-color: #f34c14cd;
+      }
+    }
+
+    .Resgister {
+      width: 266px;
+      height: 54.1px;
+      background-color: #20bb1d;
+      &:hover {
+        background-color: #20bb1ded;
+      }
+    }
+  }
 }
 
 // .modal,

@@ -84,12 +84,13 @@
   background-color: #00000090;
 
   &_container {
-    margin: 162.22px 430px;
+    margin: 162.22px 380px;
     &_header {
       h1 {
-        padding: 24.33px 231.125px;
+        padding: 24.33px 225.125px;
         text-align: center;
         background-color: #545562;
+        font-size: 30px;
       }
       .icon {
         color: #fff;
@@ -97,6 +98,23 @@
         right: 30px;
         font-size: 20px;
         cursor: pointer;
+      }
+    }
+
+    &_body {
+      background-color: #383840;
+      color: #fff;
+      p {
+        padding: 48px 68.875px 29.06px;
+      }
+      .again {
+        width: 275.5px;
+        height: 54.07px;
+        background-color: #f34a14;
+        font-weight: 500;
+        font-size: 20px;
+        border-radius: 10px;
+        margin: 0 259.67px 33.12px 250px;
       }
     }
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Body from "../../Components/Body";
 import Header from "../../Components/Header";
 import "./Login.scss";
@@ -56,6 +56,10 @@ const Login = () => {
     },
   });
 
+  const handleClickForget = () => {
+    navigate("/forget");
+  };
+
   return (
     <div>
       <Header />
@@ -68,58 +72,80 @@ const Login = () => {
               className="flex flex-col items-center form-login_items"
               onSubmit={formik.handleSubmit}
             >
-              {/* <div> style={{ marginTop: "47.31px" }} className="item"> */}
-              <input
-                style={{ marginTop: "47.31px" }}
-                type="text"
-                placeholder="Usermame"
-                name="username"
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <input
-                style={{ marginTop: "12.167px" }}
-                type={eye ? "text" : "password"}
-                name="password"
-                value={formik.values.password}
-                placeholder="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              {!eye && (
-                <>
-                  <div
-                    className="icon relative"
-                    onClick={() => {
-                      setEye(!eye);
-                    }}
-                  >
-                    <i className="fa-solid fa-eye"></i>
-                  </div>
-                </>
-              )}
+              <div style={{ marginTop: "47.31px" }} className="item">
+                <input
+                  style={{ marginTop: "47.31px" }}
+                  type="text"
+                  placeholder="Usermame"
+                  name="username"
+                  value={formik.values.username}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.errors.username && formik.touched.username ? (
+                  <div className="error">{formik.errors.username}</div>
+                ) : null}
+              </div>
+              <div style={{ paddingTop: "18.92px" }} className="item">
+                <input
+                  style={{ marginTop: "12.167px" }}
+                  type={eye ? "text" : "password"}
+                  name="password"
+                  value={formik.values.password}
+                  placeholder="password"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {!eye && (
+                  <>
+                    <div
+                      className="icon relative"
+                      onClick={() => {
+                        setEye(!eye);
+                      }}
+                    >
+                      <i className="fa-solid fa-eye"></i>
+                    </div>
+                  </>
+                )}
 
-              {eye && (
-                <>
-                  <div
-                    className="icon relative"
-                    onClick={() => {
-                      setEye(!eye);
-                    }}
-                  >
-                    <i className="fa-solid fa-eye-slash"></i>
+                {eye && (
+                  <>
+                    <div
+                      className="icon relative"
+                      onClick={() => {
+                        setEye(!eye);
+                      }}
+                    >
+                      <i className="fa-solid fa-eye-slash"></i>
+                    </div>
+                  </>
+                )}
+                {formik.errors.password && formik.touched.password ? (
+                  <div style={{ padding: "10px 0 0 0" }} className="error">
+                    {formik.errors.password}
                   </div>
-                </>
-              )}
-              <p style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
+                ) : null}
+              </div>
+
+              <p onClick={handleClickForget} style={{ cursor: "pointer" }}>
+                Quên mật khẩu?
+              </p>
+
               <button type="submit" className="Login">
                 Đăng nhập
               </button>
               <p style={{ margin: "31.1px 0 32.1px 0" }}>
                 Chính sách và quy định
               </p>
-              <button className="Resgister">Tạo tài khoản mới</button>
+              <button
+                onClick={() => {
+                  navigate("/register");
+                }}
+                className="Resgister"
+              >
+                Tạo tài khoản mới
+              </button>
             </form>
           </div>
         </div>

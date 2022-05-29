@@ -6,18 +6,29 @@ import * as Yup from "yup";
 import "./Register.scss";
 import Check from "./Check";
 import CheckComple from "./CheckComple";
+import { registerAPI } from "../../redux/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Register = () => {
   //modal check đăng ký
   const [modal, setModal] = useState(false);
+  const [modalResult, setModalResult] = useState(false);
   const toggleModal = () => {
     setModal(!modal);
   };
+  const toggleModalResult = () => {
+    setModalResult(!modalResult);
+  };
+
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordagain, setPasswordagain] = useState("");
+  const [eyePass, setEyePass] = useState(false);
+  const [eyeRePass, setEyeRePass] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -42,14 +53,36 @@ const Register = () => {
         .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp!")
         .required("Không được để trống ô này!"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const result = await dispatch(
+        registerAPI({
+          username: formik.values.username,
+          email: formik.values.email,
+          password: formik.values.password,
+          passwordagain: formik.values.passwordagain,
+        })
+      );
+
+      // const data = unwrapResult(result);
       // alert("Đã đăng nhập đúng");
       // console.log(values.email);
       setEmail(values.email);
       setUsername(values.username);
       setPassword(values.password);
       setPasswordagain(values.passwordagain);
+      // setEmail(values.email);
     },
+  });
+
+  const socketSlice = useSelector((state) => state.socket);
+
+  socketSlice.socket.on("register-success", (values) => {
+    setModal(false);
+    setModalResult(true);
+    formik.values.username = "";
+    formik.values.email = "";
+    formik.values.password = "";
+    formik.values.passwordagain = "";
   });
 
   return (
@@ -99,38 +132,77 @@ const Register = () => {
                 ) : null}
               </div>
               <div className="item">
-                <input
-                  name="password"
-                  type="password"
-                  placeholder="Mật khẩu"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.passwordl}
-                />
+                <div className="item__input">
+                  <input
+                    name="password"
+                    type={eyePass ? "text" : "password"}
+                    placeholder="Mật khẩu"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                  />
+                  {!eyePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyePass(!eyePass)}
+                      >
+                        <i className="fa-solid fa-eye"></i>
+                      </div>
+                    </>
+                  )}
+                  {eyePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyePass(!eyePass)}
+                      >
+                        <i className="fa-solid fa-eye-slash"></i>
+                      </div>
+                    </>
+                  )}
+                </div>
                 {formik.errors.password && formik.touched.password ? (
                   <p className="error">{formik.errors.password}</p>
                 ) : null}
               </div>
               <div className="item">
-                <input
-                  name="passwordagain"
-                  type="password"
-                  placeholder="Nhập lại mật khẩu"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.passwordagain}
-                />
+                <div className="item__input">
+                  <input
+                    name="passwordagain"
+                    type={eyeRePass ? "text" : "password"}
+                    placeholder="Nhập lại mật khẩu"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.passwordagain}
+                  />
+                  {!eyeRePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => setEyeRePass(!eyeRePass)}
+                      >
+                        <i className="fa-solid fa-eye"></i>
+                      </div>
+                    </>
+                  )}
+                  {eyeRePass && (
+                    <>
+                      <div
+                        className="icon relative"
+                        onClick={() => {
+                          setEyeRePass(!eyeRePass);
+                        }}
+                      >
+                        <i className="fa-solid fa-eye-slash"></i>
+                      </div>
+                    </>
+                  )}
+                </div>
                 {formik.errors.passwordagain && formik.touched.passwordagain ? (
                   <p className="error">{formik.errors.passwordagain}</p>
                 ) : null}
               </div>
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye"></i> 
-              </div> */}
-
-              {/* <div className="icon relative">
-                <i class="fa-solid fa-eye-slash"></i>
-              </div> */}
 
               <p style={{ marginTop: "18.92px" }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
@@ -164,10 +236,15 @@ const Register = () => {
         </div>
       </Body>
 
+      {modalResult && <CheckComple toggleModalResult={toggleModalResult} />}
+
       {/* modal */}
       {modal && (
         <Check
-          email={email}
+          username={formik.values.username}
+          password={formik.values.password}
+          passwordagain={formik.values.passwordagain}
+          email={formik.values.email}
           setEmail={setEmail}
           modal={modal}
           setModal={setModal}

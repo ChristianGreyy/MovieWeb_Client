@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import Body from "../../Components/Body";
 import Header from "../../Components/Header";
 import "./Login.scss";
@@ -6,9 +6,25 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import { loginAPI } from "../../redux/auth/authSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+import ForgetPassWord from "../ForgetPassWord/ForgetPassWord";
+import { setToken } from "../../redux/tokenSlice";
+import { tokenService } from "../../services";
+
 const Login = () => {
+  const accessToken = tokenService.getCookie("accessToken");
+  const refreshToken = tokenService.getCookie("refreshToken");
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [eye, setEye] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -19,16 +35,31 @@ const Login = () => {
       username: Yup.string().required("Không được để trống ô này"),
       password: Yup.string().required("Không được để trống ô này"),
     }),
-    onSubmit: (values) => {
-      alert("Đã đăng nhập đúng");
+    onSubmit: async (values) => {
+      const result = await dispatch(
+        loginAPI({
+          username: formik.values.username,
+          password: formik.values.password,
+        })
+      );
+      const data = unwrapResult(result);
+      tokenService.setCookie(
+        "accessToken",
+        "bearer " + data.access.token,
+        10 * 60 * 1000
+      );
+      tokenService.setCookie(
+        "refreshToken",
+        "bearer " + data.refresh.token,
+        2 * 24 * 60 * 60 * 1000
+      );
+      navigate("/");
     },
   });
 
-  const navigate = useNavigate();
-
   const handleClickForget = () => {
-    navigate('/forget');
-  }
+    navigate("/forget");
+  };
 
   return (
     <div>
@@ -36,7 +67,6 @@ const Login = () => {
       <Body>
         <div className="container flex flex-col items-center">
           <h1 className="title">Đăng nhập</h1>
-
           {/* form  */}
           <div className="form-login">
             <form
@@ -45,26 +75,57 @@ const Login = () => {
             >
               <div style={{ marginTop: "47.31px" }} className="item">
                 <input
-                  name="username"
+                  style={{ marginTop: "47.31px" }}
                   type="text"
                   placeholder="Usermame"
+                  name="username"
+                  value={formik.values.username}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.username && formik.touched.username? (
+                {formik.errors.username && formik.touched.username ? (
                   <div className="error">{formik.errors.username}</div>
                 ) : null}
               </div>
-              <div style={{'paddingTop': "18.92px"}} className="item">
+              <div style={{ paddingTop: "18.92px" }} className="item">
                 <input
+                  style={{ marginTop: "12.167px" }}
+                  type={eye ? "text" : "password"}
                   name="password"
-                  type="password"
+                  value={formik.values.password}
                   placeholder="password"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.password && formik.touched.password? (
-                  <div style={{'padding': "10px 0 0 0"}} className="error">{formik.errors.password}</div>
+                {!eye && (
+                  <>
+                    <div
+                      className="icon relative"
+                      onClick={() => {
+                        setEye(!eye);
+                      }}
+                    >
+                      <i className="fa-solid fa-eye"></i>
+                    </div>
+                  </>
+                )}
+
+                {eye && (
+                  <>
+                    <div
+                      className="icon relative"
+                      onClick={() => {
+                        setEye(!eye);
+                      }}
+                    >
+                      <i className="fa-solid fa-eye-slash"></i>
+                    </div>
+                  </>
+                )}
+                {formik.errors.password && formik.touched.password ? (
+                  <div style={{ padding: "10px 0 0 0" }} className="error">
+                    {formik.errors.password}
+                  </div>
                 ) : null}
               </div>
               {/* <div className="icon relative">
@@ -75,14 +136,24 @@ const Login = () => {
                 <i class="fa-solid fa-eye-slash"></i>
               </div> */}
 
-              <p onClick={handleClickForget} style={{ cursor: "pointer" }}>Quên mật khẩu?</p>
+              <p onClick={handleClickForget} style={{ cursor: "pointer" }}>
+                Quên mật khẩu?
+              </p>
+
               <button type="submit" className="Login">
                 Đăng nhập
               </button>
               <p style={{ margin: "31.1px 0 32.1px 0" }}>
                 Chính sách và quy định
               </p>
-              <button onClick={() => {navigate('/register')}} className="Resgister">Tạo tài khoản mới</button>
+              <button
+                onClick={() => {
+                  navigate("/register");
+                }}
+                className="Resgister"
+              >
+                Tạo tài khoản mới
+              </button>
             </form>
           </div>
         </div>

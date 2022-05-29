@@ -1,7 +1,13 @@
+const setCookie = (cname, cvalue, time) => {
+  const d = new Date();
+  d.setTime(d.getTime() + time);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+};
+
 const getCookie = (cname) => {
   let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
+  let ca = document.cookie.split(";");
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
     while (c.charAt(0) == " ") {
@@ -15,6 +21,7 @@ const getCookie = (cname) => {
 };
 
 const tokenService = {
+  setCookie,
   getCookie,
 };
 

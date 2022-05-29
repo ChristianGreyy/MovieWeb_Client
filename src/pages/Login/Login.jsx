@@ -15,8 +15,6 @@ import { setToken } from "../../redux/tokenSlice";
 import { tokenService } from "../../services";
 
 const Login = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
-
   const accessToken = tokenService.getCookie("accessToken");
   const refreshToken = tokenService.getCookie("refreshToken");
 
@@ -42,15 +40,18 @@ const Login = () => {
         })
       );
       const data = unwrapResult(result);
-      setCookie("accessToken", data.access.token);
-      setCookie("refreshToken", data.refresh.token);
-      // dispatch(setToken(data));
-      console.log(data);
+      tokenService.setCookie(
+        "accessToken",
+        "bearer " + data.access.token,
+        10 * 60 * 1000
+      );
+      tokenService.setCookie(
+        "refreshToken",
+        "bearer " + data.refresh.token,
+        2 * 24 * 60 * 60 * 1000
+      );
     },
   });
-
-  console.log(accessToken);
-  console.log(refreshToken);
 
   return (
     <div>

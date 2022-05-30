@@ -3,19 +3,23 @@ import React, { useRef, useState } from "react";
 import * as Yup from "yup";
 import ChangePassWordComple from "./ChangePassWordComple";
 import "./ForgetPassWord.scss";
+import { resetPWAPI } from "../../redux/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const ChangePassWord = (props) => {
-
-  const {toggleModal} = props;
+  const { toggleModal, email } = props;
 
   const [modalChangePassWord, setmodalChangPassWord] = useState(false);
 
-  const [password, setPassword] = useState('');
-  const [passwordAgain, setPasswordAgain] = useState('');
+  const [password, setPassword] = useState("");
+  const [passwordAgain, setPasswordAgain] = useState("");
 
   const toggleChangPassWord = () => {
     setmodalChangPassWord(!modalChangePassWord);
-  }
+  };
+
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -33,10 +37,25 @@ const ChangePassWord = (props) => {
         .oneOf([Yup.ref("newPassword"), null], "Mật khẩu không khớp!")
         .required("Không được để trống ô này!"),
     }),
-    onSubmit: values => {
-      setPassword(values.newPassword);
-      setPasswordAgain(values.newPasswordAgain);
-    }
+    onSubmit: async (values) => {
+      // setPassword(values.newPassword);
+      // setPasswordAgain(values.newPasswordAgain);
+
+      try {
+        const result = await dispatch(
+          resetPWAPI({
+            email: email,
+            password: formik.values.newPassword,
+            passwordagain: formik.values.newPasswordAgain,
+          })
+        );
+        const res = unwrapResult(result);
+        console.log(res);
+        toggleChangPassWord();
+      } catch (err) {
+        console.log(err);
+      }
+    },
   });
 
   const modalRef = useRef(null);
@@ -61,7 +80,9 @@ const ChangePassWord = (props) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.newPassword && formik.touched.newPassword ? (<p className="errors_p">{formik.errors.newPassword}</p>) : null}
+                {formik.errors.newPassword && formik.touched.newPassword ? (
+                  <p className="errors_p">{formik.errors.newPassword}</p>
+                ) : null}
               </div>
               <div className="form_change_pass-again">
                 <input
@@ -71,24 +92,41 @@ const ChangePassWord = (props) => {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-                {formik.errors.newPasswordAgain && formik.touched.newPasswordAgain ? (<p className="errors_p">{formik.errors.newPasswordAgain}</p>) : null}
+                {formik.errors.newPasswordAgain &&
+                formik.touched.newPasswordAgain ? (
+                  <p className="errors_p">{formik.errors.newPasswordAgain}</p>
+                ) : null}
               </div>
-      
-              <p style={{"fontSize": "20px", "fontWeight": "400", "textAlign":"center", "padding": "20px 68.875px 29.06px"}}>Xác nhận  OTP thành công. Vui lòng nhập mật khẩu cho tài khoản của bạn.</p>
+
+              <p
+                style={{
+                  fontSize: "20px",
+                  fontWeight: "400",
+                  textAlign: "center",
+                  padding: "20px 68.875px 29.06px",
+                }}
+              >
+                Xác nhận OTP thành công. Vui lòng nhập mật khẩu cho tài khoản
+                của bạn.
+              </p>
               <div className="button_check">
-                <button onClick={() => {
-                  if(formik.errors.newPassword || password==='' || formik.errors.newPasswordAgain || passwordAgain==='') return;
-                  else toggleChangPassWord();
-                }} type="submit">Xác nhận</button>
+                <button type="submit">Xác nhận</button>
               </div>
-              </form>
+            </form>
           </div>
         </div>
       </div>
-      {modalChangePassWord && (<>
-        <ChangePassWordComple modalChangePassWord={modalChangePassWord} setmodalChangPassWord={setmodalChangPassWord} toggleChangPassWord={toggleChangPassWord} toggleModal={toggleModal}/>
-        {modalRef.current.style.display = 'none'}
-      </>)}
+      {modalChangePassWord && (
+        <>
+          <ChangePassWordComple
+            modalChangePassWord={modalChangePassWord}
+            setmodalChangPassWord={setmodalChangPassWord}
+            toggleChangPassWord={toggleChangPassWord}
+            toggleModal={toggleModal}
+          />
+          {(modalRef.current.style.display = "none")}
+        </>
+      )}
     </div>
   );
 };

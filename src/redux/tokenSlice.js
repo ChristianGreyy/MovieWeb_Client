@@ -2,24 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useCookies } from "react-cookie";
 
 const initialState = {
-  accessToken: "",
-  refreshToken: "",
+  otp: "",
 };
 
-export const counterSlice = createSlice({
+export const tokenSlice = createSlice({
   name: "token",
   initialState,
   reducers: {
-    setToken: (state, payload) => {
-      console.log(payload.payload);
-      console.log(state.accessToken);
-      state.accessToken = payload.payload.access;
-      state.refreshToken = payload.payload.refresh;
+    setToken: (state, action) => {
+      state.otp = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setToken } = counterSlice.actions;
+export const { setToken } = tokenSlice.actions;
 
-export default counterSlice.reducer;
+export default tokenSlice.reducer;

@@ -35,6 +35,45 @@ export const registerAPI = createAsyncThunk(
   }
 );
 
+export const forgotPWAPI = createAsyncThunk(
+  "auth/forgot",
+  async ({ email }, { rejectWithValue }) => {
+    try {
+      const res = await authService.forgot(email);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+      // console.log(err);
+    }
+  }
+);
+
+export const checkForgotPWAPI = createAsyncThunk(
+  "auth/forgot",
+  async ({ email, otp }, { rejectWithValue }) => {
+    try {
+      const res = await authService.checkForgot(email, otp);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+      // console.log(err);
+    }
+  }
+);
+
+export const resetPWAPI = createAsyncThunk(
+  "auth/forgot",
+  async ({ email, password, passwordagain }, { rejectWithValue }) => {
+    try {
+      const res = await authService.resetPW(email, password, passwordagain);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+      // console.log(err);
+    }
+  }
+);
+
 // Then, handle actions in your reducers:
 const authSlice = createSlice({
   name: "auth",

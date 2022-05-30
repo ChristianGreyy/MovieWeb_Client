@@ -47,16 +47,16 @@ const Header = () => {
             onClick={() => {
               navigate("/");
             }}
-            style={{ "margin-left": "227.2px" }}
+            style={{ marginLeft: "227.2px" }}
           >
             <strong>Trang chủ</strong>
           </li>
           <li>
             <strong>
               Thể loại
-              <i class="fa-solid fa-caret-down"></i>
               <i className="fa-solid fa-caret-down"></i>
-              <i class="fa-solid fa-caret-down"></i>
+              <i className="fa-solid fa-caret-down"></i>
+              <i className="fa-solid fa-caret-down"></i>
             </strong>
           </li>
           <li>
@@ -65,7 +65,7 @@ const Header = () => {
           <li>
             <strong>Phim lẻ</strong>
           </li>
-          <li style={{ "margin-right": "316.67px" }}>
+          <li style={{ marginRight: "316.67px" }}>
             <strong>TV Show</strong>
           </li>
         </ul>

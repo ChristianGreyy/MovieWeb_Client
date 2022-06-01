@@ -86,7 +86,7 @@ const Login = () => {
                   <div className="error">{formik.errors.username}</div>
                 ) : null}
               </div>
-              <div style={{ paddingTop: "18.92px" }} className="item">
+              <div style={{ paddingTop: "18.92px" }} className="item relative">
                 <input
                   style={{ marginTop: "12.167px" }}
                   type={eye ? "text" : "password"}
@@ -99,7 +99,7 @@ const Login = () => {
                 {!eye && (
                   <>
                     <div
-                      className="icon relative"
+                      className="icon absolute"
                       onClick={() => {
                         setEye(!eye);
                       }}
@@ -112,7 +112,7 @@ const Login = () => {
                 {eye && (
                   <>
                     <div
-                      className="icon relative"
+                      className="icon absolute"
                       onClick={() => {
                         setEye(!eye);
                       }}

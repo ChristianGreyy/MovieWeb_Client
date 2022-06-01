@@ -15,6 +15,13 @@ h1 {
     &_items {
       padding: 0 95.79px 52.72px 95.79px;
       .item {
+        .icon {
+          font-size: 20px;
+          left: 90%;
+          top: 43px;
+          cursor: pointer;
+        }
+
         .error {
           text-align: center;
           color: red;
@@ -34,13 +41,6 @@ h1 {
       height: 54.1px;
       padding: 8px 15px;
       border-radius: 10px;
-    }
-
-    .icon {
-      font-size: 20px;
-      left: 90%;
-      top: -40px;
-      cursor: pointer;
     }
 
     button {

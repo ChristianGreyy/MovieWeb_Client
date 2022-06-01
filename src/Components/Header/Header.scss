@@ -9,31 +9,19 @@
             background-color: #2f303a;
             margin-top: 32.44px;
             margin-left: 49.1px;
-            margin-right: 632.01px;
+            margin-right: 841.01px;
         }
 
         &_content {
-
-            &_search {
-                    left: 3.333343505859375px;
-                    top: 3.333251953125px;
-                    margin-right: 24.5px;
-                    margin-top: 45.51px;
-                &_input {
-                    margin-right: 10px;
-                    margin-top: -3px;
-                }
-
-                input {
-                    padding: 4px 14px;
-                    border-radius: 30px;
-                }
-
-                &_icon {
-                    height: 31.18000030517578px;
-                    width: 31.178335189819336px;
-                    color: #fff;
-                }
+            &_icon {
+                color: #fff;
+                height: 31.18000030517578px;
+                width: 31.178335189819336px;
+                left: 3.333343505859375px;
+                top: 3.333251953125px;
+                border-radius: 0px;
+                margin-right: 24.5px;
+                margin-top: 45.51px;
             }
 
             &_buy {

@@ -8,7 +8,9 @@ import Check from "./Check";
 import CheckComple from "./CheckComple";
 import { registerAPI } from "../../redux/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { unwrapResult } from "@reduxjs/toolkit";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Register = () => {
   //modal check đăng ký
   const [modal, setModal] = useState(false);
@@ -21,6 +23,14 @@ const Register = () => {
   };
 
   const dispatch = useDispatch();
+
+  const notify = (msg, status) => {
+    if (status === "error") {
+      toast.error(msg);
+    } else {
+      toast.success(msg);
+    }
+  };
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -54,22 +64,28 @@ const Register = () => {
         .required("Không được để trống ô này!"),
     }),
     onSubmit: async (values) => {
-      const result = await dispatch(
-        registerAPI({
-          username: formik.values.username,
-          email: formik.values.email,
-          password: formik.values.password,
-          passwordagain: formik.values.passwordagain,
-        })
-      );
+      try {
+        const result = await dispatch(
+          registerAPI({
+            username: formik.values.username,
+            email: formik.values.email,
+            password: formik.values.password,
+            passwordagain: formik.values.passwordagain,
+          })
+        );
 
-      // const data = unwrapResult(result);
-      // alert("Đã đăng nhập đúng");
-      // console.log(values.email);
-      setEmail(values.email);
-      setUsername(values.username);
-      setPassword(values.password);
-      setPasswordagain(values.passwordagain);
+        const data = unwrapResult(result);
+
+        // notify("Bạn đã đăng ký thành công, vùi lòng check email", "success");
+        setEmail(values.email);
+        setUsername(values.username);
+        setPassword(values.password);
+        setPasswordagain(values.passwordagain);
+        toggleModal();
+      } catch (err) {
+        notify(err.message, "error");
+        // console.log(err);
+      }
       // setEmail(values.email);
     },
   });
@@ -87,6 +103,8 @@ const Register = () => {
 
   return (
     <>
+      <ToastContainer />
+
       {/* weight: 1520
       height: 730 */}
 
@@ -207,28 +225,9 @@ const Register = () => {
               <p style={{ marginTop: "18.92px", color: '#ffffff61' }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
-              <p style={{ marginTop: "1px", cursor: 'pointer' }}>Chính sách và quy định</p>
-              <button
-                type="submit"
-                className="Register"
-                onClick={() => {
-                  if (
-                    formik.errors.email ||
-                    formik.errors.password ||
-                    formik.errors.passwordagain ||
-                    formik.errors.username
-                  ) {
-                    return;
-                  } else if (
-                    email === "" ||
-                    password === "" ||
-                    username === "" ||
-                    passwordagain === ""
-                  )
-                    return;
-                  else toggleModal();
-                }}
-              >
+
+              <p style={{ marginTop: "1px" }}>Chính sách và quy định</p>
+              <button type="submit" className="Register">
                 Đăng ký
               </button>
             </form>
@@ -249,6 +248,7 @@ const Register = () => {
           modal={modal}
           setModal={setModal}
           toggleModal={toggleModal}
+          notify={notify}
         />
       )}
       {/* {modal && (

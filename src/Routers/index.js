@@ -11,3 +11,4 @@ export const publicRoutes = [
     {path: '/register', component: Register},
     {path: '/InfoFilm', component: InfoFilm}
 ];
+

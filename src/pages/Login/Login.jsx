@@ -5,6 +5,9 @@ import "./Login.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
@@ -13,6 +16,8 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import ForgetPassWord from "../ForgetPassWord/ForgetPassWord";
 import { setToken } from "../../redux/tokenSlice";
 import { tokenService } from "../../services";
+
+// import AuthToast from "../../Components/Toast/AuthToast";
 
 const Login = () => {
   const accessToken = tokenService.getCookie("accessToken");
@@ -25,6 +30,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [eye, setEye] = useState(false);
 
+  const notify = (err) => toast.error(err);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -35,24 +42,29 @@ const Login = () => {
       password: Yup.string().required("Không được để trống ô này"),
     }),
     onSubmit: async (values) => {
-      const result = await dispatch(
-        loginAPI({
-          username: formik.values.username,
-          password: formik.values.password,
-        })
-      );
-      const data = unwrapResult(result);
-      tokenService.setCookie(
-        "accessToken",
-        "bearer " + data.access.token,
-        10 * 60 * 1000
-      );
-      tokenService.setCookie(
-        "refreshToken",
-        "bearer " + data.refresh.token,
-        2 * 24 * 60 * 60 * 1000
-      );
-      navigate("/");
+      try {
+        const result = await dispatch(
+          loginAPI({
+            username: formik.values.username,
+            password: formik.values.password,
+          })
+        );
+        const data = unwrapResult(result);
+        tokenService.setCookie(
+          "accessToken",
+          "bearer " + data.access.token,
+          10 * 60 * 1000
+        );
+        tokenService.setCookie(
+          "refreshToken",
+          "bearer " + data.refresh.token,
+          2 * 24 * 60 * 60 * 1000
+        );
+        navigate("/");
+      } catch (err) {
+        console.log(err);
+        notify(err.message);
+      }
     },
   });
 
@@ -62,6 +74,18 @@ const Login = () => {
 
   return (
     <div>
+      {/* <AuthToast err="sai mat khau" /> */}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Header />
       <Body>
         <div className="container flex flex-col items-center">

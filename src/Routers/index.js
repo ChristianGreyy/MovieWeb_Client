@@ -5,10 +5,9 @@ import Register from "../pages/Register/Register";
 import InfoFilm from "../pages/InfoFilm/index";
 
 export const publicRoutes = [
-    {path: '/', component: Home},
-    {path: '/login', component: Login},
-    {path: '/forget', component: ForgetPassWord},
-    {path: '/register', component: Register},
-    {path: '/InfoFilm', component: InfoFilm}
+  { path: "/", component: Home },
+  { path: "/login", component: Login },
+  { path: "/forget", component: ForgetPassWord },
+  { path: "/register", component: Register },
+  { path: "/InfoFilm/:movieId", component: InfoFilm },
 ];
-

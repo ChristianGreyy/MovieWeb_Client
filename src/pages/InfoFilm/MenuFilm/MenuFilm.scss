@@ -1,60 +1,68 @@
 .container-menu {
-    width: 388px;
-    height: 582.22px;
-    background-color: #545562;
-    
-    &_main { 
-        margin-left: 24px; 
-        &_header {
-            h1 {
-                font-size: 24px;
-                font-weight: 600;
-                text-align: start;
-            }
-        }
+  width: 388px;
+  height: 582.22px;
+  background-color: #545562;
 
-        &_scroolbar {
-            max-height: 480px;
-            display: block;
-            overflow-y: scroll;
-            &::-webkit-scrollbar {
-                width: 6px;
-                background-color: #000;
-            }
-            &::-webkit-scrollbar-thumb {
-                background-color: #CAC1C1;
-                border-radius: 10px;
-            }
-        }
+  &_main {
+    margin-left: 24px;
+    &_header {
+      h1 {
+        font-size: 24px;
+        font-weight: 600;
+        text-align: start;
+      }
     }
+
+    &_scroolbar {
+      max-height: 480px;
+      display: block;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 6px;
+        background-color: #000;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #cac1c1;
+        border-radius: 10px;
+      }
+    }
+  }
 }
 
 .menu-film {
-    cursor: pointer;
-    margin-top: 17.78px;
-    margin-right: 30px;
-    padding-bottom: 12.44px;
-    border-bottom: 1px solid #E1D9D9;
-    .avatar {
-        width: 62px;
-        height: 69.333px;
-        background-color: #CAC1C1;
-        margin-right: 17px;
+  cursor: pointer;
+  margin-top: 17.78px;
+  margin-right: 30px;
+  padding-bottom: 12.44px;
+  border-bottom: 1px solid #e1d9d9;
+  .avatar {
+    width: 62px;
+    height: 69.333px;
+    background-color: #cac1c1;
+    margin-right: 17px;
+  }
+
+  .content-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title,
+    .content-subName {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 25.78px;
     }
 
-    .content-menu {
-        .title, .content-subName {
-            font-size: 22px;
-            font-weight: 400;
-            line-height: 25.78px;
-        }
-
-        .title {
-            color: #F5B028;
-        }
-
-        .content-subName {
-            color: #fff;
-        }
+    .title {
+      color: #f5b028;
+      font-size: 18px;
     }
+
+    .content-subName {
+      margin-top: 4px;
+      color: #fff;
+      font-size: 18px;
+    }
+  }
 }

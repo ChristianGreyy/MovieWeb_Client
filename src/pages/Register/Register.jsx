@@ -204,10 +204,10 @@ const Register = () => {
                 ) : null}
               </div>
 
-              <p style={{ marginTop: "18.92px" }}>
+              <p style={{ marginTop: "18.92px", color: '#ffffff61' }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
-              <p style={{ marginTop: "1px" }}>Chính sách và quy định</p>
+              <p style={{ marginTop: "1px", cursor: 'pointer' }}>Chính sách và quy định</p>
               <button
                 type="submit"
                 className="Register"

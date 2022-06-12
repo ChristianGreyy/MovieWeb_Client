@@ -4,10 +4,21 @@ import * as Yup from "yup";
 import ChangePassWord from "./ChangePassWord";
 import "./ForgetPassWord.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { checkForgotPWAPI } from "../../redux/auth/authSlice";
+import { checkForgotPWAPI, forgotPWAPI } from "../../redux/auth/authSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { setToken } from "../../redux/tokenSlice";
 
 const CheckOTP = (props) => {
+  const notify = (msg, status) => {
+    if (status === "error") {
+      toast.error(msg);
+    } else {
+      toast.success(msg);
+    }
+  };
+
   const { toggleModal, email, modal, setModal } = props;
   const arr = email.split("");
   for (let i = 3; i < arr.length - 10; i++) {
@@ -38,12 +49,12 @@ const CheckOTP = (props) => {
     }),
     onSubmit: async (values) => {
       if (formik.values.OTP !== otp) {
-        alert("OTP không hợp lệ");
+        notify("Mã OTP không hợp lệ hoặc đã hết hạn", "error");
         return;
       }
 
       try {
-        console.log(email, formik.values.OTP);
+        // console.log(email, formik.values.OTP);
         const result = await dispatch(
           checkForgotPWAPI({
             email: email,
@@ -55,12 +66,30 @@ const CheckOTP = (props) => {
         toggleOTP();
       } catch (err) {
         console.log(err);
+        notify(err.message, "error");
       }
     },
   });
 
+  const handleClickAgain = async () => {
+    try {
+      const result = await dispatch(
+        forgotPWAPI({
+          email: email,
+        })
+      );
+      const res = unwrapResult(result);
+      notify("Mã OTP đã được gửi, vui lòng kiểm tra email", "success");
+      dispatch(setToken(res.data.emailToken));
+    } catch (err) {
+      notify(err.message, "error");
+      console.log(err);
+    }
+  };
+
   return (
     <div>
+      <ToastContainer />
       <div ref={modalRef} className="modal">
         <div style={{ margin: "162.22px 416px" }} className="modal_container">
           <div className="modal_container_header relative">
@@ -89,7 +118,11 @@ const CheckOTP = (props) => {
                 </p>
               </div>
               <div className="button_OTP flex justify-around">
-                <button type="submit" className="button_OTP_again">
+                <button
+                  type="button"
+                  className="button_OTP_again"
+                  onClick={handleClickAgain}
+                >
                   Gửi lại
                 </button>
                 <button type="submit" className="button_OTP_check">

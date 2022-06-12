@@ -11,9 +11,17 @@ import ChangePassWordComple from "./ChangePassWordComple";
 import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { setToken } from "../../redux/tokenSlice";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ForgetPassWord = () => {
   const dispatch = useDispatch();
+  const notify = (msg, status) => {
+    if (status === "error") {
+      toast.error(msg);
+    } else {
+      toast.success(msg);
+    }
+  };
 
   // Modal forgetPassword
   const [modal, setModal] = useState(false);
@@ -38,9 +46,11 @@ const ForgetPassWord = () => {
         );
         const res = unwrapResult(result);
         console.log(res.data.emailToken);
+        notify("Mã OTP đã được gửi, vui lòng kiểm tra email", "success");
         dispatch(setToken(res.data.emailToken));
         toggleModal();
       } catch (err) {
+        notify(err.message, "error");
         console.log(err);
       }
     },
@@ -48,6 +58,17 @@ const ForgetPassWord = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Header />
       <Body>
         <div className="container flex flex-col items-center">

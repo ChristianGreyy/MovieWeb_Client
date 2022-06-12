@@ -6,10 +6,8 @@ export const loginAPI = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const res = await authService.login(username, password);
-
       return res.data.token;
     } catch (err) {
-      console.log(err.response.data);
       return rejectWithValue(err.response.data);
     }
   }
@@ -17,7 +15,7 @@ export const loginAPI = createAsyncThunk(
 
 export const registerAPI = createAsyncThunk(
   "auth/register",
-  async ({ username, email, password, passwordagain }) => {
+  async ({ username, email, password, passwordagain }, { rejectWithValue }) => {
     try {
       const res = await authService.register(
         username,
@@ -25,12 +23,9 @@ export const registerAPI = createAsyncThunk(
         password,
         passwordagain
       );
-
-      console.log(res);
-
-      // return res.data.token;
+      return res;
     } catch (err) {
-      console.log(err);
+      return rejectWithValue(err.response.data);
     }
   }
 );

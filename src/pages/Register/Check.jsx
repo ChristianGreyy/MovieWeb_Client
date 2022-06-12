@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 const Check = (props) => {
   const dispatch = useDispatch();
-  const { toggleModal, email } = props;
+  const { toggleModal, email, notify } = props;
   const arr = email.split("");
   for (let i = 3; i < arr.length - 10; i++) {
     arr[i] = "*";
@@ -21,6 +21,7 @@ const Check = (props) => {
         passwordagain: props.passwordagain,
       })
     );
+    notify("Bạn đã đăng ký thành công, vùi lòng check email", "success");
   };
 
   return (
@@ -42,8 +43,8 @@ const Check = (props) => {
           </p>
           <button
             style={{ margin: "0 259.67px 33.12px 218px" }}
-            type="submit"
             className="again"
+            onClick={handleSubmitAgain}
           >
             Gửi lại
           </button>

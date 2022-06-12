@@ -152,7 +152,7 @@ const Login = () => {
                 ) : null}
               </div>
 
-              <p onClick={handleClickForget} style={{ cursor: "pointer" }}>
+              <p onClick={handleClickForget} style={{ cursor: "pointer", marginTop: '15px' }}>
                 Quên mật khẩu?
               </p>
 

@@ -1,0 +1,123 @@
+.container__transaction {
+  padding: 0 100px;
+  h2 {
+    color: white;
+    font-size: 30px;
+  }
+  .form-transaction {
+    // height: 700px;
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    .form-transaction__left {
+      width: 60%;
+
+      .form-transaction__left-top {
+        background-color: #41424f;
+        padding: 12px;
+        h4 {
+          color: white;
+          font-size: 20px;
+        }
+        ul {
+          li {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            background-color: #2f303a;
+            padding: 12px;
+            border-radius: 6px;
+            .price {
+              font-size: 14px;
+            }
+            .form-check {
+              input {
+              }
+              label {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+
+      .form-transaction__left-bottom {
+        margin-top: 30px;
+        background-color: #41424f;
+        padding: 12px;
+        h4 {
+          color: white;
+          font-size: 20px;
+        }
+
+        ul {
+          li {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            background-color: #2f303a;
+            padding: 12px;
+            border-radius: 6px;
+            position: relative;
+            .form-check {
+              display: flex;
+              align-items: center;
+              img {
+                width: 50px;
+                height: 50px;
+                border-radius: 6px;
+              }
+              input {
+                position: absolute;
+                right: 4px;
+              }
+              label {
+                color: white;
+                margin-left: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .form-transaction__right {
+      background-color: #41424f;
+      padding: 12px;
+      width: 34%;
+
+      h4 {
+        color: white;
+        font-size: 20px;
+      }
+      ul {
+        margin-top: 12px;
+        li {
+          display: flex;
+          margin-top: 8px;
+          justify-content: space-between;
+          align-items: center;
+          h4 {
+            color: #9c9c9c;
+            font-size: 18px;
+          }
+          div {
+            color: white;
+          }
+        }
+      }
+      .button {
+        display: flex;
+        margin-top: 30px;
+        justify-content: center;
+        button {
+          background-color: #f34a14;
+          color: white;
+          height: 50px;
+          width: 200px;
+          border-radius: 36px;
+        }
+      }
+    }
+  }
+}

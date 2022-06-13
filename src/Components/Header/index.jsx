@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import "./Header.scss";
 
 const Header = () => {
@@ -8,7 +8,11 @@ const Header = () => {
   return (
     <div className="header">
       <div className="title flex flex-row">
-        <div className="title_avatar"></div>
+        <div className="title_avatar">
+          <Link to="/" style={{ width: "100%" }}>
+            <img src="/logo.png" style={{ width: "100%" }} />
+          </Link>
+        </div>
 
         <div className="title_content flex justify-around">
           <div className="title_content_icon">
@@ -17,7 +21,11 @@ const Header = () => {
 
           <div className="title_content_buy">
             <button>
-              <strong>MUA GÓI</strong>
+              <strong>
+                <Link to="/transaction" style={{ width: "100%" }}>
+                  MUA GÓI
+                </Link>
+              </strong>
             </button>
           </div>
 
@@ -46,13 +54,19 @@ const Header = () => {
           <li>
             <strong>
               Thể loại
-              <i className="fa-solid fa-caret-down"></i>
+              <i
+                style={{ marginLeft: "6px" }}
+                className="fa-solid fa-caret-down"
+              ></i>
             </strong>
           </li>
           <li>
             <strong>
               Quốc gia
-              <i className="fa-solid fa-caret-down"></i>
+              <i
+                style={{ marginLeft: "6px" }}
+                className="fa-solid fa-caret-down"
+              ></i>
             </strong>
           </li>
           <li>

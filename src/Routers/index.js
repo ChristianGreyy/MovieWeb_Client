@@ -3,6 +3,7 @@ import ForgetPassWord from "../pages/ForgetPassWord/ForgetPassWord";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import InfoFilm from "../pages/InfoFilm/index";
+import WatchFilm from "../pages/WatchFilm/WatchFilm";
 
 export const publicRoutes = [
   { path: "/", component: Home },
@@ -10,4 +11,5 @@ export const publicRoutes = [
   { path: "/forget", component: ForgetPassWord },
   { path: "/register", component: Register },
   { path: "/InfoFilm/:movieId", component: InfoFilm },
+  {path: "/Watch", component: WatchFilm}
 ];

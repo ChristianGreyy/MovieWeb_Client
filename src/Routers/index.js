@@ -12,6 +12,6 @@ export const publicRoutes = [
   { path: "/forget", component: ForgetPassWord },
   { path: "/register", component: Register },
   { path: "/transaction", component: Transaction },
-  { path: "/InfoFilm/:movieId", component: InfoFilm },
-  { path: "/Watch", component: WatchFilm },
+  { path: "/infoFilm/:movieId", component: InfoFilm },
+  { path: "/watch/:movieId", component: WatchFilm },
 ];

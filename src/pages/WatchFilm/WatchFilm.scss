@@ -1,5 +1,50 @@
-.name {
-    padding-top: 57.43px;
-    margin-left: 120px;
-    border: 1px solid #333;
+.video__container {
+  padding: 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .video__play {
+    display: flex;
+    justify-content: center;
+    padding-top: 60px;
+    width: 1200px;
+  }
+
+  .video__description {
+    margin-top: 40px;
+    width: 1200px;
+
+    .video__heading {
+      color: white;
+      font-size: 28px;
+    }
+
+    .video__all {
+      font-size: 18px;
+      color: white;
+      width: 250px;
+      height: 50px;
+      display: flex;
+      margin-top: 6px;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid red;
+    }
+
+    .video__episode-container {
+      display: flex;
+      justify-content: space-around;
+
+      .video__episode-item {
+        font-size: 18px;
+        color: white;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        padding: 4px;
+        background-color: #666878;
+      }
+    }
+  }
 }

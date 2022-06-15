@@ -6,7 +6,7 @@ import "./Header.scss";
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div className="header">
+    <div className="header fixed">
       <div className="title flex flex-row">
         <div className="title_avatar">
           <Link to="/" style={{ width: "100%" }}>

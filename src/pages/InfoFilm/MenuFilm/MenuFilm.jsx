@@ -25,12 +25,12 @@ const film = [
   <MenuContent />,
 ];
 
-const MenuFilm = () => {
+const MenuFilm = ({contentFilm}) => {
   return (
     <div className="container-menu">
       <div className="container-menu_main">
         <header className="container-menu_main_header">
-          <h1>Phim sắp chiếu</h1>
+          <h1>{contentFilm}</h1>
         </header>
 
         <div className="container-menu_main_scroolbar">

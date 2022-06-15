@@ -6,9 +6,12 @@
   &_main {
     margin-left: 24px;
     &_header {
-      h1 {
+      >h1 {
         font-size: 24px;
         font-weight: 600;
+        color: #fff;
+        padding-top: 19.56px;
+        padding-bottom: 10px;
         text-align: start;
       }
     }

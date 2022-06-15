@@ -6,4 +6,12 @@
      .introduction {
           margin-left: 200px;
      }
+
+     .menu {
+          &-list {
+               &:last-child {
+                    margin-top: 50px;
+               }
+          }
+     }
 }

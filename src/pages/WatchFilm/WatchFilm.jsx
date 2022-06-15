@@ -55,6 +55,55 @@ const WatchFilm = () => {
             <div className="video__all">Tập 1 - Tập 16</div>
             <div className="video__episode-container">
               <div className="video__episode-item">Tập 1</div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 2
+              </div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 3
+              </div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 4
+              </div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 5
+              </div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 6
+              </div>
+              <div className="video__episode-item">Tập 7</div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 8
+              </div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 9
+              </div>
+              <div
+                style={{ marginLeft: "30px" }}
+                className="video__episode-item"
+              >
+                Tập 10
+              </div>
             </div>
           </div>
         </div>

@@ -50,6 +50,8 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -62,6 +64,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -74,6 +77,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -86,6 +90,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -98,6 +103,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -114,6 +120,7 @@ const MovieNominations = () => {
           </div>
           <div className="carousel-item item-film relative float-left w-full">
             <div className="menu flex gap-x-8">
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -126,6 +133,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -138,6 +146,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -150,6 +159,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -162,6 +172,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -174,6 +185,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -190,6 +202,7 @@ const MovieNominations = () => {
           </div>
           <div className="carousel-item relative item-film float-left w-full">
             <div className="menu flex gap-x-8">
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -202,6 +215,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -214,6 +228,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -226,6 +241,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -238,6 +254,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">
@@ -250,6 +267,7 @@ const MovieNominations = () => {
                   <p>Nhật thực <br /> <span style={{fontWeight: '400'}}>Eclipse(2021)</span></p>
                 </div>
               </div>
+
               <div className="film-list relative">
                 <div className="post absolute top-0 bottom-0 left-0 right-0"></div>
                 <div className="avt">

@@ -3,6 +3,9 @@ import "./Introduction.scss";
 import axios from "axios";
 import { movieService } from "../../../services";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { commentService } from "../../../services";
 
 const Introduction = () => {
   const likeRef = useRef(null);
@@ -10,30 +13,103 @@ const Introduction = () => {
   const cmtRef = useRef(null);
 
   const handleLike = (a) => {
-    console.log(a.current);
-    a.current.style.color = 'red';
-  }
+    // console.log(a.current);
+    a.current.style.color = "red";
+  };
 
   const handlecmt = () => {
-    cmtRef.current.style.display = 'flex';
-  }
+    cmtRef.current.style.display = "flex";
+  };
 
   // Thiết kế: 1520 x 885
   //
   const [movie, setMovie] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [comments, setComments] = useState([]);
+  const urlSlice = useSelector((state) => state.url);
+  const socketSlice = useSelector((state) => state.socket);
 
   let { movieId } = useParams();
 
-  // const movieId = "62a5fd2b30383c765af36bd4";
+  const episode_Number = (length, videos, isVip) => {
+    let ans = [];
+    if (!isVip) {
+      for (let i = 0; i < length; i++) {
+        if (isVip == false) {
+          const link =
+            videos[i]?.episode == i + 1 && videos[i]?.isVip == isVip
+              ? `/watch/${movieId}/${videos[i].episode}`
+              : `/watch/${movieId}${i + 1}`;
 
+          ans.push(
+            <button key={i}>
+              <Link
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                  lineHeight: "30px",
+                }}
+                to={link}
+              >
+                {i + 1}
+              </Link>
+            </button>
+          );
+        }
+      }
+      return ans;
+    } else {
+      for (let i = 0; i < length; i++) {
+        if (videos[i]?.isVip == true) {
+          const link =
+            videos[i]?.episode == i + 1 && videos[i]?.isVip == isVip
+              ? `/watch/${movieId}/${videos[i].episode}`
+              : `/watch/${movieId}${i + 1}`;
+          ans.push(
+            <button key={i}>
+              <Link
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                  lineHeight: "30px",
+                }}
+                to={link}
+              >
+                {i + 1}
+              </Link>
+            </button>
+          );
+        }
+      }
+      return ans;
+    }
+  };
   useEffect(() => {
-    const getMovie = (async () => {
+    (async () => {
       const response = await movieService.getMovieById(movieId);
       setMovie(response.data.data.movie);
+      const responseVideo = await movieService.getVideosById(movieId);
+      setVideos(responseVideo.data.data);
+      // console.log(commentService);
+      const responseComments = await commentService.getComments(movieId);
+      setComments(responseComments.data.data.comment);
     })();
   }, []);
 
-  // console.log(movie.user_stars.length);
+  const handleComment = (e) => {
+    if (e.which == 13) {
+      socketSlice.socket.emit("client-to-server-comment", {
+        movieId: e.target.value,
+        content: e.target.value,
+      });
+
+      alert("enter");
+    }
+  };
+
+  console.log(comments);
 
   return (
     <div className="container-introduct">
@@ -45,12 +121,12 @@ const Introduction = () => {
           <div className="avatar-film">
             <img
               style={{ width: "100%", height: "100%" }}
-              src={movie && "http://localhost:8080/" + movie.image}
+              src={movie && urlSlice.urlServer + movie.image}
             />
           </div>
 
           <div className="watch">
-            <button>XEM PHIM</button>
+            <Link to={"/watch/" + movie._id + "/1"}>XEM PHIM</Link>
           </div>
         </div>
 
@@ -102,35 +178,25 @@ const Introduction = () => {
 
       <div className="footer">
         <div className=" VIP VIP1 flex">
-          <p>V.I.P 1:</p>
+          <p>V.I.P 0:</p>
           <div className="series flex flex-row-reverse">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button>10</button>
-            <button>11</button>
-            <button>12</button>
+            {episode_Number(movie.episodeNumber, videos, false)}
           </div>
         </div>
 
         <div className="VIP VIP2 flex">
-          <p>V.I.P 2:</p>
+          <p>V.I.P 1:</p>
           <div className="series flex">
-            <button>13</button>
-            <button>14</button>
+            {episode_Number(movie.episodeNumber, videos, true)}
           </div>
         </div>
 
         <div className="content">
           <p>Nội dung phim</p>
           <div className="container-film flex">
-            <div className="avatar"></div>
+            <div className="avatar">
+              <img src={movie && urlSlice.urlServer + movie.image} />
+            </div>
             <div className="content_film">
               <h1>{movie && movie.name}</h1>
               {/* <h1>Tình yêu từ 0 đến 1</h1> */}
@@ -142,11 +208,7 @@ const Introduction = () => {
                   fontWeight: "400",
                 }}
               >
-                Tình yêu Từ 0 Đến 1, Fall In Love (2022) Đại tiểu thư ngạo kiều
-                Cảnh Tri Hạ gặp phải chàng CEO hai nhân cách ngang ngược Phó
-                Trạch Nhất và bắt đầu cho một "tam giác tình" ngọt ngào cay
-                đáng. Nam nữ mạnh mẽ dứt khoát, xây dựng nên tình yêu của những
-                người trưởng thành.
+                {movie && movie.description}
               </p>
             </div>
           </div>
@@ -154,8 +216,8 @@ const Introduction = () => {
           <div className="key-word">
             <p>Từ khóa: </p>
             <div className="key flex">
-              <p>Tình yêu từ 0 đến 1</p>
-              <p>Fall in love (2022)</p>
+              <p>{movie && movie.name}</p>
+              <p>{movie && movie.english_name}(2002)</p>
             </div>
           </div>
         </div>
@@ -165,7 +227,7 @@ const Introduction = () => {
 
           <div className="container">
             <div className="head flex justify-between">
-              <p>3 bình luận</p>
+              <p>{comments.length} bình luận</p>
 
               <div className="sort">
                 <label style={{ marginRight: "5px" }} htmlFor="sort">
@@ -182,59 +244,131 @@ const Introduction = () => {
               {/* Viết cmt */}
               <div className="write-comment flex">
                 <div className="avt"></div>
-                <input type="text" placeholder="Viết bình luận" />
+                <input
+                  type="text"
+                  placeholder="Viết bình luận"
+                  onKeyDown={handleComment}
+                />
               </div>
 
               <div className="scroll-cmt">
-
-                {/* cmt */}
                 <div className="comment-list">
-                  <div className="comment-list_main">
-                    <div className="comment-list_main_head flex">
-                      <div className="avt"></div>
-                      <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        Error blanditiis quo debitis nisi. Quam odio est voluptas
-                        cumque ipsum sed nisi veniam quos! Sint nostrum soluta iste
-                        voluptatem, tempora totam!
-                      </p>
-                    </div>
-                    
-                                    {/* icon */}
-                    <div className="comment-list_icon flex">
-                      <div onClick={() => handleLike(likeRef)} className="cmt comment-list_icon_like"><i ref={likeRef} class="fa-solid fa-heart"></i></div>
-                      <div onClick={handlecmt} className="cmt comment-list_icon_asw"><i class="fa-solid fa-comment-dots"></i></div>
-                    </div>
-                  </div>
+                  {/* cmt */}
+                  {comments &&
+                    comments.map((cmt) => {
+                      if (!cmt.origin) {
+                        return (
+                          <>
+                            <div className="comment-list_main">
+                              <div className="comment-list_main_head">
+                                <div className="comment__info flex">
+                                  <Link to={`/user/${cmt.user._id}`}>
+                                    <img
+                                      className="avt"
+                                      src={urlSlice.urlServer + cmt.user.avatar}
+                                    />
+                                  </Link>
+                                  <div className="comment__info-des">
+                                    <h4 className="comment__info-name">
+                                      <Link to={`/user/${cmt.user._id}`}>
+                                        {cmt.user.username}
+                                      </Link>
+                                    </h4>
+                                    <p>{cmt.content}</p>
+                                  </div>
+                                </div>
+                              </div>
 
-                  {/* Trả lời cmt */}
-                  <div ref={cmtRef} className="asw flex">
-                    <div className="avt"></div>
-                    <input type="text" placeholder="Viết bình luận" />
-                  </div>
+                              {/* icon */}
+                              <div className="comment-list_icon flex">
+                                <div
+                                  onClick={() => handleLike(likeRef)}
+                                  className="cmt comment-list_icon_like"
+                                >
+                                  <i
+                                    ref={likeRef}
+                                    className="fa-solid fa-heart"
+                                  ></i>
+                                </div>
+                                <div
+                                  onClick={handlecmt}
+                                  className="cmt comment-list_icon_asw"
+                                >
+                                  <i className="fa-solid fa-comment-dots"></i>
+                                </div>
+                              </div>
+                            </div>
 
-                  <div style={{marginLeft: '37px', paddingTop: '20px'}} className="comment-list_main">
-                    <div className="comment-list_main_head flex">
-                      <div className="avt"></div>
-                      <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        Error blanditiis quo debitis nisi. Quam odio est voluptas
-                        cumque ipsum sed nisi veniam quos! Sint nostrum soluta iste
-                        voluptatem, tempora totam!
-                      </p>
-                    </div>
-                    
-                                    {/* icon */}
-                    <div className="comment-list_icon flex">
-                      <div ref={likeRef} onClick={() => handleLike(likeRef)} className="cmt comment-list_icon_like"><i class="fa-solid fa-heart"></i></div>
-                      <div className="cmt comment-list_icon_asw"><i class="fa-solid fa-comment-dots"></i></div>
-                    </div>
-                  </div>
+                            <div ref={cmtRef} className="asw flex">
+                              <div className="avt"></div>
+                              <input type="text" placeholder="Viết bình luận" />
+                            </div>
+
+                            {comments &&
+                              comments.map((childCmt) => {
+                                if (childCmt.origin == cmt._id) {
+                                  return (
+                                    <div
+                                      className="comment-list_main"
+                                      style={{
+                                        marginLeft: "46px",
+                                        marginTop: "12px",
+                                      }}
+                                    >
+                                      <div className="comment-list_main_head">
+                                        <div className="comment__info flex">
+                                          <Link
+                                            to={`/user/${childCmt.user._id}`}
+                                          >
+                                            <img
+                                              className="avt"
+                                              src={
+                                                urlSlice.urlServer +
+                                                childCmt.user.avatar
+                                              }
+                                            />
+                                          </Link>
+                                          <div className="comment__info-des">
+                                            <h4 className="comment__info-name">
+                                              <Link
+                                                to={`/user/${childCmt.user._id}`}
+                                              >
+                                                {childCmt.user.username}
+                                              </Link>
+                                            </h4>
+                                            <p>{childCmt.content}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+
+                                      {/* icon */}
+                                      <div className="comment-list_icon flex">
+                                        <div
+                                          onClick={() => handleLike(likeRef)}
+                                          className="cmt comment-list_icon_like"
+                                        >
+                                          <i
+                                            ref={likeRef}
+                                            className="fa-solid fa-heart"
+                                          ></i>
+                                        </div>
+                                        <div
+                                          onClick={handlecmt}
+                                          className="cmt comment-list_icon_asw"
+                                        >
+                                          <i className="fa-solid fa-comment-dots"></i>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  );
+                                }
+                              })}
+                          </>
+                        );
+                      }
+                    })}
                 </div>
-
               </div>
-
-              
             </div>
           </div>
         </div>

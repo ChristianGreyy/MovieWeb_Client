@@ -53,7 +53,7 @@ const Login = () => {
         tokenService.setCookie(
           "accessToken",
           "bearer " + data.access.token,
-          10 * 60 * 1000
+          1 * 60 * 1000
         );
         tokenService.setCookie(
           "refreshToken",
@@ -152,7 +152,10 @@ const Login = () => {
                 ) : null}
               </div>
 
-              <p onClick={handleClickForget} style={{ cursor: "pointer", marginTop: '15px' }}>
+              <p
+                onClick={handleClickForget}
+                style={{ cursor: "pointer", marginTop: "15px" }}
+              >
                 Quên mật khẩu?
               </p>
 

@@ -84,9 +84,7 @@ const Register = () => {
         toggleModal();
       } catch (err) {
         notify(err.message, "error");
-        // console.log(err);
       }
-      // setEmail(values.email);
     },
   });
 
@@ -222,7 +220,7 @@ const Register = () => {
                 ) : null}
               </div>
 
-              <p style={{ marginTop: "18.92px", color: '#ffffff61' }}>
+              <p style={{ marginTop: "18.92px", color: "#ffffff61" }}>
                 Khi bấm vào nút đăng ký, bạn đã đồng ý với
               </p>
 

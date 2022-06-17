@@ -1,0 +1,39 @@
+.container__transaction-response {
+  display: flex;
+  justify-content: center;
+  .transaction__table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #41424f;
+    width: 600px;
+    height: 300px;
+    margin-top: 80px;
+
+    .transaction__icon {
+      width: 80px;
+      height: 80px;
+      font-size: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: greenyellow;
+      color: white;
+      margin-top: 18px;
+    }
+
+    .transaction__status {
+      color: greenyellow;
+      margin-top: 12px;
+      font-size: 32px;
+    }
+
+    .transaction__btn {
+      margin-top: 12px;
+      background-color: bisque;
+      color: blue;
+      padding: 4px 32px;
+    }
+  }
+}

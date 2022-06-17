@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { movieService } from "../../services";
+import { commentService } from "../../services";
 
-export const streamming = createAsyncThunk(
-  "/movie/streamming",
-  async ({ movieId }, { rejectWithValue }) => {
+export const postComment = createAsyncThunk(
+  "/movie/postComment",
+  async ({ content, commentId, movieId }, { rejectWithValue }) => {
     try {
-      const res = await movieService.streamming(movieId);
+      console.log(movieId);
+      const res = await commentService.postComment(content, commentId, movieId);
+      console.log(res);
       return res;
     } catch (err) {
       return rejectWithValue(err.response.data);

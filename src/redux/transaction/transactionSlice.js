@@ -13,3 +13,16 @@ export const createPaymentURL = createAsyncThunk(
     }
   }
 );
+
+export const response = createAsyncThunk(
+  "/transaction/response",
+  async ({ amount }, { rejectWithValue }) => {
+    try {
+      const res = await transactionService.response(amount);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+      // console.log(err);
+    }
+  }
+);

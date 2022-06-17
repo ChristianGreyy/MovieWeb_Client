@@ -1,5 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authService } from "../../services";
+import axios from "axios";
+
+export const resetAccessToken = createAsyncThunk(
+  "auth/resetAccessToken",
+  async ({ refreshToken }, { rejectWithValue }) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/auth/resetAccessToken",
+        {
+          refreshToken,
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const loginAPI = createAsyncThunk(
   "auth/login",
@@ -35,6 +53,7 @@ export const forgotPWAPI = createAsyncThunk(
   async ({ email }, { rejectWithValue }) => {
     try {
       const res = await authService.forgot(email);
+      console.log(res);
       return res;
     } catch (err) {
       return rejectWithValue(err.response.data);

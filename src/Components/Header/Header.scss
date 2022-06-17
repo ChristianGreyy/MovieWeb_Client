@@ -18,35 +18,77 @@
     }
 
     &_content {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
       &_icon {
         color: #fff;
-        height: 31.18000030517578px;
-        width: 31.178335189819336px;
-        left: 3.333343505859375px;
-        top: 3.333251953125px;
-        border-radius: 0px;
-        margin-right: 24.5px;
-        margin-top: 45.51px;
+        height: 46px;
+        display: flex;
+        width: 40px;
+        align-items: center;
         cursor: pointer;
+        font-size: 18px;
+      }
+
+      &_user {
+        cursor: pointer;
+        height: 46px;
+        width: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+
+      &_bell {
+        color: #fff;
+        height: 46px;
+        display: flex;
+        width: 40px;
+        align-items: center;
+        cursor: pointer;
+        font-size: 18px;
       }
 
       &_buy {
+        height: 46px;
+        width: 138px;
         button {
-          padding: 10.81px 37px 10.82px 37px;
+          width: 100%;
+          height: 100%;
+          // padding: 10.81px 37px 10.82px 37px;
           border-radius: 15px;
           color: #fff;
           background-color: #f34a14;
-          margin-top: 34.47px;
-          margin-right: 24.5px;
+          // margin-top: 34.47px;
+          // margin-right: 24.5px;
           &:hover {
             background-color: #f34c14cd;
+          }
+
+          a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
           }
         }
       }
 
       &_login {
+        height: 46px;
+        display: flex;
+        width: 120px;
+        justify-content: center;
+        align-items: center;
         color: #fff;
-        margin-top: 47.31px;
+        // margin-top: 47.31px;
         cursor: pointer;
       }
     }

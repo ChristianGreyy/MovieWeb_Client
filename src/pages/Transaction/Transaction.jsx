@@ -33,8 +33,8 @@ const Transaction = () => {
         })
       );
       const res = unwrapResult(result);
-      console.log(res.data.url);
-      window.location = res.data.url;
+      console.log(res.url);
+      window.location = res.url;
     } catch (err) {
       console.log(err);
       notify(err.message);

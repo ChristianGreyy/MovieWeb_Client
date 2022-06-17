@@ -6,7 +6,7 @@
   &_main {
     margin-left: 24px;
     &_header {
-      >h1 {
+      > h1 {
         font-size: 24px;
         font-weight: 600;
         color: #fff;
@@ -50,14 +50,14 @@
     flex-direction: column;
     justify-content: center;
 
-    .title,
+    .title-menu,
     .content-subName {
       font-size: 22px;
       font-weight: 400;
       line-height: 25.78px;
     }
 
-    .title {
+    .title-menu {
       color: #f5b028;
       font-size: 18px;
     }

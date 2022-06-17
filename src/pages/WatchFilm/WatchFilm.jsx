@@ -9,15 +9,16 @@ import { useParams } from "react-router-dom";
 import { movieService } from "../../services";
 
 const WatchFilm = () => {
-  const { movieId } = useParams();
+  const { movieId, episode } = useParams();
   let videoSrc = "";
+  console.log(movieId, episode);
 
   const video = useRef(null);
 
   useEffect(() => {
     const streamming = (async () => {
-      videoSrc = await movieService.streamming(movieId);
-      videoSrc = "http://localhost:8080/videos/" + videoSrc.data;
+      const res = await movieService.getVideo(movieId, episode);
+      videoSrc = "http://localhost:8080/videos/" + res.src;
       console.log(videoSrc);
 
       if (video.current) {

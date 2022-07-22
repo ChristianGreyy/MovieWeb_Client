@@ -72,7 +72,7 @@ axiosClient.interceptors.response.use(
           })
         );
         const data = unwrapResult(result);
-        console.log(data);
+        // console.log(data);
 
         originalConfig.headers.Authorization = `Bearer ${data.data.accessToken}`;
         return axiosClient(originalConfig);

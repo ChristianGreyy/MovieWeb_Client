@@ -16,7 +16,7 @@ function App() {
     (async () => {
       console.log(urlSlice.urlServer);
       const res = await axiosClient.get(`${urlSlice.urlServer}/api/user/info`);
-      console.log(res);
+      // console.log(res);
       dispatch(setUser(res.user));
     })();
   }, []);

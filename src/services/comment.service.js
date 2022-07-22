@@ -2,13 +2,13 @@ import axios from "axios";
 import axiosClient from "../api/axiosClient";
 
 const getComments = async (movieId) => {
-  return await axios.get(`http://localhost:8080/api/comment/${movieId}`);
+  return await axios.get(`https://localhost:8080/api/comment/${movieId}`);
 };
 
 const postComment = async (content, commentId, movieId) => {
   console.log("service comment");
   return await axiosClient.post(
-    `http://localhost:8080/api/comment/${movieId}`,
+    `https://localhost:8080/api/comment/${movieId}`,
     {
       content,
       commentId,
@@ -18,7 +18,7 @@ const postComment = async (content, commentId, movieId) => {
 
 const likeComment = async (commentId) => {
   return await axiosClient.put(
-    `http://localhost:8080/api/comment/${commentId}/like`,
+    `https://localhost:8080/api/comment/${commentId}/like`,
     {
       commentId,
     }

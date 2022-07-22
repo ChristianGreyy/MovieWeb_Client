@@ -19,6 +19,7 @@ const Comment = ({ movieId, comments, changeCommentSocket }) => {
 
   useEffect(() => {
     socket.on("server-to-client-comment", (value) => {
+      // console.log(value);
       changeCommentSocket();
     });
 

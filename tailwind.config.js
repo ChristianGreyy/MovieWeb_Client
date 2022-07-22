@@ -15,5 +15,9 @@ module.exports = {
     extend: {},
   },
   plugins: [require('tw-elements/dist/plugin')],
+<<<<<<< HEAD
 >>>>>>> 75a849c (Phim de cu)
 };
+=======
+};
+>>>>>>> a8f4612 (features/User)

@@ -1,0 +1,31 @@
+$black: #2F303A;
+$gray: #888888;
+
+.Box {
+    width: 300px;
+    padding: 10px 8px;
+    padding: 10px 8px;
+    background-color: $black;
+    border-radius: 5px;
+    box-shadow: 2px 1px 6px 3px #000;
+    margin-right: 50px;
+
+    &_icon {
+        color: #fff;
+        font-size: 29px;
+        padding-left: 8px;
+        padding-top: 6px;
+        margin-right: 20px;
+    }
+
+    &_content {
+        >h1 {
+            color: #fff;
+            font-size: 22px;
+        }
+        >.content {
+            color: $gray;
+            font-size: 18px;
+        }
+    }
+}

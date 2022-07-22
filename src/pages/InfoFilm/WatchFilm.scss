@@ -1,17 +1,21 @@
-.container {
-     .introduction, .menu {
-          margin-top: 40.542px;
-     }
+.container.container__info {
+  display: flex;
+  justify-content: center;
 
-     .introduction {
-          margin-left: 200px;
-     }
+  .introduction,
+  .menu {
+    margin-top: 40.542px;
+  }
 
-     .menu {
-          &-list {
-               &:last-child {
-                    margin-top: 50px;
-               }
-          }
-     }
+  .introduction {
+    // margin-left: 200px;
+  }
+
+  .menu {
+    &-list {
+      &:last-child {
+        margin-top: 50px;
+      }
+    }
+  }
 }

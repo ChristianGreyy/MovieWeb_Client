@@ -7,12 +7,12 @@ export const resetAccessToken = createAsyncThunk(
   async ({ refreshToken }, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/resetAccessToken",
+        "https://localhost:8080/api/auth/resetAccessToken",
         {
           refreshToken,
         }
       );
-      console.log(res);
+      return res;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }

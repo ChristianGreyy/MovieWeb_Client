@@ -13,31 +13,32 @@ import { Link, useNavigate } from "react-router-dom";
 const WatchFilm = () => {
   const { movieId, episode } = useParams();
   const [movie, setMovie] = useState([]);
-  let videoSrc = "";
-  console.log(movieId, episode);
+
+  // let videoSrc = "http://localhost:8080/videos/avatar.mp4";
 
   const video = useRef(null);
   const urlSlice = useSelector((state) => state.url);
-  const navigate = useNavigate("/");
+  const navigate = useNavigate("");
+  let videoSrc = `${urlSlice.urlServer}/api/movie/video/${movieId}/${episode}`;
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await movieService.getVideo(movieId, episode);
-        videoSrc = `${urlSlice.urlServer}/videos/${res.src}`;
+        // const res = await movieService.getVideo(movieId, episode);
+        // console.log(res);
+        // videoSrc = `${urlSlice.urlServer}/videos/${res.src}`;
         // console.log(videoSrc);
-
-        if (video.current) {
-          if (video.current.canPlayType("application/vnd.apple.mpegurl")) {
-            video.current.src = videoSrc;
-          } else if (Hls.isSupported()) {
-            var hls = new Hls();
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video.current);
-          }
-        }
+        // if (video.current) {
+        //   if (video.current.canPlayType("application/vnd.apple.mpegurl")) {
+        //     video.current.src = videoSrc;
+        //   } else if (Hls.isSupported()) {
+        //     var hls = new Hls();
+        //     hls.loadSource(videoSrc);
+        //     hls.attachMedia(video.current);
+        //   }
+        // }
       } catch (err) {
-        navigate("/");
+        navigate("/error/404");
         console.log(err);
       }
 
@@ -66,56 +67,6 @@ const WatchFilm = () => {
       }
     }
     return episodes;
-    /* <div className="video__episode-item">Tập 1</div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 2
-              </div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 3
-              </div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 4
-              </div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 5
-              </div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 6
-              </div>
-              <div className="video__episode-item">Tập 7</div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 8
-              </div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 9
-              </div>
-              <div
-                style={{ marginLeft: "30px" }}
-                className="video__episode-item"
-              >
-                Tập 10
-              </div> */
   };
 
   return (
@@ -136,10 +87,90 @@ const WatchFilm = () => {
           </div>
           <div className="video__description">
             <h4 className="video__heading">Tập phim</h4>
-            <div className="video__all">Tập 1 - Tập 16</div>
+            <div className="video__all">Tập 1 - Tập {movie.episodeNumber}</div>
             <div className="video__episode-container">
               {handleEpisode(movie)}
             </div>
+          </div>
+          <div className="video__information">
+            <div className="video__information-left">
+              <img
+                src={`${urlSlice.urlServer}${movie.image}`}
+                className="video__information-left-img"
+              />
+              <div className="video__information-left-des">
+                <div className="video__information-left-des-name">
+                  {movie.name}
+                </div>
+                <div className="video__information-left-des-name-eng">
+                  {movie.english_name} (2022)
+                </div>
+                <div className="video__information-left-des-button">
+                  <div
+                    to="/"
+                    className="video__information-left-des-button-item video__information-left-des-button-follow"
+                  >
+                    <div className="video__information-left-des-button-item-icon">
+                      <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <div className="video__information-left-des-button-item-des">
+                      Theo dõi
+                    </div>
+                  </div>
+                  <div
+                    style={{ marginLeft: "12px" }}
+                    to="/"
+                    className="video__information-left-des-button-item video__information-left-des-button-share"
+                  >
+                    <div className="video__information-left-des-button-item-icon">
+                      <i class="fa-solid fa-share-nodes"></i>{" "}
+                    </div>
+                    <div className="video__information-left-des-button-item-des">
+                      Chia sẻ
+                    </div>
+                  </div>
+                </div>
+                <div className="video__information-left-des-text">
+                  {movie.description}
+                </div>
+              </div>
+            </div>
+            <ul className="video__information-right">
+              <li className="video__information-right-item">
+                <div className="video__information-right-item-key">Stars:</div>
+                <div className="video__information-right-item-value">
+                  {movie.stars}
+                </div>
+              </li>
+              <li className="video__information-right-item">
+                <div className="video__information-right-item-key">Số tập:</div>
+                <div className="video__information-right-item-value">
+                  {`${episode}/${movie.episodeNumber}`}
+                </div>
+              </li>
+              <li className="video__information-right-item">
+                <div className="video__information-right-item-key">
+                  Thể loại:
+                </div>
+                <div className="video__information-right-item-value">
+                  {movie?.category && movie.category.slice(0, 20) + "..."}
+                </div>
+              </li>{" "}
+              <li className="video__information-right-item">
+                <div className="video__information-right-item-key">
+                  Quốc gia:
+                </div>
+                <div className="video__information-right-item-value">
+                  {movie.original}
+                </div>
+              </li>
+              <li className="video__information-right-item">
+                <div className="video__information-right-item-key">
+                  Phát hành:
+                </div>
+                <div className="video__information-right-item-value">2022</div>
+              </li>
+            </ul>
           </div>
         </div>
       </Body>

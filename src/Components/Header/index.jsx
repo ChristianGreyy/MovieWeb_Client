@@ -3,10 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Header.scss";
 import tokenService from "../../services/token.service";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const userSlice = useSelector((state) => state.user);
+  const urlSlice = useSelector((state) => state.url);
+
   const navigate = useNavigate();
   const refreshToken = tokenService.getCookie("refreshToken");
+
+  // console.log(userSlice.user.avatar);
 
   return (
     <div className="header fixed">
@@ -37,7 +43,7 @@ const Header = () => {
           {refreshToken && (
             <div className="title_content_user">
               <img
-                src="http://localhost:8080/avatars/default.jpg"
+                src={`${urlSlice.urlServer}${userSlice.user.avatar}`}
                 class="title_content_user-avatar"
               />
             </div>

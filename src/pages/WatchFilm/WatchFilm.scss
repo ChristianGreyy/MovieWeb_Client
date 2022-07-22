@@ -62,4 +62,102 @@
       }
     }
   }
+
+  .video__information {
+    width: 1200px;
+    display: flex;
+    align-items: center;
+
+    &-left {
+      width: 68%;
+      display: flex;
+
+      &-img {
+        border-radius: 8px;
+        width: 30%;
+        height: 300px;
+        background-color: #cac1c1;
+      }
+
+      &-des {
+        width: 68%;
+
+        margin-left: 30px;
+
+        &-name {
+          color: #f5b028;
+          font-weight: 600;
+          font-size: 32px;
+          text-align: start;
+          padding-top: 12px;
+        }
+
+        &-name-eng {
+          color: #fff;
+          font-size: 18px;
+          margin-top: 7px;
+        }
+
+        &-button {
+          margin-top: 12px;
+          display: flex;
+
+          &-item {
+            display: flex;
+            color: white;
+            width: 140px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            cursor: pointer;
+
+            &-icon {
+            }
+
+            &-des {
+              margin-left: 6px;
+            }
+          }
+
+          &-follow {
+            background-color: #666878;
+          }
+
+          &-share {
+            background-color: #f25624;
+          }
+        }
+
+        &-text {
+          margin-top: 24px;
+          color: white;
+        }
+      }
+    }
+
+    &-right {
+      padding-left: 90px;
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      width: 30%;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+
+        &-key {
+          width: 100px;
+          color: white;
+          font-weight: bold;
+        }
+        &-value {
+          color: #888888;
+        }
+      }
+    }
+  }
 }

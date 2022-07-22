@@ -11,7 +11,7 @@ const InfoFilm = () => {
     <div>
       <Header />
       <Body>
-        <div className="container flex gap-x-16">
+        <div className="container container__info flex gap-x-16">
           <div className="introduction">
             <Introduction />
           </div>

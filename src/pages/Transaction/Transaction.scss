@@ -1,5 +1,5 @@
 .container__transaction {
-  padding: 0 100px;
+  padding: 20px 100px 20px 100px;
   h2 {
     color: white;
     font-size: 30px;
@@ -82,8 +82,9 @@
     }
 
     .form-transaction__right {
+      height: max-content;
       background-color: #41424f;
-      padding: 12px;
+      padding: 14px 12px;
       width: 34%;
 
       h4 {
@@ -111,7 +112,7 @@
         margin-top: 30px;
         justify-content: center;
         button {
-          background-color: #f34a14;
+          background-color: #f27349;
           color: white;
           height: 50px;
           width: 200px;

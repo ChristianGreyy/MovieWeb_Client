@@ -25,12 +25,12 @@ const MenuFilm = ({ contentFilm, sort }) => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `http://localhost:8080/api/movie?sort=-${sort}&limit=5`
+        `https://localhost:8080/api/movie?sort=-${sort}&limit=5`
       );
       // console.log(res.data.data.movies);
       setMovies(res.data.data.movies);
     })();
-    console.log(movies);
+    // console.log(movies);
   }, []);
 
   return (

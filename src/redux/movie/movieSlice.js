@@ -12,3 +12,16 @@ export const streamming = createAsyncThunk(
     }
   }
 );
+
+export const evaluateMovie = createAsyncThunk(
+  "/movie/evaluateMovie",
+  async ({ movieId, star }, { rejectWithValue }) => {
+    try {
+      const res = await movieService.evaluateMovie(movieId, star);
+      console.log(res);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);

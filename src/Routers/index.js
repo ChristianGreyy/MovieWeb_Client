@@ -6,6 +6,8 @@ import InfoFilm from "../pages/InfoFilm/index";
 import WatchFilm from "../pages/WatchFilm/WatchFilm";
 import Transaction from "../pages/Transaction/Transaction";
 import TransactionResponse from "../pages/Transaction/TransactionResponse";
+import WatchLive from "../pages/Live/WatchLive";
+import NotFound from "../pages/Error/NotFound/NotFound";
 
 export const publicRoutes = [
   { path: "/", component: Home },
@@ -16,4 +18,6 @@ export const publicRoutes = [
   { path: "/transaction", component: Transaction },
   { path: "/infoFilm/:movieId", component: InfoFilm },
   { path: "/watch/:movieId/:episode", component: WatchFilm },
+  { path: "/live", component: WatchLive },
+  { path: "/error/404", component: NotFound },
 ];

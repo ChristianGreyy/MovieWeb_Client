@@ -6,10 +6,12 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { commentService } from "../../../services";
-import { postComment } from "../../../redux/comment/comment";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { evaluateMovie } from "../../../redux/movie/movieSlice";
+import Comment from "./Comment";
+
 const Introduction = () => {
   const likeRef = useRef(null);
   const likeRef1 = useRef(null);
@@ -22,19 +24,12 @@ const Introduction = () => {
 
   // Thiết kế: 1520 x 885
   //
-  const [checkComment, setCheckComment] = useState();
   const [commentSocket, setCommentSocket] = useState(false);
   const [movie, setMovie] = useState([]);
   const [videos, setVideos] = useState([]);
   const [comments, setComments] = useState([]);
   const urlSlice = useSelector((state) => state.url);
   const socketSlice = useSelector((state) => state.socket);
-
-  const handlecmt = (index) => {
-    setCheckComment(index);
-    // console.log(checkComment);
-    // cmtRef.current.style.display = "flex";
-  };
 
   let { movieId } = useParams();
 
@@ -46,7 +41,7 @@ const Introduction = () => {
           const link =
             videos[i]?.episode == i + 1 && videos[i]?.isVip == isVip
               ? `/watch/${movieId}/${videos[i].episode}`
-              : `/watch/${movieId}${i + 1}`;
+              : `/watch/${movieId}/ ${i + 1}`;
 
           ans.push(
             <button key={i}>
@@ -93,6 +88,11 @@ const Introduction = () => {
       return ans;
     }
   };
+
+  const changeCommentSocket = () => {
+    setCommentSocket((commentSocket) => !commentSocket);
+  };
+
   useEffect(() => {
     (async () => {
       const response = await movieService.getMovieById(movieId);
@@ -105,41 +105,49 @@ const Introduction = () => {
     })();
   }, [commentSocket]);
   const dispatch = useDispatch();
-  const notify = (err) => toast.error(err);
 
-  const handleComment = (e, commentId) => {
-    if (e.which == 13) {
-      socketSlice.socket.emit("client-to-server-comment", {
-        movieId,
-        content: e.target.value,
-        commentId,
-      });
-      e.target.value = "";
-
-      socketSlice.socket.on("server-to-client-comment", (value) => {
-        console.log(value);
-        (async () => {
-          try {
-            const result = await dispatch(
-              postComment({
-                content: value.content,
-                commentId: value.commentId,
-                movieId: value.movieId,
-              })
-            );
-            const data = unwrapResult(result);
-            setCommentSocket(!commentSocket);
-            console.log(data);
-          } catch (err) {
-            console.log(err);
-            notify(err.message);
-          }
-        })();
-      });
+  const notify = (msg, status) => {
+    if (status === "error") {
+      toast.error(msg);
+    } else {
+      toast.success(msg);
     }
   };
 
-  // console.log(comments);
+  const handleEvaluate = (index) => {
+    const star = 10 - index;
+    (async () => {
+      try {
+        const result = await dispatch(
+          evaluateMovie({
+            star,
+            movieId,
+          })
+        );
+        const data = unwrapResult(result);
+        notify(`Cảm ơn bạn dã đánh giá cho bộ phim "${movie.name}"`);
+      } catch (err) {
+        console.log(err);
+        notify(err.message);
+      }
+    })();
+  };
+
+  const stars = () => {
+    let ans = [];
+    for (let i = 0; i < 10; i++) {
+      ans.push(
+        <input
+          type="radio"
+          name="star"
+          onClick={() => {
+            handleEvaluate(i);
+          }}
+        />
+      );
+    }
+    return ans;
+  };
 
   return (
     <>
@@ -174,8 +182,18 @@ const Introduction = () => {
           </div>
 
           <div className="content-film">
-            <h1>{movie && movie.name}</h1>
-            <p>{movie && movie.english_name}(2002)</p>
+            <h1>
+              {movie?.name && movie.name > 20
+                ? movie.name.slice(0, 20).concat("...")
+                : movie.name}
+            </h1>
+            <p>
+              {" "}
+              {movie?.english_name && movie.english_name > 20
+                ? movie.english_name.slice(0, 20).concat("...")
+                : movie.english_name}
+              (2002)
+            </p>
 
             <ul>
               <li style={{ marginTop: "18.66px" }}>Thể loại: tình cảm</li>
@@ -187,18 +205,7 @@ const Introduction = () => {
             </ul>
 
             <div className="evaluate">
-              <div className="star flex flex-row-reverse">
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-                <input type="radio" name="star" />
-              </div>
+              <div className="star flex flex-row-reverse">{stars()}</div>
 
               <p
                 style={{
@@ -264,175 +271,11 @@ const Introduction = () => {
               </div>
             </div>
           </div>
-
-          <div className="comment">
-            <p>BÌNH LUẬN</p>
-
-            <div className="container">
-              <div className="head flex justify-between">
-                <p>{comments.length} bình luận</p>
-
-                <div className="sort">
-                  <label style={{ marginRight: "5px" }} htmlFor="sort">
-                    Sắp xếp theo:
-                  </label>
-                  <select name="sort" id="sort">
-                    <option value="new">Mới nhất</option>
-                    <option value="all">Tất cả</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="body-content">
-                {/* Viết cmt */}
-                <div className="write-comment flex">
-                  <Link to="/">
-                    <img
-                      className="avt"
-                      src="http://localhost:8080/avatars/default.jpg"
-                    />
-                  </Link>
-                  <input
-                    type="text"
-                    placeholder="Viết bình luận"
-                    onKeyDown={(e) => handleComment(e)}
-                  />
-                </div>
-
-                <div className="scroll-cmt">
-                  <div className="comment-list">
-                    {/* cmt */}
-                    {comments &&
-                      comments.map((cmt, i) => {
-                        if (!cmt.origin) {
-                          return (
-                            <>
-                              <div className="comment-list_main">
-                                <div className="comment-list_main_head">
-                                  <div className="comment__info flex">
-                                    <Link to={`/user/${cmt.user._id}`}>
-                                      <img
-                                        className="avt"
-                                        src={
-                                          urlSlice.urlServer + cmt.user.avatar
-                                        }
-                                      />
-                                    </Link>
-                                    <div className="comment__info-des">
-                                      <h4 className="comment__info-name">
-                                        <Link to={`/user/${cmt.user._id}`}>
-                                          {cmt.user.username}
-                                        </Link>
-                                      </h4>
-                                      <p>{cmt.content}</p>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {/* icon */}
-                                <div className="comment-list_icon flex">
-                                  <div
-                                    onClick={() => handleLike(likeRef)}
-                                    className="cmt comment-list_icon_like"
-                                  >
-                                    <i
-                                      ref={likeRef}
-                                      className="fa-solid fa-heart"
-                                    ></i>
-                                  </div>
-                                  <div
-                                    onClick={() => handlecmt(i)}
-                                    className="cmt comment-list_icon_asw"
-                                  >
-                                    <i className="fa-solid fa-comment-dots"></i>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {checkComment == i && (
-                                <div ref={cmtRef} className="asw flex">
-                                  <Link to={`/user/${cmt.user._id}`}>
-                                    <img
-                                      className="avt"
-                                      src={urlSlice.urlServer + cmt.user.avatar}
-                                    />
-                                  </Link>
-                                  <input
-                                    type="text"
-                                    placeholder="Viết bình luận"
-                                    onKeyDown={(e) => handleComment(e, cmt._id)}
-                                  />
-                                </div>
-                              )}
-
-                              {comments &&
-                                comments.map((childCmt) => {
-                                  if (childCmt.origin == cmt._id) {
-                                    return (
-                                      <div
-                                        className="comment-list_main"
-                                        style={{
-                                          marginLeft: "46px",
-                                          marginTop: "12px",
-                                        }}
-                                      >
-                                        <div className="comment-list_main_head">
-                                          <div className="comment__info flex">
-                                            <Link
-                                              to={`/user/${childCmt.user._id}`}
-                                            >
-                                              <img
-                                                className="avt"
-                                                src={
-                                                  urlSlice.urlServer +
-                                                  childCmt.user.avatar
-                                                }
-                                              />
-                                            </Link>
-                                            <div className="comment__info-des">
-                                              <h4 className="comment__info-name">
-                                                <Link
-                                                  to={`/user/${childCmt.user._id}`}
-                                                >
-                                                  {childCmt.user.username}
-                                                </Link>
-                                              </h4>
-                                              <p>{childCmt.content}</p>
-                                            </div>
-                                          </div>
-                                        </div>
-
-                                        {/* icon */}
-                                        <div className="comment-list_icon flex">
-                                          <div
-                                            onClick={() => handleLike(likeRef)}
-                                            className="cmt comment-list_icon_like"
-                                          >
-                                            <i
-                                              ref={likeRef}
-                                              className="fa-solid fa-heart"
-                                            ></i>
-                                          </div>
-                                          <div
-                                            onClick={handlecmt}
-                                            className="cmt comment-list_icon_asw"
-                                          >
-                                            <i className="fa-solid fa-comment-dots"></i>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    );
-                                  }
-                                })}
-                            </>
-                          );
-                        }
-                      })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Comment
+            movieId={movieId}
+            comments={comments}
+            changeCommentSocket={changeCommentSocket}
+          />
         </div>
       </div>
     </>

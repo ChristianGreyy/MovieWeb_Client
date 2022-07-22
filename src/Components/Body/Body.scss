@@ -2,6 +2,6 @@
   position: absolute;
   top: 131.8px;
   width: 100%;
-  min-height: 110vh;
+  min-height: calc(100vh - 131.8px);
   background-color: #2f303a;
 }

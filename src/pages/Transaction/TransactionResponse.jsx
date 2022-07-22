@@ -8,14 +8,21 @@ import { useDispatch, useSelector } from "react-redux";
 import tokenService from "../../services/token.service";
 import { response } from "../../redux/transaction/transactionSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 
 const TransactionResponse = () => {
   // const socketSlice = useSelector((state) => state.socket);
   // const accessToken = tokenService.getCookie("accessToken");
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
   const url = window.location.href;
-  const amount = url.split("?")[1].split("&")[0].split("=")[1];
+  let amount;
+  try {
+    amount = url.split("?")[1].split("&")[0].split("=")[1];
+  } catch (err) {
+    navigate("/error/404");
+  }
 
   (async () => {
     try {
@@ -27,6 +34,7 @@ const TransactionResponse = () => {
       const res = unwrapResult(result);
       console.log(res.url);
     } catch (err) {
+      navigate("/error/404");
       console.log(err);
     }
   })();

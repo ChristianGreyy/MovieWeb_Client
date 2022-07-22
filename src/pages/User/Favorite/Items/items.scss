@@ -1,24 +1,32 @@
-.title-film {
-    font-size: 25px;
-    font-weight: 600;
-    color: #fff;
-    padding-top: 12.44px;
-    padding-bottom: 20px;
-    padding-left: 6.58%;
-}
+// .item_container {
+//     margin-left: 10px;
+//     width: 888px;
+//     height: 655px;
+//     background-color: #666878;
+//     border-radius: 15px;
 
-.film-list {
+// > p {
+//     font-size: 25px;
+//     font-weight: 600;
+//     color: #fff;
+//     padding-top: 12.44px;
+//     padding-bottom: 20px;
+// }
+
+.item-movie_container_list {
     width: 185px;
     height: 275px;
     cursor: pointer;
+    margin-right: 30px;
+
     &:hover {
         .post {
-            background-color: #E93F3F;
+            background-color: #e93f3f;
             opacity: 0.5;
         }
     }
-    
-    >.avt {
+
+    > .avt {
         width: 100%;
         height: 100%;
 
@@ -29,7 +37,7 @@
     }
 
     > .series {
-        position: absolute;
+        // position: absolute;
         color: #fff;
         background: #a21d0a;
         font-size: 11px;
@@ -58,7 +66,7 @@
         }
     }
 
-    >.name {
+    > .name {
         top: 140px;
         left: 8px;
         color: #fff;
@@ -66,17 +74,4 @@
         // font-size: 12px;
     }
 }
-
-.item-film {
-    left: 100px;
-    min-width: 87.43%;
-}
-
-.btn {
-    color: #333;
-    width: 32px;
-    height: 32px;
-    top: 7rem;
-    background-color: #888888;
-    border-radius: 50%;
-}
+// }

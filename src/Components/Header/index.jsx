@@ -8,11 +8,11 @@ const Header = () => {
   return (
     <div className="header fixed">
       <div className="title flex flex-row">
-        <div className="title_avatar">
-          <Link to="/" style={{ width: "100%" }}>
-            <img src="/logo.png" style={{ width: "100%" }} />
-          </Link>
-        </div>
+        <Link to="/">
+          <div className="title_avatar">
+            <img src="/logo.png" style={{ width: "100%", height:'100%' }} alt="ảnh"/>
+          </div>
+        </Link>
 
         <div className="title_content flex justify-around">
           <div className="title_content_icon">

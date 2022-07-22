@@ -13,14 +13,14 @@ const Home = () => {
       <Body>
         <MovieNominations />
 
-        <div className="Movie-series flex gap-x-20">
+        <div className="Movie-series flex justify-evenly">
           <NewMovie content='PHIM BỘ MỚI CẬP NHẬT'/>
           <div className="menu_film_series">
             <MenuFilm contentFilm='Phim sắp chiếu'/>
           </div>
         </div>
 
-        <div className="Movie-series flex gap-x-20">
+        <div className="Movie-series flex justify-evenly">
           <NewMovie content='PHIM LẺ MỚI CẬP NHẬT'/>
           <div className="menu_film_series">
             <MenuFilm contentFilm='Phim sắp chiếu'/>

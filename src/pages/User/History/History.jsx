@@ -5,7 +5,7 @@ import NavBar from "../NavBar/NavBar";
 import BoxHis from "./BoxHis/BoxHis";
 import "./History.scss";
 
-const List = [<BoxHis />, <BoxHis/>];
+const List = [<BoxHis />, <BoxHis />];
 
 const History = () => {
   return (

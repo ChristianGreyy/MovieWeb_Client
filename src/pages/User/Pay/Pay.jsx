@@ -1,13 +1,13 @@
-import React from 'react'
-import Body from '../../../Components/Body'
-import Header from '../../../Components/Header'
-import NavBar from '../NavBar/NavBar'
-import BoxPay from './BoxPay/BoxPay'
-import './Pay.scss'
+import React from "react";
+import Body from "../../../Components/Body";
+import Header from "../../../Components/Header";
+import NavBar from "../NavBar/NavBar";
+import BoxPay from "./BoxPay/BoxPay";
+import "./Pay.scss";
 
 const Pay = () => {
   return (
-    <div className='Pay'>
+    <div className="Pay">
       <Header />
 
       <Body>
@@ -18,12 +18,11 @@ const Pay = () => {
             <h1>Không có dữ liệu!</h1> */}
 
             <BoxPay />
-
           </div>
         </div>
       </Body>
     </div>
-  )
-}
+  );
+};
 
-export default Pay
+export default Pay;

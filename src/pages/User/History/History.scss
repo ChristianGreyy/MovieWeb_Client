@@ -1,22 +1,20 @@
 $white: #fff;
 
 .History {
+  &_container {
+    &_content {
+      margin: 30px auto;
+      align-self: center;
+      > h1 {
+        font-size: 26px;
+        color: $white;
+      }
 
-    &_container {
-
-        &_content {
-            margin: 30px auto;
-            align-self: center;
-            >h1 {
-                font-size: 26px;
-                color: $white;
-            }
-
-            >.icon {
-                text-align: center;
-                font-size: 24px;
-                color: $white;
-            }
-        }
+      > .icon {
+        text-align: center;
+        font-size: 24px;
+        color: $white;
+      }
     }
+  }
 }

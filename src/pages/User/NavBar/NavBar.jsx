@@ -43,6 +43,10 @@ const NavBar = () => {
         item.color = '#fff';
       }
     })
+<<<<<<< HEAD
+=======
+
+>>>>>>> a8f4612 (features/User)
   }
 
   return (

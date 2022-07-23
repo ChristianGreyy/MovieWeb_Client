@@ -58,6 +58,12 @@ const Header = () => {
                 style={{ marginLeft: "6px" }}
                 className="fa-solid fa-caret-down"
               ></i>
+
+              <ul className="menu_navbar">
+                <li>Phim hành động</li>
+                <li>Phim ngôn tình</li>
+                <li>Phim kinh dị</li>
+              </ul>
             </strong>
           </li>
           <li>
@@ -67,6 +73,13 @@ const Header = () => {
                 style={{ marginLeft: "6px" }}
                 className="fa-solid fa-caret-down"
               ></i>
+
+              <ul className="menu_navbar">
+                <li>Hàn Quốc</li>
+                <li>Mỹ</li>
+                <li>Việt Nam</li>
+                <li>Nhật Bản</li>
+              </ul>
             </strong>
           </li>
           <li>

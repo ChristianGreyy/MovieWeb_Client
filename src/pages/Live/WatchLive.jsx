@@ -77,7 +77,7 @@ const WatchLive = () => {
   const start = async () => {
     try {
       localMediaStream = await getLocalMediaStream();
-
+      console.log(localMediaStream);
       sendSocketMessage("start");
     } catch (error) {
       console.error("failed to start stream", error);
@@ -142,7 +142,7 @@ const WatchLive = () => {
         video: true,
       });
       console.log("got local media stream");
-
+      console.log(localVideo);
       localVideo.srcObject = mediaStream;
 
       return mediaStream;
@@ -218,9 +218,7 @@ const WatchLive = () => {
     sender.replaceTrack(newTrack);
   };
 
-  useEffect(() => {
-    console.log(callButton);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

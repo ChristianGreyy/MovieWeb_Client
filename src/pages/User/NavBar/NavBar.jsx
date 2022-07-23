@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef} from "react";
 import "./NavBar.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -43,7 +43,6 @@ const NavBar = () => {
         item.color = '#fff';
       }
     })
-
   }
 
   return (

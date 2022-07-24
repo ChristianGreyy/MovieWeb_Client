@@ -15,9 +15,11 @@ const Header = () => {
         </Link>
 
         <div className="title_content flex justify-around">
-          <div className="title_content_icon">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
+          <Link to='/Search'>
+            <div className="title_content_icon">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </Link>
 
           <div className="title_content_buy">
             <button>

@@ -12,6 +12,7 @@ import History from "../pages/User/History/History";
 import Comments from "../pages/User/Comments/Comments";
 import Watching from "../pages/User/Watching/Watching";
 import Setting from "../pages/User/Setting/Setting";
+import SearchFilm from "../pages/SearchFilm/SearchFilm";
 
 export const publicRoutes = [
   { path: "/", component: Home },
@@ -28,4 +29,5 @@ export const publicRoutes = [
   { path: "/User/Setting", component: Setting },
   { path: "/User/History", component: History },
   { path: "/User/Comments", component: Comments },
+  { path: "/Search", component: SearchFilm },
 ];

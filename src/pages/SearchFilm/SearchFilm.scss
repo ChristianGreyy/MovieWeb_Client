@@ -1,0 +1,79 @@
+.searchFilm {
+    &_container {
+        input {
+            background-color: #545562;
+            width: 100%;
+            height: 100px;
+            color: #000;
+            font-size: 36px;
+            // padding: ;
+            &::placeholder {
+                color: #000;
+                text-align: center;
+                font-weight: 600;
+            }
+
+            &:valid {
+                text-align: center;
+            }
+        }
+
+        &_content {    
+            margin-top: 30px;
+            padding-bottom: 20px; 
+        
+            &_left {
+                color: #fff;
+
+                &_body {
+
+                    margin-top: 20px;
+
+                    >h2 {
+                        font-size: 28px;
+                    }
+    
+                    >p {
+                        font-size: 22px;
+                        
+                        span {
+                            cursor: pointer;
+
+                            &:hover {
+                                color: #f34a14;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &_right {
+                max-width: 760px;
+                color: #fff;
+                >h1 {
+                    font-size: 30px;
+                    font-weight: 600;
+                }
+
+                &_body {
+
+                    margin-top: 20px;
+                    &_row {
+                        margin-top: 20px;
+
+                        &_box {
+                            padding: 10px;
+                            background-color: #545562;
+                            margin-right: 20px;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: #f34a14;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

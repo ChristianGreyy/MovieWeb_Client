@@ -3,7 +3,7 @@ import axiosClient from "../api/axiosClient";
 
 const createPaymentURL = async (amount, bankCode) => {
   return await axiosClient.post(
-    "http://localhost:8080/api/transaction/create_payment_url",
+    "https://localhost:8080/api/transaction/create_payment_url",
     {
       amount,
       bankCode,
@@ -13,7 +13,7 @@ const createPaymentURL = async (amount, bankCode) => {
 
 const response = async (amount, bankCode) => {
   return await axiosClient.put(
-    "http://localhost:8080/api/transaction/response",
+    "https://localhost:8080/api/transaction/response",
     {
       amount,
     }

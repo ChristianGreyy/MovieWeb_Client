@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { postComment, likeComment } from "../../../redux/comment/comment";
 import socketContext from "../../../contexts/socket.context";
+import { useNavigate } from "react-router-dom";
 
 const Comment = ({ movieId, comments, changeCommentSocket }) => {
   const socket = useContext(socketContext);
@@ -12,6 +13,7 @@ const Comment = ({ movieId, comments, changeCommentSocket }) => {
   // const socketSlice = useSelector((state) => state.socket);
   const [checkComment, setCheckComment] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlecmt = (index) => {
     setCheckComment(index);
@@ -48,6 +50,7 @@ const Comment = ({ movieId, comments, changeCommentSocket }) => {
           const data = unwrapResult(result);
           // console.log(data);
         } catch (err) {
+          navigate("/login");
           console.log(err);
           // notify(err.message);
         }

@@ -8,7 +8,7 @@ const MenuContent = ({ name, english_name, image }) => {
       <div className="avatar">
         <img
           style={{ width: "100%", height: "100%" }}
-          src={"http://localhost:8080/" + image}
+          src={"https://localhost:8080/" + image}
         />
       </div>
       <div className="content-menu">

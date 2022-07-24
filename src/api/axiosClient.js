@@ -16,7 +16,6 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   function (config) {
     const accessToken = tokenService.getCookie("accessToken");
-
     // config.headers["Set-Cookie"] = refreshToken;
     if (accessToken) {
       // console.log(accessToken);
@@ -55,6 +54,7 @@ axiosClient.interceptors.response.use(
     // console.log(err);
     const originalConfig = err.config;
     const refreshToken = tokenService.getCookie("refreshToken");
+
     // console.log("refreshTOken" + refreshToken);
     if (err.response) {
       console.log(err.response);

@@ -1,18 +1,26 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import socketContext from "../../contexts/socket.context";
+import { useSelector } from "react-redux";
+import Header from "../../Components/Header/index";
+import "./WatchLive.scss";
+
+let peerConnection;
+let localMediaStream;
+let remoteId;
 
 const WatchLive = () => {
+  const [isPartner, setPartner] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModal, setIsModal] = useState(false);
   const socket = useContext(socketContext);
+  const userSlice = useSelector((state) => state.user);
+  const userId = userSlice.user._id;
 
   const localVideo = useRef();
   const remoteVideo = useRef();
   const callButton = useRef();
   const screenShareButton = useRef();
   const remoteMediaStream = new MediaStream();
-
-  let peerConnection;
-  let localMediaStream;
-  let remoteId;
 
   socket.onopen = () => {
     console.log("socket::open");
@@ -32,6 +40,7 @@ const WatchLive = () => {
         case "offer":
           remoteId = jsonMessage.data.remoteId;
           delete jsonMessage.data.remoteId;
+          setPartner(true);
 
           await initializePeerConnection(localMediaStream.getTracks());
           await peerConnection.setRemoteDescription(
@@ -77,7 +86,6 @@ const WatchLive = () => {
   const start = async () => {
     try {
       localMediaStream = await getLocalMediaStream();
-      console.log(localMediaStream);
       sendSocketMessage("start");
     } catch (error) {
       console.error("failed to start stream", error);
@@ -85,9 +93,11 @@ const WatchLive = () => {
   };
 
   const call = async () => {
+    setPartner(true);
+    setIsLoading(false);
     try {
       remoteId = document.getElementById("callId").value;
-
+      console.log(remoteId);
       if (!remoteId) {
         alert("Please enter a remote id");
 
@@ -131,8 +141,8 @@ const WatchLive = () => {
     callButton.disabled = true;
     // hangupButton.disabled = true;
     screenShareButton.disabled = true;
-    localVideo.srcObject = undefined;
-    remoteVideo.srcObject = undefined;
+    localVideo.current.srcObject = undefined;
+    remoteVideo.current.srcObject = undefined;
   };
 
   const getLocalMediaStream = async () => {
@@ -142,8 +152,9 @@ const WatchLive = () => {
         video: true,
       });
       console.log("got local media stream");
-      console.log(localVideo);
-      localVideo.srcObject = mediaStream;
+      // console.log(localVideo);
+      localVideo.current.srcObject = mediaStream;
+      // localVideo.current.controls = true;
 
       return mediaStream;
     } catch (error) {
@@ -180,7 +191,8 @@ const WatchLive = () => {
     peerConnection.ontrack = ({ track }) => {
       console.log("peerConnection::track", track);
       remoteMediaStream.addTrack(track);
-      remoteVideo.srcObject = remoteMediaStream;
+      remoteVideo.current.srcObject = remoteMediaStream;
+      remoteVideo.current.controls = true;
     };
 
     for (const track of mediaTracks) {
@@ -220,51 +232,128 @@ const WatchLive = () => {
 
   useEffect(() => {}, []);
 
+  console.log(isLoading);
+
   return (
     <>
-      <h1>Simple P2P Example</h1>
-      <hr />
-      <button onClick={start}>Start</button>
-      <br />
-      <b>
-        Local Id: <span id="localId" />
-      </b>
-      <br />
-      <input type="text" id="callId" placeholder="Enter remote peer id" />
-      <button ref={callButton} id="callButton" onClick={call} disabled>
-        Call
-      </button>
-      {/* <button id="hangupButton" onclick="hangup();" disabled>
-        Hang Up
-      </button> */}
-      <button
-        ref={screenShareButton}
-        id="screenShareButton"
-        onClick={shareScreen}
-        disabled
-      >
-        Share Screen
-      </button>
-      <hr />
+      <Header />
+      {isModal && (
+        <div className="video__live-modal">
+          <div
+            className="video__live-modal-close"
+            onClick={() => setIsModal(false)}
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+          <input
+            type="text"
+            id="callId"
+            style={{
+              width: "100%",
+              height: "40px",
+              padding: "4px",
+              marginTop: "20px",
+              color: "black",
+            }}
+            placeholder="Nhập id partner (Nếu có)"
+          />
+          <div className="video__live-modal-btn">
+            <div
+              onClick={() => {
+                setIsLoading(true);
+                setPartner(true);
+              }}
+              className="video__live-modal-btn-item video__live-modal-btn-random"
+            >
+              Ngẫu nhiên
+            </div>
+            <button
+              className="video__live-modal-btn-item video__live-modal-btn-select"
+              ref={callButton}
+              id="callButton"
+              style={{ marginRight: "12px" }}
+              onClick={call}
+            >
+              Dò kênh
+            </button>
+          </div>
+        </div>
+      )}
 
-      <h3>Local Video</h3>
-      <video
-        ref={localVideo}
-        id="localVideo"
-        width="640"
-        height="480"
-        autoPlay
-        muted
-      ></video>
+      <div className="video__live">
+        {isPartner && (
+          <button
+            ref={screenShareButton}
+            id="screenShareButton"
+            onClick={shareScreen}
+            // disabled
+          >
+            Share Screen
+          </button>
+        )}
+        <hr />
+        <div className="video__live-content">
+          <div
+            style={{
+              alignItems: isPartner ? "flex-start" : "center",
+            }}
+            className="localVideo__content"
+          >
+            {!isPartner && (
+              <button className="localVideo__content-btn" onClick={start}>
+                Start
+              </button>
+            )}
 
-      <h3>Remote Video</h3>
-      <video
-        ref={remoteVideo}
-        id="remoteVideo"
-        width="640"
-        height="480"
-        autoPlay
-      ></video>
+            <div>
+              ID của bạn: <span id="localId" />
+            </div>
+
+            <video
+              ref={localVideo}
+              id="localVideo"
+              style={{ height: "480px", width: "640px" }}
+              width="640"
+              height="480"
+              autoPlay
+              muted
+            ></video>
+            <h3
+              className="localVideo__content-settings"
+              onClick={() => {
+                setIsModal(true);
+              }}
+            >
+              Chức năng
+            </h3>
+          </div>
+          {isPartner && (
+            <div className="remoteVideo__content">
+              <div>
+                ID của partner: <span id="localId" />
+              </div>
+
+              {isLoading && (
+                <img
+                  style={{ height: "480px", width: "640px" }}
+                  src="http://d3pr5r64n04s3o.cloudfront.net/tuts/377_loading_gif/final.gif"
+                />
+              )}
+
+              {!isLoading && (
+                <video
+                  ref={remoteVideo}
+                  id="remoteVideo"
+                  style={{ height: "480px", width: "640px" }}
+                  width="640"
+                  height="480"
+                  autoPlay
+                ></video>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 };

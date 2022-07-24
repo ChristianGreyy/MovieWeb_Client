@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { evaluateMovie } from "../../../redux/movie/movieSlice";
 import Comment from "./Comment";
+import { useNavigate } from "react-router-dom";
 
 const Introduction = () => {
   const likeRef = useRef(null);
@@ -30,6 +31,7 @@ const Introduction = () => {
   const [comments, setComments] = useState([]);
   const urlSlice = useSelector((state) => state.url);
   const socketSlice = useSelector((state) => state.socket);
+  const navigate = useNavigate();
 
   let { movieId } = useParams();
 
@@ -127,6 +129,7 @@ const Introduction = () => {
         const data = unwrapResult(result);
         notify(`Cảm ơn bạn dã đánh giá cho bộ phim "${movie.name}"`);
       } catch (err) {
+        navigate("/login");
         console.log(err);
         notify(err.message);
       }

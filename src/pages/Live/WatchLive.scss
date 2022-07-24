@@ -1,0 +1,80 @@
+.video__live-modal {
+  background: #545562;
+  color: white;
+  position: absolute;
+  z-index: 2000;
+  left: 50%;
+  top: 12px;
+  transform: translate(-50%, 0%);
+  padding: 20px;
+  box-shadow: 0 0 10px #999;
+
+  .video__live-modal-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .video__live-modal-btn {
+    width: 400px;
+    justify-content: space-around;
+    display: flex;
+
+    #callId {
+      width: 100%;
+    }
+
+    .video__live-modal-btn-item {
+      margin-top: 20px;
+      background-color: #f34a14;
+      color: white;
+      padding: 8px 20px;
+      width: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+}
+.video__live {
+  margin-top: 131.8px;
+  background: #545562;
+  height: 100vh;
+
+  .video__live-content {
+    display: flex;
+    justify-content: center;
+
+    #callButton {
+      margin-top: 20px;
+      //   display: none;
+    }
+
+    .localVideo__content {
+      display: flex;
+      flex-direction: column;
+
+      &-btn {
+        color: #f34a14;
+        font-size: 24px;
+      }
+    }
+
+    .remoteVideo__content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .localVideo__content-settings {
+      margin-top: 18px;
+      cursor: pointer;
+      background-color: #f34a14;
+      color: white;
+      padding: 4px 20px;
+    }
+  }
+}

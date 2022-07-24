@@ -23,6 +23,7 @@ const Transaction = () => {
   const [month, setMonth] = useState("0");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userSlice = useSelector((state) => state.user);
 
   const onSubmit = async () => {
     try {
@@ -175,7 +176,7 @@ const Transaction = () => {
             <div className="form-transaction__right">
               <h4>Thông tin thanh toán</h4>
               <ul>
-                {liRight("Username: ", "HungTruong")}
+                {liRight("Username: ", userSlice.user.username)}
                 {liRight("Tên ngân hàng: ", bankCode)}
                 {liRight("Gói dịch vụ mua: ", "Gói MAX")}
                 {liRight("Giá gói: ", amountText + " VNĐ")}

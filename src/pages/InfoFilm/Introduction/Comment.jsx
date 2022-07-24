@@ -108,7 +108,7 @@ const Comment = ({ movieId, comments, changeCommentSocket }) => {
             <Link to="/">
               <img
                 className="avt"
-                src="http://localhost:8080/avatars/default.jpg"
+                src={"https://localhost:8080" + userSlice.user.avatar}
               />
             </Link>
             <input

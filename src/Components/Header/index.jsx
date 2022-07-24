@@ -17,16 +17,18 @@ const Header = () => {
   return (
     <div className="header fixed">
       <div className="title flex flex-row">
-        <div className="title_avatar">
-          <Link to="/" style={{ width: "100%" }}>
-            <img src="/logo.png" style={{ width: "100%" }} />
-          </Link>
-        </div>
+        <Link to="/">
+          <div className="title_avatar">
+            <img src="/logo.png" style={{ width: "100%", height:'100%' }} alt="ảnh"/>
+          </div>
+        </Link>
 
         <div className="title_content flex justify-around">
-          <div className="title_content_icon">
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </div>
+          <Link to='/Search'>
+            <div className="title_content_icon">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </div>
+          </Link>
 
           {refreshToken && (
             <div className="title_content_bell">
@@ -74,6 +76,12 @@ const Header = () => {
                 style={{ marginLeft: "6px" }}
                 className="fa-solid fa-caret-down"
               ></i>
+
+              <ul className="menu_navbar">
+                <li>Phim hành động</li>
+                <li>Phim ngôn tình</li>
+                <li>Phim kinh dị</li>
+              </ul>
             </strong>
           </li>
           <li>
@@ -83,6 +91,13 @@ const Header = () => {
                 style={{ marginLeft: "6px" }}
                 className="fa-solid fa-caret-down"
               ></i>
+
+              <ul className="menu_navbar">
+                <li>Hàn Quốc</li>
+                <li>Mỹ</li>
+                <li>Việt Nam</li>
+                <li>Nhật Bản</li>
+              </ul>
             </strong>
           </li>
           <li>

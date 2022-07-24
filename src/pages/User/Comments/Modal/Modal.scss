@@ -1,0 +1,108 @@
+$black: #383840;
+$orange: #f25624;
+
+.Modal {
+  width: 761px;
+  height: 300px;
+  background-color: $black;
+  margin: 0 auto;
+  align-self: center;
+
+  &_header {
+    padding: 20px 0;
+    background-color: #545562;
+    > h1,
+    &_icon {
+      color: #fff;
+    }
+
+    > h1 {
+      font-size: 28px;
+    }
+
+    &_icon {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    &_icon:first-child {
+      top: 26px;
+      left: 20px;
+    }
+
+    &_icon:last-child {
+      top: 26px;
+      right: 20px;
+    }
+  }
+
+  &_body {
+    &_container {
+      padding: 20px;
+
+      .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #d9d9d9;
+        text-align: center;
+        margin-right: 20px;
+
+        > i {
+          font-size: 22px;
+          line-height: 50px;
+        }
+      }
+
+      &_content {
+        cursor: pointer;
+
+        > h1,
+        > p {
+          font-size: 20px;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.ModalCmt {
+  height: 400px !important;
+  &_body {
+    > h1 {
+      color: #fff;
+      font-size: 24px;
+      margin-left: 20px;
+    }
+
+    textarea {
+      background-color: $black;
+      resize: none;
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      white-space: pre-wrap;
+      height: 265px;
+      color: #fff;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 6px;
+        background-color: #000;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #cac1c1;
+        border-radius: 10px;
+      }
+
+      &_row:first-child {
+        margin: auto;
+      }
+
+      &_row {
+        margin-top: 30px;
+      }
+    }
+  }
+}

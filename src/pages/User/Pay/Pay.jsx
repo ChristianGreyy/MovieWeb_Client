@@ -11,7 +11,7 @@ const Pay = () => {
       <Header />
 
       <Body>
-        <div className="Pay_container flex justify-between">
+        <div className="Pay_container flex justify-around">
           <NavBar />
           <div className="Pay_container_content">
             {/* <div className="icon"><i class="fa-solid fa-file-circle-xmark"></i></div>

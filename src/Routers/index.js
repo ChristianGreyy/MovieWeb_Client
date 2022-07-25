@@ -30,7 +30,7 @@ export const publicRoutes = [
   { path: "/error/404", component: NotFound },
   { path: "/InfoFilm/:movieId", component: InfoFilm },
   { path: "/Watch", component: WatchFilm },
-  { path: "/User", component: Account },
+  { path: "/User/:userId", component: Account },
   { path: "/User/Pay", component: Pay },
   { path: "/User/Favorite", component: Favorite },
   { path: "/User/Watching", component: Watching },

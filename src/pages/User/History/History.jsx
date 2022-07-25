@@ -13,7 +13,7 @@ const History = () => {
       <Header />
 
       <Body>
-        <div className="History_container flex justify-between">
+        <div className="History_container flex justify-around">
           <NavBar />
           <div className="History_container_content">
             {/* <div className="icon">

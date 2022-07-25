@@ -6,7 +6,7 @@ const container = [
   {
     icon: "fa-solid fa-user-pen",
     content: "Tài khoản",
-    rout: "/User/",
+    rout: "/User/1",
     color: "#F25624",
   },
   {

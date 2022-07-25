@@ -1,16 +1,16 @@
-import React from 'react'
-import Body from '../../../Components/Body'
-import Header from '../../../Components/Header'
-import NavBar from '../NavBar/NavBar'
-import Items from './Items/Items'
-import './Favorite.scss';
+import React from "react";
+import Body from "../../../Components/Body";
+import Header from "../../../Components/Header";
+import NavBar from "../NavBar/NavBar";
+import Items from "./Items/Items";
+import "./Favorite.scss";
 
 const Favorite = () => {
   return (
-    <div className='Favorite'>
+    <div className="Favorite">
       <Header />
       <Body>
-        <div className="Favorite_container flex justify-between">
+        <div className="Favorite_container flex justify-around">
           <NavBar />
           <div className="Favorite_container_content">
             <div className="Favorite_container_content_row flex">
@@ -48,7 +48,7 @@ const Favorite = () => {
         </div>
       </Body>
     </div>
-  )
-}
+  );
+};
 
-export default Favorite
+export default Favorite;

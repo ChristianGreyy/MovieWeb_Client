@@ -19,12 +19,16 @@ const Header = () => {
       <div className="title flex flex-row">
         <Link to="/">
           <div className="title_avatar">
-            <img src="/logo.png" style={{ width: "100%", height:'100%' }} alt="ảnh"/>
+            <img
+              src="/logo.png"
+              style={{ position: "absolute", top: "-42px" }}
+              alt="ảnh"
+            />
           </div>
         </Link>
 
         <div className="title_content flex justify-around">
-          <Link to='/Search'>
+          <Link to="/Search">
             <div className="title_content_icon">
               <i className="fa-solid fa-magnifying-glass"></i>
             </div>
@@ -44,10 +48,12 @@ const Header = () => {
 
           {refreshToken && (
             <div className="title_content_user">
-              <img
-                src={`${urlSlice.urlServer}${userSlice.user.avatar}`}
-                class="title_content_user-avatar"
-              />
+              <Link to="/user/1">
+                <img
+                  src={`${urlSlice.urlServer}${userSlice.user.avatar}`}
+                  class="title_content_user-avatar"
+                />
+              </Link>
             </div>
           )}
           {!refreshToken && (
@@ -76,7 +82,6 @@ const Header = () => {
                 style={{ marginLeft: "6px" }}
                 className="fa-solid fa-caret-down"
               ></i>
-
               <ul className="menu_navbar">
                 <li>Phim hành động</li>
                 <li>Phim ngôn tình</li>
@@ -91,7 +96,6 @@ const Header = () => {
                 style={{ marginLeft: "6px" }}
                 className="fa-solid fa-caret-down"
               ></i>
-
               <ul className="menu_navbar">
                 <li>Hàn Quốc</li>
                 <li>Mỹ</li>

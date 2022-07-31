@@ -79,6 +79,7 @@ axiosClient.interceptors.response.use(
       } catch (_error) {
         console.log("logout");
         // store.dispatch(authLogout());
+        window.location.href = "/login";
         if (_error.response && _error.response.data) {
           return Promise.reject(_error.response.data);
         }

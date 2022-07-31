@@ -9,11 +9,16 @@ import { movieService } from "../../services";
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
-
+  console.log("home");
   useEffect(() => {
     (async () => {
-      const response = await movieService.getMovies();
-      setMovies(response.data.data.movies);
+      try {
+        const response = await movieService.getMovies();
+        console.log(response);
+        setMovies(response.data.data.movies);
+      } catch (err) {
+        console.log(err);
+      }
     })();
   }, []);
   return (

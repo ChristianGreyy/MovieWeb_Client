@@ -5,31 +5,48 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { postComment, likeComment } from "../../../redux/comment/comment";
 import socketContext from "../../../contexts/socket.context";
 import { useNavigate } from "react-router-dom";
+import tokenService from "../../../services/token.service";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Comment = ({ movieId, comments, changeCommentSocket }) => {
+const Comment = ({
+  movieId,
+  comments,
+  changeCommentSocket,
+  changeCommentLikeSocket,
+}) => {
   const socket = useContext(socketContext);
   const urlSlice = useSelector((state) => state.url);
   const userSlice = useSelector((state) => state.user);
-  // const socketSlice = useSelector((state) => state.socket);
+  const refreshToken = tokenService.getCookie("refreshToken");
   const [checkComment, setCheckComment] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const notify = (err) => toast.error(err);
 
   const handlecmt = (index) => {
     setCheckComment(index);
   };
+  // console.log(comments);
 
   useEffect(() => {
     socket.on("server-to-client-comment", (value) => {
+      // console.log(comments);
       console.log(value);
-      changeCommentSocket();
+      if (value.error) {
+        notify(value.error);
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      } else {
+        changeCommentSocket(value, comments);
+      }
     });
 
     socket.on("server-to-client-like", (value) => {
-      changeCommentSocket();
-      // console.log(value);
+      changeCommentLikeSocket(value);
     });
-  }, [socket]);
+  }, [socket, comments]);
 
   const HandleComment = (e, commentId) => {
     if (e.which == 13) {
@@ -37,24 +54,9 @@ const Comment = ({ movieId, comments, changeCommentSocket }) => {
         movieId,
         content: e.target.value,
         commentId,
+        user: userSlice.user,
+        refreshToken,
       });
-      (async () => {
-        try {
-          const result = await dispatch(
-            postComment({
-              content: e.target.value,
-              commentId: commentId,
-              movieId: movieId,
-            })
-          );
-          const data = unwrapResult(result);
-          // console.log(data);
-        } catch (err) {
-          navigate("/login");
-          console.log(err);
-          // notify(err.message);
-        }
-      })();
       e.target.value = "";
     }
   };
@@ -62,29 +64,24 @@ const Comment = ({ movieId, comments, changeCommentSocket }) => {
   const handleLike = (commentId) => {
     socket.emit("client-to-server-like", {
       commentId,
+      user: userSlice.user,
+      refreshToken,
     });
-    (async () => {
-      console.log("callling api");
-      try {
-        const result = await dispatch(
-          likeComment({
-            commentId: commentId,
-          })
-        );
-        const data = unwrapResult(result);
-        // console.log(data);
-      } catch (err) {
-        console.log(err);
-        // notify(err.message);
-      }
-      socket.off("server-to-client-comment");
-    })();
   };
-
-  // console.log(userSlice.user);
 
   return (
     <div className="comment">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <p>BÌNH LUẬN</p>
 
       <div className="container">

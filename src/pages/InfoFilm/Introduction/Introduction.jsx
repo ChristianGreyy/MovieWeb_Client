@@ -29,6 +29,7 @@ const Introduction = () => {
   const [movie, setMovie] = useState([]);
   const [videos, setVideos] = useState([]);
   const [comments, setComments] = useState([]);
+  const [test, setTest] = useState(false);
   const urlSlice = useSelector((state) => state.url);
   const socketSlice = useSelector((state) => state.socket);
   const navigate = useNavigate();
@@ -91,8 +92,23 @@ const Introduction = () => {
     }
   };
 
-  const changeCommentSocket = () => {
-    setCommentSocket((commentSocket) => !commentSocket);
+  const changeCommentLikeSocket = (value) => {
+    console.log(value);
+    let arr = comments.map((cmt) => {
+      if (cmt._id == value._id) {
+        return value;
+      }
+      return cmt;
+    });
+    setComments(arr);
+  };
+
+  const changeCommentSocket = (value) => {
+    // console.log(value);
+    // setTest(!test);
+    console.log(comments);
+    setComments([value, ...comments]);
+    // setCommentSocket((commentSocket) => !commentSocket);
   };
 
   useEffect(() => {
@@ -103,7 +119,7 @@ const Introduction = () => {
       setVideos(responseVideo.data.data);
       // console.log(commentService);
       const responseComments = await commentService.getComments(movieId);
-      setComments(responseComments.data.data.comment);
+      setComments(() => responseComments.data.data.comment);
     })();
   }, [commentSocket]);
   const dispatch = useDispatch();
@@ -127,9 +143,10 @@ const Introduction = () => {
           })
         );
         const data = unwrapResult(result);
+        console.log(data);
         notify(`Cảm ơn bạn dã đánh giá cho bộ phim "${movie.name}"`);
       } catch (err) {
-        navigate("/login");
+        // navigate("/login");
         console.log(err);
         notify(err.message);
       }
@@ -278,6 +295,7 @@ const Introduction = () => {
             movieId={movieId}
             comments={comments}
             changeCommentSocket={changeCommentSocket}
+            changeCommentLikeSocket={changeCommentLikeSocket}
           />
         </div>
       </div>

@@ -1,7 +1,10 @@
 import axios from "axios";
 import axiosClient from "../api/axiosClient";
 
-const getMovies = async () => {
+const getMovies = async (filter) => {
+  if (filter) {
+    return await axios.get(`https://localhost:8080/api/movie${filter}`);
+  }
   return await axios.get(`https://localhost:8080/api/movie`);
 };
 

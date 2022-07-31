@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { publicRoutes } from "./Routers";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,14 +10,20 @@ import axios from "axios";
 
 function App() {
   const accessToken = tokenService.getCookie("accessToken");
+  const refreshToken = tokenService.getCookie("refreshToken");
   const urlSlice = useSelector((state) => state.url);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    (async () => {
-      const res = await axiosClient.get(`${urlSlice.urlServer}/api/user/info`);
-      console.log(res);
-      dispatch(setUser(res.user));
-    })();
+    if (refreshToken) {
+      (async () => {
+        const res = await axiosClient.get(
+          `${urlSlice.urlServer}/api/user/info`
+        );
+        console.log(res);
+        dispatch(setUser(res.user));
+      })();
+    }
   }, []);
 
   return (

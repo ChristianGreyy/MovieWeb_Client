@@ -15,7 +15,7 @@ const History = () => {
       <Body>
         <div className="History_container flex justify-around">
           <NavBar />
-          <div className="History_container_content">
+          <div style={{"width": '68%'}} className="History_container_content">
             {/* <div className="icon">
               <i class="fa-solid fa-file-circle-xmark"></i>
             </div>

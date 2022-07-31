@@ -14,7 +14,9 @@ const Comments = () => {
       <Body>
         <div className="comments_container flex justify-around">
           <NavBar />
-          <Modal />
+          <div style={{"width": "68%", "alignSelf": 'center'}} className="comments_container_content">
+            <Modal />
+          </div>
           {/* <ModalComment /> */}
         </div>
       </Body>

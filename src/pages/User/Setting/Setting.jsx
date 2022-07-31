@@ -12,7 +12,7 @@ const Setting = () => {
       <Body>
         <div className="Setting_container flex justify-around">
           <NavBar />
-          <div className="Setting_container_body">
+          <div style={{"width": '68%'}} className="Setting_container_body">
             <div className="Setting_container_body_icon">
               <i class="fa-solid fa-cloud"></i>
             </div>

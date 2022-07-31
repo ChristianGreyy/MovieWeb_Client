@@ -10,9 +10,9 @@ const Watching = () => {
     <div className='Watching'>
       <Header />
       <Body>
-        <div className="Watching_container flex justify-between">
+        <div className="Watching_container flex justify-around">
           <NavBar/>
-          <div className="Watching_container_content">
+          <div style={{"width": '68%'}} className="Watching_container_content">
             <div className="Watching_container_content_row flex">
               <Items />
               <Items />

@@ -83,9 +83,16 @@ const Header = () => {
                 className="fa-solid fa-caret-down"
               ></i>
               <ul className="menu_navbar">
-                <li>Phim hành động</li>
-                <li>Phim ngôn tình</li>
-                <li>Phim kinh dị</li>
+                <li>Hành động</li>
+                <li>Ngôn tình</li>
+                <li>Kinh dị</li>
+                <li>Cổ trang</li>
+                <li>Hoạt hình</li>
+                <li>Chiến tranh</li>
+                <li>Võ thuật</li>
+                <li>Phiêu lưu</li>
+                <li>Viễn tưởng</li>
+                <li>Hài hước</li> 
               </ul>
             </strong>
           </li>
@@ -97,6 +104,10 @@ const Header = () => {
                 className="fa-solid fa-caret-down"
               ></i>
               <ul className="menu_navbar">
+                <li>Hàn Quốc</li>
+                <li>Mỹ</li>
+                <li>Việt Nam</li>
+                <li>Nhật Bản</li>
                 <li>Hàn Quốc</li>
                 <li>Mỹ</li>
                 <li>Việt Nam</li>

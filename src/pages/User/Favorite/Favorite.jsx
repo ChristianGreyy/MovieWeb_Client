@@ -12,7 +12,7 @@ const Favorite = () => {
       <Body>
         <div className="Favorite_container flex justify-around">
           <NavBar />
-          <div className="Favorite_container_content">
+          <div style={{"width": '68%'}} className="Favorite_container_content">
             <div className="Favorite_container_content_row flex">
               <Items />
               <Items />

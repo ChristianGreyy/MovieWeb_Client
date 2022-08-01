@@ -24,7 +24,6 @@ const Introduction = () => {
   };
 
   // Thiết kế: 1520 x 885
-  //
   const [commentSocket, setCommentSocket] = useState(false);
   const [movie, setMovie] = useState([]);
   const [videos, setVideos] = useState([]);

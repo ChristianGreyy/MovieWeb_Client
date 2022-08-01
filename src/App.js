@@ -30,10 +30,17 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {publicRoutes.map((item) => {
+          {publicRoutes.map((item, index) => {
             let Page = item.component;
+            let childPage = item.children?.element;
             return (
-              <Route key={item.path} path={item.path} element={<Page />} />
+              <Route key={item.path} path={item.path} element={<Page />}>
+                <Route
+                  key={index}
+                  path={item.children?.path}
+                  element={<childPage />}
+                />
+              </Route>
             );
           })}
         </Routes>

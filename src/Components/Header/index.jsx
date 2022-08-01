@@ -83,16 +83,107 @@ const Header = () => {
                 className="fa-solid fa-caret-down"
               ></i>
               <ul className="menu_navbar">
-                <li>Hành động</li>
-                <li>Ngôn tình</li>
-                <li>Kinh dị</li>
-                <li>Cổ trang</li>
-                <li>Hoạt hình</li>
-                <li>Chiến tranh</li>
-                <li>Võ thuật</li>
-                <li>Phiêu lưu</li>
-                <li>Viễn tưởng</li>
-                <li>Hài hước</li> 
+                <li>
+                  <Link
+                    style={{ width: "100%", height: "100%", display: "block" }}
+                    to="/Hành-động"
+                  >
+                    Hành động
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{ width: "100%", height: "100%", display: "block" }}
+                    to="/Lãng-mạng"
+                  >
+                    Lãng mạng
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Phim-hài"
+                  >
+                    Phim hài
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Cổ-trang"
+                  >
+                    Cổ trang
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Hoạt-hình"
+                  >
+                    Hoạt hình
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Chiến-tranh"
+                  >
+                    Chiến tranh
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Võ-thuật"
+                  >
+                    Võ thuật
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Phiêu-liêu"
+                  >
+                    Phiêu liêu
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Viễn-tưởng"
+                  >
+                    Viễn tưởng
+                  </Link>
+                </li>
+                <li>Hài hước</li>
               </ul>
             </strong>
           </li>
@@ -104,10 +195,54 @@ const Header = () => {
                 className="fa-solid fa-caret-down"
               ></i>
               <ul className="menu_navbar">
-                <li>Hàn Quốc</li>
-                <li>Mỹ</li>
-                <li>Việt Nam</li>
-                <li>Nhật Bản</li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Hàn-Quốc"
+                  >
+                    Hàn Quốc
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Âu-Mỹ"
+                  >
+                    Âu Mỹ
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Việt-Nam"
+                  >
+                    Việt Nam
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Nhật-Bản"
+                  >
+                    Nhật Bản
+                  </Link>
+                </li>
                 <li>Hàn Quốc</li>
                 <li>Mỹ</li>
                 <li>Việt Nam</li>

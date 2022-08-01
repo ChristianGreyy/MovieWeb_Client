@@ -18,7 +18,11 @@ import Setting from "../pages/User/Setting/Setting";
 import SearchFilm from "../pages/SearchFilm/SearchFilm";
 
 export const publicRoutes = [
-  { path: "/", component: Home },
+  {
+    path: "/",
+    component: Home,
+    children: { path: ":kind", component: Home },
+  },
   { path: "/login", component: Login },
   { path: "/forget", component: ForgetPassWord },
   { path: "/register", component: Register },

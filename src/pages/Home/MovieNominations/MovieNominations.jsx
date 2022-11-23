@@ -126,7 +126,8 @@ const MovieNominations = ({ movies }) => {
                           />
                         </div>
                         <div className="series absolute">
-                          <p>Tập 1 Vietsub</p>
+                          {movie.episodeNumber > 1 && <p>Tập 1 Vietsub</p>}
+                          {movie.episodeNumber == 1 && <p>Phim mới</p>}
                         </div>
                         <div className="name absolute">
                           <p>

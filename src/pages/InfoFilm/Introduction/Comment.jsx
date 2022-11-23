@@ -18,6 +18,7 @@ const Comment = ({
   const socket = useContext(socketContext);
   const urlSlice = useSelector((state) => state.url);
   const userSlice = useSelector((state) => state.user);
+  console.log(userSlice);
   const refreshToken = tokenService.getCookie("refreshToken");
   const [checkComment, setCheckComment] = useState();
   const dispatch = useDispatch();
@@ -105,7 +106,7 @@ const Comment = ({
             <Link to="/">
               <img
                 className="avt"
-                src={"https://localhost:8080" + userSlice.user.avatar}
+                src={"http://localhost:8080" + userSlice.user.avatar}
               />
             </Link>
             <input

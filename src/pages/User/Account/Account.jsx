@@ -18,7 +18,7 @@ const Account = () => {
   useEffect(() => {
     (async () => {
       try {
-        const result = await dispatch(getUserById());
+        const result = await dispatch(getUserById(userId));
         const data = unwrapResult(result);
         console.log(data);
         setUser(data.data.data.user);
@@ -52,10 +52,10 @@ const Account = () => {
                   <h3>ID: {user && user._id}</h3>
                 </div>
               </div>
-              {/* <div className="Account_container_content_header_setting flex">
+              <div className="Account_container_content_header_setting flex">
                 <i class="fa-solid fa-pen-to-square"></i>
                 <h1>Sửa thông tin</h1>
-              </div> */}
+              </div>
             </div>
 
             {/* body */}

@@ -103,11 +103,8 @@ const Introduction = () => {
   };
 
   const changeCommentSocket = (value) => {
-    // console.log(value);
-    // setTest(!test);
     console.log(comments);
     setComments([value, ...comments]);
-    // setCommentSocket((commentSocket) => !commentSocket);
   };
 
   useEffect(() => {
@@ -120,7 +117,7 @@ const Introduction = () => {
       const responseComments = await commentService.getComments(movieId);
       setComments(() => responseComments.data.data.comment);
     })();
-  }, [commentSocket]);
+  }, [commentSocket, movieId]);
   const dispatch = useDispatch();
 
   const notify = (msg, status) => {

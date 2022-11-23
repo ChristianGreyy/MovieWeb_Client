@@ -60,7 +60,7 @@ const Login = () => {
           "bearer " + data.refresh.token,
           2 * 24 * 60 * 60 * 1000
         );
-        navigate("/");
+        window.location.href = "/";
       } catch (err) {
         console.log(err);
         notify(err.message);
@@ -162,9 +162,19 @@ const Login = () => {
               <button type="submit" className="Login">
                 Đăng nhập
               </button>
-              <p style={{ margin: "31.1px 0 32.1px 0" }}>
-                Chính sách và quy định
-              </p>
+              <div
+                className="LoginWithFB"
+                style={{ margin: "31.1px 0 32.1px 0" }}
+                onClick={() =>
+                  (window.location.href =
+                    "http://localhost:8080/api/facebook/login")
+                }
+              >
+                <div className="LoginWithFB-icon">
+                  <i class="fa-brands fa-facebook"></i>
+                </div>
+                <div className="LoginWithFB-des">Đăng nhập bằng Facebook</div>
+              </div>
               <button
                 onClick={() => {
                   navigate("/register");

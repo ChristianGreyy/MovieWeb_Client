@@ -1,8 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import socketContext from "../../contexts/socket.context";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../../Components/Header/index";
 import "./WatchLive.scss";
+import { setSocketId } from "../../redux/socketIdSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 let peerConnection;
 let localMediaStream;
@@ -12,9 +15,13 @@ const WatchLive = () => {
   const [isPartner, setPartner] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isModal, setIsModal] = useState(false);
+  const [isMyCamera, setIsMyCamera] = useState(false);
+  const dispatch = useDispatch();
+  const localId = useSelector((state) => state.socketId).socketId;
   const socket = useContext(socketContext);
   const userSlice = useSelector((state) => state.user);
   const userId = userSlice.user._id;
+  const notify = (err) => toast.error(err);
 
   const localVideo = useRef();
   const remoteVideo = useRef();
@@ -25,14 +32,20 @@ const WatchLive = () => {
   socket.onopen = () => {
     console.log("socket::open");
   };
-
-  socket.on("server-to-client", async (data) => {
+  socket.once("server-to-client", async (data) => {
     try {
       const jsonMessage = JSON.parse(data);
 
-      console.log("action", jsonMessage.action);
+      // console.log("action", jsonMessage.action);
       switch (jsonMessage.action) {
+        case "error":
+          notify(jsonMessage.error);
+          break;
         case "start":
+          console.log(jsonMessage);
+
+          dispatch(setSocketId(jsonMessage.socketId));
+
           console.log("start", jsonMessage.id);
           callButton.disabled = false;
           document.getElementById("localId").innerHTML = jsonMessage.id;
@@ -41,7 +54,6 @@ const WatchLive = () => {
           remoteId = jsonMessage.data.remoteId;
           delete jsonMessage.data.remoteId;
           setPartner(true);
-
           await initializePeerConnection(localMediaStream.getTracks());
           await peerConnection.setRemoteDescription(
             new RTCSessionDescription(jsonMessage.data.offer)
@@ -84,6 +96,7 @@ const WatchLive = () => {
   };
 
   const start = async () => {
+    setIsMyCamera(true);
     try {
       localMediaStream = await getLocalMediaStream();
       sendSocketMessage("start");
@@ -92,23 +105,32 @@ const WatchLive = () => {
     }
   };
 
-  const call = async () => {
-    setPartner(true);
-    setIsLoading(false);
+  const call = async (status) => {
     try {
-      remoteId = document.getElementById("callId").value;
-      console.log(remoteId);
-      if (!remoteId) {
-        alert("Please enter a remote id");
-
-        return;
+      if (status == "search") {
+        remoteId = document.getElementById("callId").value;
+        // console.log(remoteId);
+        if (!remoteId) {
+          alert("Please enter a remote id");
+          return;
+        }
+        await initializePeerConnection(localMediaStream.getTracks());
+        const offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
+        sendSocketMessage("offer", { offer, remoteId });
+        setPartner(true);
+        setIsLoading(false);
+      } else {
+        remoteId = "";
+        setTimeout(async () => {
+          await initializePeerConnection(localMediaStream.getTracks());
+          const offer = await peerConnection.createOffer();
+          await peerConnection.setLocalDescription(offer);
+          sendSocketMessage("offer", { offer, remoteId });
+          setPartner(true);
+          setIsLoading(false);
+        }, 3000);
       }
-
-      console.log("call: ", remoteId);
-      await initializePeerConnection(localMediaStream.getTracks());
-      const offer = await peerConnection.createOffer();
-      await peerConnection.setLocalDescription(offer);
-      sendSocketMessage("offer", { offer, remoteId });
     } catch (error) {
       console.error("failed to initialize call", error);
     }
@@ -168,6 +190,7 @@ const WatchLive = () => {
     };
     peerConnection = new RTCPeerConnection(config);
 
+    // Sent to request that the specified candidate be transmitted to the remote peer.
     peerConnection.onicecandidate = ({ candidate }) => {
       if (!candidate) return;
 
@@ -176,6 +199,7 @@ const WatchLive = () => {
       sendSocketMessage("iceCandidate", { remoteId, candidate });
     };
 
+    // Sent when the state of the ICE connection changes, such as when it disconnects.
     peerConnection.oniceconnectionstatechange = () => {
       console.log(
         "peerConnection::iceconnectionstatechange newState=",
@@ -188,6 +212,8 @@ const WatchLive = () => {
       }
     };
 
+    // Sent after a new track has been added to one of the
+    // RTCRtpReceiver instances which comprise the connection.
     peerConnection.ontrack = ({ track }) => {
       console.log("peerConnection::track", track);
       remoteMediaStream.addTrack(track);
@@ -230,116 +256,126 @@ const WatchLive = () => {
     sender.replaceTrack(newTrack);
   };
 
-  useEffect(() => {}, []);
-
-  console.log(isLoading);
-
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Header />
-      {isModal && (
-        <div className="video__live-modal">
-          <div
-            className="video__live-modal-close"
-            onClick={() => setIsModal(false)}
-          >
-            <i class="fa-solid fa-xmark"></i>
-          </div>
-          <input
-            type="text"
-            id="callId"
-            style={{
-              width: "100%",
-              height: "40px",
-              padding: "4px",
-              marginTop: "20px",
-              color: "black",
-            }}
-            placeholder="Nhập id partner (Nếu có)"
-          />
-          <div className="video__live-modal-btn">
-            <div
-              onClick={() => {
-                setIsLoading(true);
-                setPartner(true);
-              }}
-              className="video__live-modal-btn-item video__live-modal-btn-random"
-            >
-              Ngẫu nhiên
-            </div>
-            <button
-              className="video__live-modal-btn-item video__live-modal-btn-select"
-              ref={callButton}
-              id="callButton"
-              style={{ marginRight: "12px" }}
-              onClick={call}
-            >
-              Dò kênh
-            </button>
-          </div>
-        </div>
-      )}
 
       <div className="video__live">
-        {isPartner && (
-          <button
-            ref={screenShareButton}
-            id="screenShareButton"
-            onClick={shareScreen}
-            // disabled
-          >
-            Share Screen
-          </button>
-        )}
-        <hr />
-        <div className="video__live-content">
-          <div
-            style={{
-              alignItems: isPartner ? "flex-start" : "center",
-            }}
-            className="localVideo__content"
-          >
-            {!isPartner && (
-              <button className="localVideo__content-btn" onClick={start}>
-                Start
+        <div
+          className="video__live-content"
+          style={{
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {/* solve localVideo */}
+          {!isMyCamera && (
+            <div className="localVideo__content" style={{ width: "50%" }}>
+              <button className="localVideo__content-introduction">
+                <i class="fa-solid fa-tv"></i>
+                HTChill TV
               </button>
-            )}
-
-            <div>
-              ID của bạn: <span id="localId" />
+              <div
+                style={{
+                  height: "480px",
+                  width: "640px",
+                  backgroundColor: "#666878",
+                }}
+              ></div>
+              {!isPartner && (
+                <button className="localVideo__content-btn" onClick={start}>
+                  Bắt đầu với camera
+                </button>
+              )}
             </div>
-
-            <video
-              ref={localVideo}
-              id="localVideo"
-              style={{ height: "480px", width: "640px" }}
-              width="640"
-              height="480"
-              autoPlay
-              muted
-            ></video>
-            <h3
-              className="localVideo__content-settings"
-              onClick={() => {
-                setIsModal(true);
-              }}
-            >
-              Chức năng
-            </h3>
-          </div>
-          {isPartner && (
-            <div className="remoteVideo__content">
-              <div>
-                ID của partner: <span id="localId" />
+          )}
+          {isMyCamera && (
+            <div className="localVideo__content">
+              <div style={{ color: "white", margin: "10px" }}>
+                ID của bạn: <span id="localId" />
               </div>
 
+              <video
+                ref={localVideo}
+                id="localVideo"
+                style={{ height: "480px", width: "640px" }}
+                width="640"
+                height="480"
+                autoPlay
+                muted
+              ></video>
+            </div>
+          )}
+          {!isPartner && (
+            <div
+              className="remoteVideo__content"
+              style={{
+                width: "50%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <input
+                type="text"
+                id="callId"
+                style={{
+                  width: "50%",
+                  height: "40px",
+                  paddingLeft: "8px",
+                  marginTop: "20px",
+                  color: "white",
+                  backgroundColor: "#666878",
+                }}
+                placeholder="Nhập id partner (Nếu có)"
+              />
+              <div className="remoteVideo__content-btn">
+                <div
+                  onClick={() => {
+                    if (!isMyCamera) {
+                      alert("Vui lòng bật camera của bạn!!");
+                      return;
+                    }
+                    setIsLoading(true);
+                    setPartner(true);
+                    call("random");
+                  }}
+                  className="remoteVideo__content-btn-item remoteVideo__content-btn-random"
+                >
+                  Ngẫu nhiên
+                </div>
+                <div
+                  className="remoteVideo__content-btn-item remoteVideo__content-btn-select"
+                  ref={callButton}
+                  id="callButton"
+                  onClick={() => call("search")}
+                >
+                  Dò kênh
+                </div>
+              </div>
+            </div>
+          )}
+          {isPartner && (
+            <div className="remoteVideo__content">
+              <div style={{ color: "white", margin: "10px" }}>
+                ID của partner: <span id="localId" />
+              </div>
               {isLoading && (
                 <img
                   style={{ height: "480px", width: "640px" }}
-                  src="http://d3pr5r64n04s3o.cloudfront.net/tuts/377_loading_gif/final.gif"
+                  src="https://cdn.dribbble.com/users/2973561/screenshots/5757826/loading__.gif"
                 />
               )}
-
               {!isLoading && (
                 <video
                   ref={remoteVideo}
@@ -353,6 +389,18 @@ const WatchLive = () => {
             </div>
           )}
         </div>
+        {isPartner && (
+          <div className="share__button">
+            <button
+              ref={screenShareButton}
+              id="screenShareButton"
+              onClick={shareScreen}
+              // disabled
+            >
+              Chia sẻ màn hình của bạn
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const urlClient = "http://localhost:3000";
-const urlServer = "https://localhost:8080";
+const urlServer = "http://localhost:8080";
 
 const initialState = {
   urlClient,

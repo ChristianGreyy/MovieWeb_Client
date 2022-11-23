@@ -60,6 +60,33 @@
       }
     }
 
+    .LoginWithFB {
+      width: 266px;
+      height: 54.1px;
+      color: white;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 10px;
+
+      background-color: #5b6ad1;
+      &:hover {
+        background-color: #475ad8;
+      }
+
+      &-icon {
+        width: 40px;
+        height: 40px;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        // background-color: white;
+      }
+    }
+
     .Resgister {
       width: 266px;
       height: 54.1px;

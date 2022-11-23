@@ -40,22 +40,17 @@
   }
 }
 .video__live {
-  margin-top: 131.8px;
-  background: #545562;
-  height: 100vh;
+  background: #3f4046;
+  height: calc(100vh - 131.8px);
+  padding: 0 100px;
 
   .video__live-content {
     display: flex;
-    justify-content: center;
-
-    #callButton {
-      margin-top: 20px;
-      //   display: none;
-    }
 
     .localVideo__content {
       display: flex;
       flex-direction: column;
+      align-items: center;
 
       &-btn {
         color: #f34a14;
@@ -67,6 +62,20 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+
+      &-btn {
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+      }
+
+      .remoteVideo__content-btn-item {
+        cursor: pointer;
+        background-color: #f34a14;
+        color: white;
+        padding: 4px 20px;
+        margin-left: 6px;
+      }
     }
 
     .localVideo__content-settings {
@@ -76,5 +85,43 @@
       color: white;
       padding: 4px 20px;
     }
+    .localVideo__content-introduction {
+      border-radius: 4px;
+      color: #fff;
+      background-color: #f34a14;
+      // width: 100px;
+      font-weight: bold;
+      margin: 20px 0px;
+      padding: 12px 30px;
+    }
+
+    .localVideo__content-introduction i {
+      margin-right: 6px;
+    }
+
+    .localVideo__content-btn {
+      border-radius: 4px;
+      color: #fff;
+      background-color: #f34a14;
+      padding: 4px 30px;
+      // margin-top: 20px;
+      font-size: 14px;
+    }
+  }
+
+  .share__button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #screenShareButton {
+    border-radius: 4px;
+    color: #fff;
+    background-color: #f34a14;
+    padding: 4px 30px;
+    // margin-top: 20px;
+    font-size: 14px;
+    margin-top: 30px;
   }
 }

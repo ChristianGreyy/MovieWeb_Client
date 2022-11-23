@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import "./NavBar.scss";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const container = [
   {
@@ -56,6 +57,7 @@ const container = [
 const NavBar = () => {
   const containerRef = useRef();
   const navigate = useNavigate();
+  const userSlice = useSelector((state) => state.user);
 
   const handleClick = (id) => {
     const newArr = [...container];
@@ -80,7 +82,7 @@ const NavBar = () => {
 
       <div className="NavBar">
         <div className="NavBar_title flex justify-around">
-          <h1 className="NavBar_title_name">Lại Hoàng Tùng</h1>
+          <h1 className="NavBar_title_name">{userSlice.user.username}</h1>
           <div className="NavBar_title_icon">
             <i class="fa-solid fa-envelope"></i>
           </div>
@@ -117,7 +119,17 @@ const NavBar = () => {
                 <div
                   style={{ color: `${item.color}` }}
                   ref={containerRef}
-                  onClick={() => handleClick(index)}
+                  onClick={() => {
+                    if (index == 6) {
+                      document.cookie =
+                        "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+                      console.log(index);
+                      window.location.href = "/";
+                    } else {
+                      handleClick(index);
+                    }
+                  }}
                   className="NavBar_main NavBar_Account flex"
                 >
                   <div className="NavBar_main_icon">

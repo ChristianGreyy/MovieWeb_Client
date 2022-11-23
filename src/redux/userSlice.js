@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {
-    avatar: "https://localhost:8080/avatars/default.jpg",
+    avatar: "http://localhost:8080/avatars/default.jpg",
   },
 };
 
@@ -12,10 +12,10 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      // console.log(action.payload);
       return state;
     },
     getUser: (state, action) => {
+      console.log(state);
       return state;
     },
   },

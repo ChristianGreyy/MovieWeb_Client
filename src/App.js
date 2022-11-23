@@ -20,7 +20,7 @@ function App() {
         const res = await axiosClient.get(
           `${urlSlice.urlServer}/api/user/info`
         );
-        console.log(res);
+        console.log(res.user);
         dispatch(setUser(res.user));
       })();
     }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../../Components/Header";
 import Body from "../../Components/Body";
 import { useFormik } from "formik";
@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import socketContext from "../../contexts/socket.context";
+
 const Register = () => {
   //modal check đăng ký
   const [modal, setModal] = useState(false);
@@ -88,9 +90,10 @@ const Register = () => {
     },
   });
 
-  const socketSlice = useSelector((state) => state.socket);
+  // const socketSlice = useSelector((state) => state.socket);
+  const socket = useContext(socketContext);
 
-  socketSlice.socket.on("register-success", (values) => {
+  socket.on("register-success", (values) => {
     setModal(false);
     setModalResult(true);
     formik.values.username = "";
@@ -249,9 +252,6 @@ const Register = () => {
           notify={notify}
         />
       )}
-      {/* {modal && (
-        <CheckComple modal={modal} setModal={setModal} toggleModal={toggleModal}/>
-      )} */}
     </>
   );
 };

@@ -16,9 +16,9 @@ export const createPaymentURL = createAsyncThunk(
 
 export const response = createAsyncThunk(
   "/transaction/response",
-  async ({ amount }, { rejectWithValue }) => {
+  async ({ amount, name_bank }, { rejectWithValue }) => {
     try {
-      const res = await transactionService.response(amount);
+      const res = await transactionService.response(amount, name_bank);
       return res;
     } catch (err) {
       return rejectWithValue(err.response.data);

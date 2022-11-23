@@ -34,7 +34,10 @@ const SearchFilm = () => {
             className="searchFilm_container__search"
             type="text"
             placeholder="Tìm kiếm tại đây ..."
-            onKeyDown={(e) => setValue(e.target.value)}
+            onKeyUp={(e) => {
+              console.log(e.target.value);
+              setValue(e.target.value);
+            }}
           />
           {value == "" && (
             <div className="searchFilm_container_content flex justify-around">
@@ -93,7 +96,7 @@ const SearchFilm = () => {
                       Trương Thành Hưng =)))
                     </div>
                     <div className="searchFilm_container_content_right_body_row_box">
-                      ChristianGrey
+                      Doraemon
                     </div>
                     <div className="searchFilm_container_content_right_body_row_box">
                       Naruto
@@ -108,6 +111,9 @@ const SearchFilm = () => {
 
                   <div className="searchFilm_container_content_right_body_row flex">
                     <div className="searchFilm_container_content_right_body_row_box">
+                      Green Tea
+                    </div>
+                    <div className="searchFilm_container_content_right_body_row_box">
                       Sơn Tùng MTP
                     </div>
                     <div className="searchFilm_container_content_right_body_row_box">
@@ -119,6 +125,21 @@ const SearchFilm = () => {
                     <div className="searchFilm_container_content_right_body_row_box">
                       Naruto
                     </div>
+                  </div>
+
+                  <div className="searchFilm_container_content_right_body_row flex">
+                    <div className="searchFilm_container_content_right_body_row_box">
+                      Hoàng Minh Huệ
+                    </div>
+                    <div className="searchFilm_container_content_right_body_row_box">
+                      Naruto
+                    </div>
+                    <div className="searchFilm_container_content_right_body_row_box">
+                      Naruto
+                    </div>
+                    <div className="searchFilm_container_content_right_body_row_box">
+                      Naruto
+                    </div>
                     <div className="searchFilm_container_content_right_body_row_box">
                       Naruto
                     </div>
@@ -126,25 +147,7 @@ const SearchFilm = () => {
 
                   <div className="searchFilm_container_content_right_body_row flex">
                     <div className="searchFilm_container_content_right_body_row_box">
-                      Naruto
-                    </div>
-                    <div className="searchFilm_container_content_right_body_row_box">
-                      Naruto
-                    </div>
-                    <div className="searchFilm_container_content_right_body_row_box">
-                      Naruto
-                    </div>
-                    <div className="searchFilm_container_content_right_body_row_box">
-                      Naruto
-                    </div>
-                    <div className="searchFilm_container_content_right_body_row_box">
-                      Naruto
-                    </div>
-                  </div>
-
-                  <div className="searchFilm_container_content_right_body_row flex">
-                    <div className="searchFilm_container_content_right_body_row_box">
-                      Naruto
+                      Lại Hoàng Tùng
                     </div>
                     <div className="searchFilm_container_content_right_body_row_box">
                       Naruto
@@ -162,7 +165,7 @@ const SearchFilm = () => {
 
                   <div className="searchFilm_container_content_right_body_row flex">
                     <div className="searchFilm_container_content_right_body_row_box">
-                      Minion
+                      Việt Nam
                     </div>
                     <div className="searchFilm_container_content_right_body_row_box">
                       Minion
@@ -182,18 +185,21 @@ const SearchFilm = () => {
             </div>
           )}
           {value != "" && (
-            <div className="searchFilm_container_result flex justify-between">
+            <div className="searchFilm_container_result flex">
               {movies &&
                 movies.map((movie) => {
                   return (
-                    <li className="searchFilm_container_result-item">
-                      <Link to={"/InfoFilm/" + movie._id}>
+                    <li
+                      className="searchFilm_container_result-item"
+                      style={{ display: "block", marginLeft: "5px" }}
+                    >
+                      <Link to={`/InfoFilm/${movie._id}`}>
                         <img
                           className="searchFilm_container_result-item__img"
                           src={urlSlice.urlServer + movie.image}
                         />
                       </Link>
-                      <Link to={"/InfoFilm/" + movie._id}>
+                      <Link to={`/InfoFilm/${movie._id}`}>
                         <h6 className="searchFilm_container_result-item__name">
                           {movie.name}
                         </h6>

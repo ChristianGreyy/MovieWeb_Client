@@ -12,7 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
   const refreshToken = tokenService.getCookie("refreshToken");
 
-  // console.log(userSlice.user.avatar);
+  console.log(userSlice);
 
   return (
     <div className="header fixed">
@@ -28,17 +28,23 @@ const Header = () => {
         </Link>
 
         <div className="title_content flex justify-around">
+          <Link to="/live">
+            <div className="title_content_icon">
+              <i class="fa-solid fa-tv"></i>
+            </div>
+          </Link>
+
           <Link to="/Search">
             <div className="title_content_icon">
               <i className="fa-solid fa-magnifying-glass"></i>
             </div>
           </Link>
 
-          {refreshToken && (
+          {/* {refreshToken && (
             <div className="title_content_bell">
               <i className="fa-solid fa-bell"></i>
             </div>
-          )}
+          )} */}
 
           <div className="title_content_buy">
             <button>
@@ -48,7 +54,7 @@ const Header = () => {
 
           {refreshToken && (
             <div className="title_content_user">
-              <Link to="/user/1">
+              <Link to={`/user/${userSlice.user._id}`}>
                 <img
                   src={`${urlSlice.urlServer}${userSlice.user.avatar}`}
                   class="title_content_user-avatar"
@@ -243,7 +249,18 @@ const Header = () => {
                     Nhật Bản
                   </Link>
                 </li>
-                <li>Hàn Quốc</li>
+                <li>
+                  <Link
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    to="/Trung-Quốc"
+                  >
+                    Trung Quốc
+                  </Link>
+                </li>
                 <li>Mỹ</li>
                 <li>Việt Nam</li>
                 <li>Nhật Bản</li>
@@ -251,10 +268,33 @@ const Header = () => {
             </strong>
           </li>
           <li>
-            <strong>Phim bộ</strong>
+            <strong>
+              <Link
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                }}
+                to="/Phim-bộ"
+              >
+                Phim bộ
+              </Link>
+            </strong>
           </li>
           <li>
-            <strong>Phim lẻ</strong>
+            <strong>
+              {" "}
+              <Link
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                }}
+                to="/Phim-lẻ"
+              >
+                Phim lẻ
+              </Link>
+            </strong>
           </li>
           <li style={{ marginRight: "316.67px" }}>
             <strong>TV Show</strong>

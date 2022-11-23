@@ -17,8 +17,10 @@ const TransactionResponse = () => {
 
   const navigate = useNavigate();
   const url = window.location.href;
-  let amount;
+  console.log(url);
+  let amount, name_bank;
   try {
+    name_bank = url.split("vnp_BankCode=")[1].split("&")[0];
     amount = url.split("?")[1].split("&")[0].split("=")[1];
   } catch (err) {
     navigate("/error/404");
@@ -29,6 +31,7 @@ const TransactionResponse = () => {
       const result = await dispatch(
         response({
           amount,
+          name_bank,
         })
       );
       const res = unwrapResult(result);

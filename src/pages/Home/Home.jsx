@@ -16,12 +16,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        let response;
-        if (kind) {
-          response = await movieService.getMovies(`?kind=${kind}`);
+        if (kind != "Phim-lẻ" && kind != "Phim-bộ" && kind) {
+          const response = await movieService.getMovies(`?kind=${kind}`);
           setMovies(response.data.data.movies);
+          const response2 = await movieService.getMovies();
+          setMoviesIntro(response2.data.data.movies);
         } else {
-          response = await movieService.getMovies();
+          const response = await movieService.getMovies();
           setMoviesIntro(response.data.data.movies);
           setMovies(response.data.data.movies);
         }
@@ -38,27 +39,31 @@ const Home = () => {
       <Body>
         <MovieNominations movies={moviesIntro} />
 
-        <div className="Movie-series flex justify-evenly">
-          <NewMovie
-            movies={movies}
-            des="series"
-            content="PHIM BỘ MỚI CẬP NHẬT"
-          />
-          <div className="menu_film_series">
-            <MenuFilm contentFilm="Phim sắp chiếu" />
+        {kind != "Phim-lẻ" && (
+          <div className="Movie-series flex justify-evenly">
+            <NewMovie
+              movies={movies}
+              des="series"
+              content="PHIM BỘ MỚI CẬP NHẬT"
+            />
+            <div className="menu_film_series">
+              <MenuFilm contentFilm="Phim sắp chiếu" />
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="Movie-series flex justify-evenly">
-          <NewMovie
-            movies={movies}
-            des="feature"
-            content="PHIM LẺ MỚI CẬP NHẬT"
-          />
-          <div className="menu_film_series">
-            <MenuFilm contentFilm="Phim sắp chiếu" />
+        {kind != "Phim-bộ" && (
+          <div className="Movie-series flex justify-evenly">
+            <NewMovie
+              movies={movies}
+              des="feature"
+              content="PHIM LẺ MỚI CẬP NHẬT"
+            />
+            <div className="menu_film_series">
+              <MenuFilm contentFilm="Phim sắp chiếu" />
+            </div>
           </div>
-        </div>
+        )}
       </Body>
     </div>
   );

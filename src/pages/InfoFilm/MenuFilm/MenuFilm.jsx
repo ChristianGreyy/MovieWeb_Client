@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./MenuFilm.scss";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const MenuContent = ({ name, english_name, image }) => {
   return (
@@ -8,7 +9,7 @@ const MenuContent = ({ name, english_name, image }) => {
       <div className="avatar">
         <img
           style={{ width: "100%", height: "100%" }}
-          src={"https://localhost:8080/" + image}
+          src={"http://localhost:8080/" + image}
         />
       </div>
       <div className="content-menu">
@@ -25,12 +26,12 @@ const MenuFilm = ({ contentFilm, sort }) => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `https://localhost:8080/api/movie?sort=-${sort}&limit=5`
+        `http://localhost:8080/api/movie?sort=-${sort}&limit=5`
       );
       // console.log(res.data.data.movies);
       setMovies(res.data.data.movies);
     })();
-    // console.log(movies);
+    console.log(movies);
   }, []);
 
   return (
@@ -45,11 +46,13 @@ const MenuFilm = ({ contentFilm, sort }) => {
             movies.map((item, index) => (
               <ul>
                 <li key={index}>
-                  <MenuContent
-                    name={item.name}
-                    english_name={item.english_name}
-                    image={item.image}
-                  />
+                  <Link to={"/InfoFilm/" + item._id}>
+                    <MenuContent
+                      name={item.name}
+                      english_name={item.english_name}
+                      image={item.image}
+                    />
+                  </Link>
                 </li>
               </ul>
             ))}

@@ -9,7 +9,7 @@ const MenuContent = ({ name, english_name, image }) => {
       <div className="avatar">
         <img
           style={{ width: "100%", height: "100%" }}
-          src={"http://localhost:8080/" + image}
+          src={`${process.env.REACT_APP_URL}/` + image}
         />
       </div>
       <div className="content-menu">
@@ -26,7 +26,7 @@ const MenuFilm = ({ contentFilm, sort }) => {
   useEffect(() => {
     (async () => {
       const res = await axios.get(
-        `http://localhost:8080/api/movie?sort=-${sort}&limit=5`
+        `${process.env.REACT_APP_URL}/api/movie?sort=-${sort}&limit=5`
       );
       // console.log(res.data.data.movies);
       setMovies(res.data.data.movies);

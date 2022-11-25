@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {
-    avatar: "http://localhost:8080/avatars/default.jpg",
+    avatar: `${process.env.REACT_APP_URL}/avatars/default.jpg`,
   },
 };
 

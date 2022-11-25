@@ -166,8 +166,7 @@ const Login = () => {
                 className="LoginWithFB"
                 style={{ margin: "31.1px 0 32.1px 0" }}
                 onClick={() =>
-                  (window.location.href =
-                    "http://localhost:8080/api/facebook/login")
+                  (window.location.href = `${process.env.REACT_APP_URL}/api/facebook/login`)
                 }
               >
                 <div className="LoginWithFB-icon">

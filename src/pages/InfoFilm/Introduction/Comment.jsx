@@ -106,7 +106,7 @@ const Comment = ({
             <Link to="/">
               <img
                 className="avt"
-                src={"http://localhost:8080" + userSlice.user.avatar}
+                src={process.env.REACT_APP_URL + userSlice.user.avatar}
               />
             </Link>
             <input

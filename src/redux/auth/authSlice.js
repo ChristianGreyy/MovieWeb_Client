@@ -7,7 +7,7 @@ export const resetAccessToken = createAsyncThunk(
   async ({ refreshToken }, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/auth/resetAccessToken",
+        `${process.env.REACT_APP_URL}/api/auth/resetAccessToken`,
         {
           refreshToken,
         }

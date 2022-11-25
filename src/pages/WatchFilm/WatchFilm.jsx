@@ -14,8 +14,6 @@ const WatchFilm = () => {
   const { movieId, episode } = useParams();
   const [movie, setMovie] = useState([]);
 
-  // let videoSrc = "http://localhost:8080/videos/avatar.mp4";
-
   const video = useRef(null);
   const urlSlice = useSelector((state) => state.url);
   const navigate = useNavigate("");

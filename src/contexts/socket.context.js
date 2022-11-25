@@ -1,7 +1,7 @@
 import React from "react";
 const { io } = require("socket.io-client");
 
-export const socket = io("http://localhost:8080", {
+export const socket = io(process.env.REACT_APP_URL, {
   reconnection: true,
   reconnectionDelay: 500,
   reconnectionAttempts: 10,
